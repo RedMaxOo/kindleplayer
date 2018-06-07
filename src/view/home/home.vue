@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="top-banner">
-            <div class="logo"></div>
+            <div class="logo"><img src="../../assets/img/logo.png"></div>
             <ul class="top-bar">
                 <li>
                     <a href="">REGISTER</a>

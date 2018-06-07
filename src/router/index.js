@@ -1,18 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/view/Home/home'
-import Index from '@/view/Home/index'
+import Home from '@/view/home/home'
+import Index from '@/view/home/index'
 Vue.use(Router)
 export default new Router({
   // mode: 'history',
   routes: [
     {
       path: '/',
-      // name: 'index',
+      name: 'index',
       component: Index,
       children: [
         {
-          path: '/home',
+          path: '/',
           name: 'home',
           component: Home
         }

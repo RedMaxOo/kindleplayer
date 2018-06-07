@@ -1,13 +1,13 @@
 <template>
   <div>
-    <!--<x-header></x-header>-->
+    <x-header></x-header>
     <router-view/>
   </div>
 </template>
 <script>
-// import xheader from './header.vue'
+import XHeader from '@/view/home/header.vue'
 export default {
-//  components: {XHeader},
+  components: {XHeader},
   data () {
     return {}
   },
