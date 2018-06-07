@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-import Player from '@/components/Home/player'
-import Home from '@/components/Home/Home'
-
+import Home from '@/view/Home/home'
+import Index from '@/view/Home/index'
 Vue.use(Router)
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/player',
-      name: 'Player',
-      component: Player
+      // name: 'index',
+      component: Index,
+      children: [
+        {
+          path: '/home',
+          name: 'home',
+          component: Home
+        }
+      ]
     }
   ]
 })

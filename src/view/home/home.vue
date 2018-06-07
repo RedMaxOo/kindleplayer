@@ -24,7 +24,7 @@
             <div class="searchlogo">
                 <el-input v-model="searchcontent" placeholder="请输入内容" size="large" class="searchinput"><el-button slot="append" icon="el-icon-search"></el-button></el-input>
             </div>
-            
+
         </div>
         <div>
             <el-carousel height=450px style="width:100%;">
@@ -35,38 +35,38 @@
             <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
                 <iframe height=450 width=1000 frameborder=0 allowfullscreen="true" ref="popupmodal" src="" style="padding-top:11%;"></iframe>
             </div>
-        </div>       
+        </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'Banner',
-    data(){
-        return{
-            isShowVideo: false,
-            videoPoster:['./static/img/poster.png','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528041454300&di=ddc102fa8a65769f76694565a542169f&imgtype=0&src=http%3A%2F%2Fdl.zhuansoo.com%2FuserHead%2F8%2F9%2F3%2F89344e0c0f065d6ddb4defd5c312e0fc.jpg'],
-            videoSource:["http://player.youku.com/embed/XMzYzNzY2MjY1Ng==","http://player.youku.com/embed/XMzYyMzE5NTM0MA=="],
-            searchcontent:""
-        }       
-    },
-    methods:{
-        popup: function(index){
-            this.$refs.popupmodal.src = this.videoSource[index]
-            this.isShowVideo = true
-        },
-        hideModal:function(){
-            this.isShowVideo = false
-            this.$refs.popupmodal.src = ""
-        }
-    },
-    mounted:()=>{
+  name: 'Banner',
+  data () {
+    return {
+      isShowVideo: false,
+      videoPoster: ['./static/img/poster.png', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528041454300&di=ddc102fa8a65769f76694565a542169f&imgtype=0&src=http%3A%2F%2Fdl.zhuansoo.com%2FuserHead%2F8%2F9%2F3%2F89344e0c0f065d6ddb4defd5c312e0fc.jpg'],
+      videoSource: ['http://player.youku.com/embed/XMzYzNzY2MjY1Ng==', 'http://player.youku.com/embed/XMzYyMzE5NTM0MA=='],
+      searchcontent: ''
     }
+  },
+  methods: {
+    popup: function (index) {
+      this.$refs.popupmodal.src = this.videoSource[index]
+      this.isShowVideo = true
+    },
+    hideModal: function () {
+      this.isShowVideo = false
+      this.$refs.popupmodal.src = ''
+    }
+  },
+  mounted: () => {
+  }
 }
 </script>
 
 <style scoped>
 .popup-layer{
-    position: fixed;    
+    position: fixed;
     z-index: 200;
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@ export default {
 .logo{
     width: 233px;
     height: 45px;
-    background: url('/static/img/logo.png') no-repeat;
+    background: url('/src/assets/img/logo.png') no-repeat;
     /*background-size: 233px;*/
     float: left;
 }
@@ -105,7 +105,7 @@ export default {
 .searchlogo{
     width: 380px;
     height: 80px;
-    background: url('/static/img/binder.png') no-repeat;
+    background: url('/src/assets/img/binder.png') no-repeat;
     margin-left:160px;
     /*float: left;*/
 }
@@ -116,4 +116,4 @@ export default {
 }
 </style>
 
-    
+

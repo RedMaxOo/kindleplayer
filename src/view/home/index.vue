@@ -1,20 +1,21 @@
 <template>
   <div>
-    <x-header></x-header>
+    <!--<x-header></x-header>-->
+    <router-view/>
   </div>
 </template>
 <script>
-  import XHeader from './header.vue'
-  export default  {
-    components: {XHeader},
-    data () {
-      return {}
-    },
-    methods: {
+// import xheader from './header.vue'
+export default {
+//  components: {XHeader},
+  data () {
+    return {}
+  },
+  methods: {
 
-    },
-    mounted () {
+  },
+  mounted () {
 
-    }
   }
+}
 </script>
