@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .popup-layer{
     position: fixed;
     z-index: 200;
