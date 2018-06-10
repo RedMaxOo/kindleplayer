@@ -1,4 +1,45 @@
+ul,li,body{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 .container {
   width: 1098px;
   margin: auto;
+  .el-main{
+    padding: 0;
+    margin-left: 20px;
+  }
+}
+.el-icon-search{
+  width: 24px;
+  height:100%;
+  background: url("../assets/icons/seach.png") no-repeat center;
+  &:before{
+    display: none;
+  }
+}
+.icon-list{
+  width: 10px;
+  height:auto;
+  background: url("../assets/icons/list-icon.png") no-repeat center;
+}
+.icon-i{
+  width: 5px;
+  height:auto;
+  background: url("../assets/icons/i-gray.png") no-repeat center;
+}
+.icon-play{
+  width: 7px;
+  height:auto;
+  background: url("../assets/icons/play.png") no-repeat center;
+}
+.is-play{
+  .icon-i{
+    background: url("../assets/icons/i-color.png") no-repeat center;
+  }
+  .icon-play{
+    width: 10px;
+    background: url("../assets/icons/play-active.png") no-repeat center;
+  }
 }
