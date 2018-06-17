@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :style="{height: height + 'px'}">
     <div class="search">
       <el-input
         placeholder="请输入内容"
@@ -8,38 +8,39 @@
       </el-input>
     </div>
     <el-container class="page-main">
+      <!--side 列表菜单-->
       <el-aside width="300px">
-        <el-tabs class="sidetab" v-model="tabActive" type="card">
+        <el-tabs class="sidetab" v-model="tabActive" type="card" @tab-click="handleTabClick">
           <el-tab-pane
-            :key="item.name"
             v-for="(item, index) in sidetabs"
+            v-bind:key="index"
             :label="item.title"
             :name="item.name"
           >
             {{item.content}}
           </el-tab-pane>
         </el-tabs>
-        <div class="sidetab-list">
-          <el-collapse v-model="sidelistctive" accordion class="mycollapse">
+        <div class="sidetab-list" :style="{height: mainHeight + 'px'}">
+          <el-collapse v-model="sidelistctive" accordion class="mycollapse" @change="handleCollapseChange">
             <el-collapse-item :name="index" v-for="(item,index) in listData" v-bind:key="index">
               <template slot="title">
                 <div class="list-cell">
                   <div class="list-cell-hd">
-                    <div class="list-hd-mid">{{item.title}}</div>
-
-
+                    <div class="list-hd-mid">{{item[itemName]}}</div>
                     <i class="icon-list"></i>
                   </div>
                 </div>
               </template>
               <ul class="list-content">
-                <li v-for="subitem in item.subList" v-bind:key="subitem.ALBUM_CODE">{{subitem.ALBUM_DISPLAY_TITLE}}</li>
+                <li v-for="subitem in listSubData" v-bind:key="subitem.ALBUM_CODE" @click="showAlbumDetail">{{subitem.album_display_title}}</li>
               </ul>
             </el-collapse-item>
           </el-collapse>
         </div>
       </el-aside>
+      <!--mainbox-->
       <el-main>
+
         <div class="maintitle">
             <div class="tit">RESEARCH RESULTS</div>
             <div class="scale-item">
@@ -47,55 +48,73 @@
               <span class="label">Totle: 204</span>
             </div>
         </div>
-        <div class="main-list">
-          <img src="../../assets/img/album9.png" alt="">
-          <div class="mian-cnct">
-            <h3 class="cnct-tit">IMCD3161 Back To The Beach</h3>
-            <p class="cnct-des">Life's a beach! Let's go surfin? with these great sound waves.</p>
-          </div>
-        </div>
-        <div class="mainbox">
-          <div class="list-cell colapse-title">
-            <div class="list-cell-hd">
-              <span class="list-cell-icon"></span>
-              <div class="list-hd-befor">TRACK</div>
-              <div class="list-hd-mid">ALBUM</div>
-              <div class="list-hd-after">DURATION</div>
+        <div class="main-wrapper" :style="{height: mainHeight + 'px'}">
+          <!--专辑列表-->
+          <div class="album-list" v-if="!showSingList">
+            <div class="list-item" v-for="(item, index) in albumList" :key="index">
+              <img :src="item.album_artwork_filename" alt="">
+              <div class="list-item-tit">{{item.album_display_title}}</div>
             </div>
           </div>
-          <el-collapse v-model="activeName" accordion class="mycollapse">
-            <el-collapse-item :name="index" v-for="(item, index) in listData" v-bind:key="index" :class="{'is-play':item.isPlay}">
-              <template slot="title">
-                <div class="list-cell">
-                  <div class="list-cell-hd">
-                    <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item)"><i class="icon-play"></i></span>
-                    <div class="list-hd-befor"  @click.stop="">{{item.title}}</div>
-                    <div class="list-hd-mid"  @click.stop="">{{item.album}}</div>
-                    <div class="list-hd-after"  @click.stop="">{{item.time}}</div>
-
-                    <i class="icon-i"></i>
-                  </div>
-                  <div class="list-descripe" @click.stop="">{{item.descrip}}</div>
+          <!--歌曲列表-->
+          <div class="album-detail" v-if="showSingList">
+            <div class="main-list">
+              <img src="～assets/img/album9.png" alt="">
+              <div class="mian-cnct">
+                <h3 class="cnct-tit">IMCD3161 Back To The Beach</h3>
+                <p class="cnct-des">Life's a beach! Let's go surfin? with these great sound waves.</p>
+              </div>
+            </div>
+            <div class="mainbox">
+              <div class="list-cell colapse-title">
+                <div class="list-cell-hd">
+                  <span class="list-cell-icon"></span>
+                  <div class="list-hd-befor">TRACK</div>
+                  <div class="list-hd-mid">ALBUM</div>
+                  <div class="list-hd-after">DURATION</div>
                 </div>
-              </template>
-              <ul class="list-content detail-infor">
-                <li><label for="">Composer:</label><div>{{item.Composer}}</div></li>
-                <li><label for="">Alternate:</label><div>{{item.Alternate}}</div></li>
-                <li><label for="">Publisher:</label><div>{{item.Publisher}}</div></li>
-                <li><label for="">UserTags:</label><div>{{item.UserTags}}</div></li>
-              </ul>
-            </el-collapse-item>
-          </el-collapse>
+              </div>
+              <el-collapse v-model="activeName" accordion class="mycollapse">
+                <el-collapse-item :name="index" v-for="(item, index) in albunDetailList" v-bind:key="index" :class="{'is-play':item.isPlay}">
+                  <template slot="title">
+                    <div class="list-cell">
+                      <div class="list-cell-hd">
+                        <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item)"><i class="icon-play"></i></span>
+                        <div class="list-hd-befor">{{item.title}}</div>
+                        <div class="list-hd-mid">{{item.album}}</div>
+                        <div class="list-hd-after">{{item.time}}</div>
+
+                        <i class="icon-i" @click.stop="showPower(item)"></i>
+                      </div>
+                      <div class="list-descripe" @click.stop="">{{item.descrip}}</div>
+                    </div>
+                  </template>
+                  <ul class="list-content detail-infor">
+                    <li><label for="">Composer:</label><div>{{item.Composer}}</div></li>
+                    <li><label for="">Alternate:</label><div>{{item.Alternate}}</div></li>
+                    <li><label for="">Publisher:</label><div>{{item.Publisher}}</div></li>
+                    <li><label for="">UserTags:</label><div>{{item.UserTags}}</div></li>
+                  </ul>
+                </el-collapse-item>
+              </el-collapse>
+            </div>
+          </div>
         </div>
       </el-main>
     </el-container>
+    <aplayer></aplayer>
   </div>
 </template>
 <script>
+import Aplayer from '@/components/player/index.vue'
 export default {
+  components: {Aplayer},
   data () {
     return {
-      seachValue: '经典',
+      height: 0,
+      mainHeight: 0,
+      showSingList: false,
+      seachValue: 'Moon,hunt',
       sidetabs: [
         {
           title: 'STYLE',
@@ -106,7 +125,9 @@ export default {
           name: '2'
         }
       ],
-      listData: [
+      albumList: [],
+      listData: [],
+      albunDetailList: [
         {
           'title': '001 - Surf Party  tempo guitar-based surf track with solid dr',
           'album': 'IMCD3161 Back To The Beach',
@@ -302,22 +323,92 @@ export default {
           ]
         }
       ],
+      listSubData: [],
       icon: true,
       sidelistctive: '',
-      tabActive: '2',
-      activeName: ''
+      tabActive: '1',
+      activeName: '',
+      itemName: 'style'
     }
   },
   methods: {
     palyAction (item) {
       item.isPlay = !item.isPlay
+    },
+    showPower (item) {
+      console.log(item)
+    },
+    handleTabClick (tab) {
+      debugger
+      if (tab.name === '2') {
+        this.getLibary()
+        this.itemName = 'library'
+      } else {
+        this.getStyles()
+        this.itemName = 'style'
+      }
+    },
+    handleCollapseChange (val) {
+      console.log(val)
+      // let metaValue = this.listData[val].style
+      this.getMeta(val)
+    },
+    showAlbumDetail (val) {
+      this.showSingList = true
+    },
+    getSearchResult () {
+      let params = {
+        keywords: this.seachValue
+      }
+      this.$http.get('api/open/hp/search', {params}).then(res => {
+        if (res.status === 200) {
+          this.albumList = res.data.result
+          // console.log('search', this.albumList)
+        }
+      })
+    },
+    getStyles () {
+      this.$http.get('api/open/hp/styles').then(res => {
+        if (res.status === 200) {
+          this.listData = res.data.result
+          // console.log(this.listData)
+        }
+      })
+    },
+    getMeta () {
+      let params = {
+        style: 'AM01'
+      }
+      this.$http.get('api/open/hp/metas', {params}).then(res => {
+        if (res.status === 200) {
+          this.listSubData = res.data.result
+          // console.log('search', this.albumList)
+        }
+      })
+    },
+    getLibary () {
+      this.$http.get('api/open/hp/libraries').then(res => {
+        if (res.status === 200) {
+          this.listData = res.data.result
+          // console.log(this.listData)
+        }
+      })
     }
   },
   mounted () {
-
+    this.getStyles()
+    this.getSearchResult()
+    let bodyHeight = document.documentElement.clientHeight
+    this.height = bodyHeight - 90
+    this.mainHeight = bodyHeight - document.querySelector('.page-main').offsetTop - 40 - 30
   }
 }
 </script>
+<style lang="less" scoped="">
+  html,body{
+    height: 100%;
+  }
+</style>
 <style lang="less">
 .page-main{
   margin-top: 30px;
@@ -362,6 +453,9 @@ export default {
     }
   }
 }
+.main-wrapper{
+  overflow-x: hidden;
+}
 /*侧边栏有沿用mycolaps的样式*/
 .sidetab{
   .el-tabs__item{
@@ -376,6 +470,7 @@ export default {
   }
   /*重置*/
   .el-tabs__nav {
+    width: 100%;
     display: flex;
     justify-content: space-between;
   }
@@ -391,11 +486,15 @@ export default {
 
 }
 .sidetab-list  {
+  overflow-x: hidden;
   .el-collapse-item__header{
     border-bottom: 1px solid #DDE3E8;
     &:hover{
       background: #F7F7F7;
     }
+  }
+  .el-collapse-item__wrap{
+    border-bottom: 0;
   }
   .el-collapse-item.is-active{
     .list-cell{
@@ -425,8 +524,6 @@ export default {
 
 /*collapse手风琴样式*/
 .mycollapse{
-  height: 495px;
-  overflow: auto;
   /*重置*/
   .el-collapse-item__header{
     height: auto;
@@ -545,6 +642,39 @@ export default {
     display: inline-block;
     align-items: center;
     font-size: 20px;
+  }
+}
+/*专辑封面列表样式*/
+.album-list{
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .list-item{
+    position: relative;
+    margin-bottom: 35px;
+    width: 230px;
+    height: 230px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .list-item-tit{
+    box-sizing: border-box;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    font-size: 12px;
+    color: #fff;
+    line-height: 50px;
+    padding: 0 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-image: linear-gradient(-148deg, rgba(255, 93, 81, 0.4) 0%, rgba(200, 75, 213, 0.4) 34%, rgba(126, 94, 255, 0.4) 67%, rgba(68, 192, 237, 0.4) 100%);
   }
 }
 </style>

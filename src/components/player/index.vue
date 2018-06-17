@@ -1,14 +1,22 @@
 <template>
-  <div>
-    <audio src="/i/horse.ogg" controls="controls">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
+  <aplayer controls :float='fixed'
+    :music='isPlaying'
+  />
 </template>
 <script>
+import Aplayer from '@/components/vue-aplayer/src/vue-aplayer'
 export default {
+  components: {Aplayer},
   data () {
-    return {}
+    return {
+      fixed: true,
+      isPlaying: {
+        title: 'htifoipri ',
+        artist: 'Silent Siren',
+        src: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.mp3',
+        pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+      }
+    }
   },
   methods: {
 
