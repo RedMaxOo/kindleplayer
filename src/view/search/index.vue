@@ -4,7 +4,7 @@
       <el-input
         placeholder="请输入内容"
         suffix-icon="el-icon-search"
-        v-model="seachValue">
+        v-model="seachValue"><el-button slot="append" icon="el-icon-search" @click=""></el-button>
       </el-input>
     </div>
     <el-container class="page-main">
