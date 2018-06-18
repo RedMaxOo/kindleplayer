@@ -991,7 +991,7 @@ export default VueAPlayer
     &.aplayer-withlist {
       .aplayer-body {
         .aplayer-info {
-          border-bottom: 1px solid #e9e9e9;
+          /*border-bottom: 1px solid #e9e9e9;*/
         }
 
         .aplayer-controller .aplayer-time .aplayer-icon.aplayer-icon-menu {
@@ -1000,7 +1000,10 @@ export default VueAPlayer
       }
     }
   }
-
+  .aplayer-list{
+    display: none;
+  }
+  /*.aplayer.aplayer-withlist .aplayer-body .aplayer-info*/
   @keyframes aplayer-roll {
     0% {
       left: 0

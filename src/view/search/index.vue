@@ -27,12 +27,12 @@
                 <div class="list-cell">
                   <div class="list-cell-hd">
                     <div class="list-hd-mid">{{item[itemName]}}</div>
-                    <i class="icon-list"></i>
+                    <i class="icon-list" @click.stop="showAlbum(item[itemName])"></i>
                   </div>
                 </div>
               </template>
               <ul class="list-content">
-                <li v-for="subitem in listSubData" v-bind:key="subitem.ALBUM_CODE" @click="showAlbumDetail">{{subitem.album_display_title}}</li>
+                <li v-for="subitem in listSubData" v-bind:key="subitem.id" @click="showAlbumDetail(subitem)">{{subitem.ALBUM_DISPLAY_TITLE}}</li>
               </ul>
             </el-collapse-item>
           </el-collapse>
@@ -44,25 +44,25 @@
         <div class="maintitle">
             <div class="tit">RESEARCH RESULTS</div>
             <div class="scale-item">
-              <span class="label">Totlee: 204</span>
-              <span class="label">Totle: 204</span>
+              <span class="label" v-if="showSelectTitle">{{showSelectTitle}}</span>
+              <span class="label">Totle: {{showTotleNum}}</span>
             </div>
         </div>
         <div class="main-wrapper" :style="{height: mainHeight + 'px'}">
           <!--专辑列表-->
           <div class="album-list" v-if="!showSingList">
-            <div class="list-item" v-for="(item, index) in albumList" :key="index">
-              <img :src="item.album_artwork_filename" alt="">
-              <div class="list-item-tit">{{item.album_display_title}}</div>
+            <div class="list-item" v-for="(item, index) in listSubData" :key="index">
+              <img :src="item.ALBUM_COVER" alt="">
+              <div class="list-item-tit">{{item.ALBUM_DISPLAY_TITLE}}</div>
             </div>
           </div>
           <!--歌曲列表-->
           <div class="album-detail" v-if="showSingList">
-            <div class="main-list">
-              <img src="～assets/img/album9.png" alt="">
+            <div class="main-list" v-if="albumInfor">
+              <img :src="albumInfor.ALBUM_COVER" alt="">
               <div class="mian-cnct">
-                <h3 class="cnct-tit">IMCD3161 Back To The Beach</h3>
-                <p class="cnct-des">Life's a beach! Let's go surfin? with these great sound waves.</p>
+                <h3 class="cnct-tit">{{albumInfor.ALBUM_DISPLAY_TITLE}}</h3>
+                <p class="cnct-des"></p>
               </div>
             </div>
             <div class="mainbox">
@@ -75,18 +75,18 @@
                 </div>
               </div>
               <el-collapse v-model="activeName" accordion class="mycollapse">
-                <el-collapse-item :name="index" v-for="(item, index) in albunDetailList" v-bind:key="index" :class="{'is-play':item.isPlay}">
+                <el-collapse-item :name="index" v-for="(item, index) in trackList" v-bind:key="index" :class="{'is-play':item.isPlay}">
                   <template slot="title">
                     <div class="list-cell">
                       <div class="list-cell-hd">
-                        <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item)"><i class="icon-play"></i></span>
-                        <div class="list-hd-befor">{{item.title}}</div>
-                        <div class="list-hd-mid">{{item.album}}</div>
+                        <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item)"><i class="icon-plays"></i></span>
+                        <div class="list-hd-befor">{{item.track_display_title}}</div>
+                        <div class="list-hd-mid">{{item.album_display_title}}</div>
                         <div class="list-hd-after">{{item.time}}</div>
 
                         <i class="icon-i" @click.stop="showPower(item)"></i>
                       </div>
-                      <div class="list-descripe" @click.stop="">{{item.descrip}}</div>
+                      <div class="list-descripe" @click.stop="">{{item.track_description}}</div>
                     </div>
                   </template>
                   <ul class="list-content detail-infor">
@@ -102,20 +102,25 @@
         </div>
       </el-main>
     </el-container>
+    <dialog-form ref="dialog" :showdialog="showForm"></dialog-form>
     <aplayer></aplayer>
   </div>
 </template>
 <script>
+import DialogForm from './form.vue'
 import Aplayer from '@/components/player/index.vue'
 export default {
-  components: {Aplayer},
+  components: {Aplayer, DialogForm},
   data () {
     return {
+      showForm: false, // 表单组件展示状态
       height: 0,
       mainHeight: 0,
-      showSingList: false,
+      showSingList: true,
       seachValue: 'Moon,hunt',
-      sidetabs: [
+      showSelectTitle: '',
+      showTotleNum: 0,
+      sidetabs: [ // tab选项卡name
         {
           title: 'STYLE',
           name: '1'
@@ -125,210 +130,16 @@ export default {
           name: '2'
         }
       ],
-      albumList: [],
+      albumInfor: '', // 专辑封面信息
+      trackList: [], // 歌曲列表信息
       listData: [],
-      albunDetailList: [
-        {
-          'title': '001 - Surf Party  tempo guitar-based surf track with solid dr',
-          'album': 'IMCD3161 Back To The Beach',
-          'time': '2:04',
-          'descrip': 'Energetic up-tempo guitar-based surf track with solid drums.',
-          'Composer': 'Owen David Roberts, Peter Hajioff',
-          'Alternate': 'Roar of Saturn (No Choir) No Choir 2:07n (No Choir) No Choir 2:07',
-          'Publisher': 'Lovely Music Library',
-          'UserTags:': '',
-          'isPlay': false,
-          'subList': [
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM01 - Big, Big and Bigger',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM01',
-              'ALBUM_TITLE': 'Big, Big and Bigger'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM02 - Trailer Acts 1',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM02',
-              'ALBUM_TITLE': 'Trailer Acts 1'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM03 - The Platinum Series I',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM03',
-              'ALBUM_TITLE': 'The Platinum Series I'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM04 - The Lighter Side',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM04',
-              'ALBUM_TITLE': 'The Lighter Side'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM05 - Blood, Death & Fears',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM05',
-              'ALBUM_TITLE': 'Blood, Death & Fears'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM06 - The Platinum Series II',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM06',
-              'ALBUM_TITLE': 'The Platinum Series II'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM07 - Terminus',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM07',
-              'ALBUM_TITLE': 'Terminus'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM08 - The Platinum Series III: Eterna',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM08',
-              'ALBUM_TITLE': 'The Platinum Series III: Eterna'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM09 - Trailer Acts 2',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM09',
-              'ALBUM_TITLE': 'Trailer Acts 2'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM10 - Maelstrom',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM10',
-              'ALBUM_TITLE': 'Maelstrom'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM11 - The Platinum Series lV: Labyrinth',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM11',
-              'ALBUM_TITLE': 'The Platinum Series lV: Labyrinth'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM12 - Deus Ex Machina',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM12',
-              'ALBUM_TITLE': 'Deus Ex Machina'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM13 - Blood Bath And Beyond',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM13',
-              'ALBUM_TITLE': 'Blood Bath And Beyond'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM14 - Drumscores',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM14',
-              'ALBUM_TITLE': 'Drumscores'
-            }
-          ]
-        },
-        {
-          'title': '001 - Surf Party',
-          'album': 'IMCD3161 Back To The Beach',
-          'time': '2:04',
-          'descrip': 'Energetic up-tempo guitar-based surf track with solid drums.',
-          'Composer': 'Owen David Roberts, Peter Hajioff',
-          'Alternate': 'Roar of Saturn (No Choir) No Choir 2:07n (No Choir) No Choir 2:07',
-          'Publisher': 'Lovely Music Library',
-          'UserTags:': '',
-          'isPlay': false,
-          'subList': [
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM01 - Big, Big and Bigger',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM01',
-              'ALBUM_TITLE': 'Big, Big and Bigger'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM02 - Trailer Acts 1',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM02',
-              'ALBUM_TITLE': 'Trailer Acts 1'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM03 - The Platinum Series I',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM03',
-              'ALBUM_TITLE': 'The Platinum Series I'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM04 - The Lighter Side',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM04',
-              'ALBUM_TITLE': 'The Lighter Side'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM05 - Blood, Death & Fears',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM05',
-              'ALBUM_TITLE': 'Blood, Death & Fears'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM06 - The Platinum Series II',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM06',
-              'ALBUM_TITLE': 'The Platinum Series II'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM07 - Terminus',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM07',
-              'ALBUM_TITLE': 'Terminus'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM08 - The Platinum Series III: Eterna',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM08',
-              'ALBUM_TITLE': 'The Platinum Series III: Eterna'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM09 - Trailer Acts 2',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM09',
-              'ALBUM_TITLE': 'Trailer Acts 2'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM10 - Maelstrom',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM10',
-              'ALBUM_TITLE': 'Maelstrom'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM11 - The Platinum Series lV: Labyrinth',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM11',
-              'ALBUM_TITLE': 'The Platinum Series lV: Labyrinth'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM12 - Deus Ex Machina',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM12',
-              'ALBUM_TITLE': 'Deus Ex Machina'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM13 - Blood Bath And Beyond',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM13',
-              'ALBUM_TITLE': 'Blood Bath And Beyond'
-            },
-            {
-              'ALBUM_DISPLAY_TITLE': 'AM14 - Drumscores',
-              'LIBRARY_NAME': 'Audiomachine',
-              'ALBUM_CODE': 'AM14',
-              'ALBUM_TITLE': 'Drumscores'
-            }
-          ]
-        }
-      ],
       listSubData: [],
       icon: true,
       sidelistctive: '',
       tabActive: '1',
       activeName: '',
-      itemName: 'style'
+      itemName: 'style',
+      musicLists: [], // 播放器列表
     }
   },
   methods: {
@@ -336,10 +147,10 @@ export default {
       item.isPlay = !item.isPlay
     },
     showPower (item) {
-      console.log(item)
+      console.log(this.$refs.dialog)
+      this.$refs.dialog.dialogVisible = true
     },
-    handleTabClick (tab) {
-      debugger
+    handleTabClick (tab) { // tab切换操作
       if (tab.name === '2') {
         this.getLibary()
         this.itemName = 'library'
@@ -348,41 +159,77 @@ export default {
         this.itemName = 'style'
       }
     },
-    handleCollapseChange (val) {
-      console.log(val)
-      // let metaValue = this.listData[val].style
-      this.getMeta(val)
+    showAlbum () { // collaps
+      this.handleCollapseChange()
+    },
+    handleCollapseChange (val) { // collapse 下拉操作
+      this.showSingList = false
+      let metaValue = ''
+      if (typeof (val) === 'number') {
+        if (this.tabActive === '1') {
+          metaValue = this.listData[val].style
+        }
+        if (this.tabActive === '2') {
+          metaValue = this.listData[val].library
+        }
+        this.showSelectTitle = metaValue
+        this.getMeta(val, metaValue)
+      }
     },
     showAlbumDetail (val) {
+      this.albumInfor = val
       this.showSingList = true
+      this.getMetaList(val.ALBUM_CODE)
     },
-    getSearchResult () {
+    getSearchResult () { // 搜索结果接口
       let params = {
         keywords: this.seachValue
       }
+
+      this.musicLists = []
       this.$http.get('api/open/hp/search', {params}).then(res => {
         if (res.status === 200) {
-          this.albumList = res.data.result
+          this.trackList = res.data.result
+          this.showTotleNum = this.trackList.length
+          for (var i = 0; i < this.showTotleNum; i++) {
+            this.musicLists.push({
+              title: this.trackList[i].track_display_title,
+              artist: this.trackList[i].track_description,
+              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + this.trackList[i].track_audio_filename,
+              pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+            })
+          }
+          // console.log('search', this.albumList)
+        }
+      })
+    },
+    getMetaList (val) {
+      let params = {
+        style: val
+      }
+      this.musicLists = []
+      this.$http.get('api/open/hp/metas', {params}).then(res => {
+        if (res.status === 200) {
+          this.trackList = res.data.result
+          this.showTotleNum = this.trackList.length
+          for (var i = 0; i < this.showTotleNum; i++) {
+            this.musicLists.push({
+              title: this.trackList[i].track_display_title,
+              artist: this.trackList[i].track_description,
+              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + this.trackList[i].track_audio_filename,
+              pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+            })
+          }
           // console.log('search', this.albumList)
         }
       })
     },
     getStyles () {
+      this.listData = []
       this.$http.get('api/open/hp/styles').then(res => {
         if (res.status === 200) {
           this.listData = res.data.result
           // console.log(this.listData)
-        }
-      })
-    },
-    getMeta () {
-      let params = {
-        style: 'AM01'
-      }
-      this.$http.get('api/open/hp/metas', {params}).then(res => {
-        if (res.status === 200) {
-          this.listSubData = res.data.result
-          // console.log('search', this.albumList)
         }
       })
     },
@@ -393,7 +240,31 @@ export default {
           // console.log(this.listData)
         }
       })
-    }
+    },
+    getMeta (val, value) { // 获取风格下的专辑列表
+      let params = {}
+      this.listSubData = []
+      if (this.tabActive === '1') {
+        params = {
+          style: value
+        }
+        this.$http.get('api/open/hp/albumsByStyle', {params}).then(res => {
+          if (res.status === 200) {
+            this.listSubData = res.data.result
+          }
+        })
+      }
+      if (this.tabActive === '2') {
+        params = {
+          lib: value
+        }
+        this.$http.get('api/open/hp/albumsByLib', {params}).then(res => {
+          if (res.status === 200) {
+            this.listSubData = res.data.result
+          }
+        })
+      }
+    },
   },
   mounted () {
     this.getStyles()
@@ -439,7 +310,7 @@ export default {
   margin-bottom: 5px;
   img{
     width: 150px;
-    width: 150px;
+    height: 150px;
   }
   .mian-cnct{
     padding:0 20px;
@@ -505,7 +376,10 @@ export default {
     background: #ffffff;
   }
   .list-cell .list-cell-hd{
-    padding: 0 10px;
+    padding: 0 0 0 10px;
+    .icon-list{
+      padding: 0 10px;
+    }
   }
   .list-content{
     background: #F7F7F7;
@@ -586,7 +460,13 @@ export default {
   }
   .list-cell-hd{
     display: flex;
-    padding: 0 20px;
+    padding: 0 0 0 10px;
+    .icon-plays{
+      padding: 0 10px;
+    }
+    .icon-i{
+      padding: 0 13px;
+    }
   }
   .list-hd-befor{
     flex: 26%;
@@ -649,9 +529,10 @@ export default {
   background: #fff;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  width: 808px;
   .list-item{
     position: relative;
+    margin-right: 30px;
     margin-bottom: 35px;
     width: 230px;
     height: 230px;
