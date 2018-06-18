@@ -8,38 +8,38 @@
       @dragend="val => $emit('dragend', val)"
       @dragging="val => $emit('dragging', val)"
     />
-    <div class="aplayer-time">
-      <!--<div class="aplayer-time-inner">-->
-        <!-- - <span class="aplayer-ptime">{{secondToTime(stat.playedTime)}}</span> / <span-->
-        <!--class="aplayer-dtime">{{secondToTime(stat.duration)}}</span>-->
-      <!--</div>-->
-      <volume
-        v-if="!$parent.isMobile"
-        :volume="volume"
-        :theme="theme"
-        :muted="muted"
-        @togglemute="$emit('togglemute')"
-        @setvolume="v => $emit('setvolume', v)"
-      />
-      <icon-button
-        class="aplayer-icon-mode"
-        icon="shuffle"
-        :class="{ 'inactive': !shuffle }"
-        @click.native="$emit('toggleshuffle')"
-      />
-      <icon-button
-        class="aplayer-icon-mode"
-        :icon="repeat === 'repeat-one' ? 'repeat-one' : 'repeat-all'"
-        :class="{ 'inactive': repeat === 'no-repeat'}"
-        @click.native="$emit('nextmode')"
-      />
-      <icon-button
-        class="aplayer-icon-menu"
-        icon="menu"
-        :class="{ 'inactive': !$parent.showList }"
-        @click.native="$emit('togglelist')"
-      />
-    </div>
+    <!--<div class="aplayer-time">-->
+      <!--&lt;!&ndash;<div class="aplayer-time-inner">&ndash;&gt;-->
+        <!--&lt;!&ndash; - <span class="aplayer-ptime">{{secondToTime(stat.playedTime)}}</span> / <span&ndash;&gt;-->
+        <!--&lt;!&ndash;class="aplayer-dtime">{{secondToTime(stat.duration)}}</span>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--<volume-->
+        <!--v-if="!$parent.isMobile"-->
+        <!--:volume="volume"-->
+        <!--:theme="theme"-->
+        <!--:muted="muted"-->
+        <!--@togglemute="$emit('togglemute')"-->
+        <!--@setvolume="v => $emit('setvolume', v)"-->
+      <!--/>-->
+      <!--<icon-button-->
+        <!--class="aplayer-icon-mode"-->
+        <!--icon="shuffle"-->
+        <!--:class="{ 'inactive': !shuffle }"-->
+        <!--@click.native="$emit('toggleshuffle')"-->
+      <!--/>-->
+      <!--<icon-button-->
+        <!--class="aplayer-icon-mode"-->
+        <!--:icon="repeat === 'repeat-one' ? 'repeat-one' : 'repeat-all'"-->
+        <!--:class="{ 'inactive': repeat === 'no-repeat'}"-->
+        <!--@click.native="$emit('nextmode')"-->
+      <!--/>-->
+      <!--<icon-button-->
+        <!--class="aplayer-icon-menu"-->
+        <!--icon="menu"-->
+        <!--:class="{ 'inactive': !$parent.showList }"-->
+        <!--@click.native="$emit('togglelist')"-->
+      <!--/>-->
+    <!--</div>-->
   </div>
 </template>
 

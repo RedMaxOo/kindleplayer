@@ -94,7 +94,8 @@
     },
     hideModal: function () {
       this.isShowVideo = false
-      this.onPlayerPause(this.$refs.videoPlayer.player)
+      this.onPlayerEnded(this.$refs.videoPlayer.player)
+      debugger
     },
     getBanner:function () {
       this.$http.get('api/open/hp/banner').then(function (res) {
@@ -126,6 +127,7 @@
       // console.log('player play!', player)
     },
     onPlayerPause(player) {
+      debugger
        console.log('player pause!', player)
     },
     onPlayerEnded(player) {
