@@ -102,7 +102,7 @@
         </div>
       </el-main>
     </el-container>
-    <dialog-form :dialogVisible="showForm"></dialog-form>
+    <dialog-form ref="dialog" :showdialog="showForm"></dialog-form>
     <aplayer></aplayer>
   </div>
 </template>
@@ -147,8 +147,8 @@ export default {
       item.isPlay = !item.isPlay
     },
     showPower (item) {
-      console.log(item)
-      this.showForm = true
+      console.log(this.$refs.dialog)
+      this.$refs.dialog.dialogVisible = true
     },
     handleTabClick (tab) { // tab切换操作
       if (tab.name === '2') {
