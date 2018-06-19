@@ -4,7 +4,7 @@
         <div class="logo"></div>
         <ul class="top-bar">
           <li v-for="item in menus">
-            <span>{{item}}</span>
+            <span @click="jumpTo(item)">{{item}}</span>
           </li>
         </ul>
     </div>
@@ -17,7 +17,22 @@ export default {
     return{
       menus:['LOGIN','COPYRIGHT','CONNECT','EN/CN'],
     }
+  },
+  methods:{
+    jumpTo(type){
+      switch (type){
+        case 'LOGIN':
+          this.$router.push({path:'/login'})
+          break
+        case 'COPYRIGHT':
+          break;
+        case 'CONNECT':
+          break;
+        case 'EN/CN':
+          break;
+      }
 
+    }
   }
 }
 </script>

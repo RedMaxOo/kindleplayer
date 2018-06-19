@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/view/home/home'
 import Index from '@/view/home/index'
 import Search from '@/view/search/index'
+import Login from '@/view/my/login'
 
 Vue.use(Router)
 export default new Router({
@@ -23,6 +24,11 @@ export default new Router({
           component: Search
         }
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })

@@ -114,7 +114,7 @@
       this.$http.get('api/open/album/all').then(res => {
         if(res.status === 200) {
           let data = res.data.result
-          let albums = data.map(item => item.ALBUM_COVER)
+          let albums = data.map(item => item.album_cover)
 //          this.albums = albums.slice(0,8)
           for(var j=0;j<8;j++){
             this.$set(this.albums,j,[albums[j]])

@@ -290,7 +290,7 @@ export default {
     margin-right: 20px;
   }
   .el-input__inner{
-    width: 100%;
+    width: 1098px;
     height: 80px;
     border-radius: 4px;
   }

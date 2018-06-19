@@ -7,9 +7,11 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/style/index.less'
 import axios from 'axios'
+import qs from 'qs'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.qs = qs
 Vue.use(ElementUI)
 // Vue.use(CarouselItem)
 /* eslint-disable no-new */
