@@ -211,7 +211,7 @@
     }
 
     .el-input__inner {
-      width: 100%;
+      width: 700px;
       height: 80px;
       border-radius: 4px;
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div clas="layout" style="position:absolute; left:0px; top:0px; width:100%; height:100%;background: ">          <img src="../../assets/img/login.png" width="100%" height="100%"/>
+    <div class="layout">
     </div>
     <div class="title">Music is social , Let's make it fun</div>
     <div class="login-form">
@@ -103,6 +103,10 @@
       bottom:0;
       width:100%;
       height:100%;
+      background-image: url('../../assets/img/login.png');
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
     }
     .login-form{
       width: 380px;
