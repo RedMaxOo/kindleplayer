@@ -1,5 +1,6 @@
 <template>
   <div class="aplayer-controller">
+    <slot></slot>
     <v-progress
       :loadProgress="loadProgress"
       :playProgress="playProgress"

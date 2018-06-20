@@ -42,7 +42,9 @@
           @dragend="onProgressDragEnd"
           @dragging="onProgressDragging"
           @nextmode="setNextMode"
-        />
+        >
+          <div id="waveform" class="container"></div>
+        </controls>
       </div>
     </div>
     <audio ref="audio"></audio>
@@ -64,6 +66,7 @@ import MusicList from './components/aplayer-list.vue'
 import Controls from './components/aplayer-controller.vue'
 import Lyrics from './components/aplayer-lrc.vue'
 import { deprecatedProp, versionCompare, warn } from './utils'
+import WaveSurfer from 'wavesurfer.js'
 
 let versionBadgePrinted = false
 const canUseSync = versionCompare(Vue.version, '2.3.0') >= 0
@@ -329,6 +332,7 @@ const VueAPlayer = {
       internalRepeat: this.repeat,
       // for shuffling
       shuffledList: [],
+      waveOption:{}
     }
   },
   computed: {
@@ -494,6 +498,7 @@ const VueAPlayer = {
     },
     thenPlay () {
       this.$nextTick(() => {
+        // this.peaksFun()
         this.play()
       })
     },
@@ -503,10 +508,13 @@ const VueAPlayer = {
     // play/pause
 
     toggle () {
+      this.waveOption.playPause()
       if (!this.audio.paused) {
         this.pause()
+        this.waveOption.pause()
       } else {
         this.play()
+        this.waveOption.play()
       }
     },
     play () {
@@ -642,9 +650,12 @@ const VueAPlayer = {
 
     onAudioPlay () {
       this.isPlaying = true
+      // WaveSurfer.play()
     },
     onAudioPause () {
       this.isPlaying = false
+      // WaveSurfer.pause()
+
     },
     onAudioWaiting () {
       this.isLoading = true
@@ -858,6 +869,16 @@ const VueAPlayer = {
     this.shuffledList = this.getShuffledList()
   },
   mounted () {
+    const params = {
+      container: '#waveform',
+      waveColor: 'violet',
+      progressColor: 'purple'
+    }
+    debugger
+    var wavesurfer = new WaveSurfer(params)
+    wavesurfer.init()
+    this.waveOption = wavesurfer
+    wavesurfer.load(this.currentMusic.src)
     this.initAudio()
     this.setSelfAdaptingTheme()
     if (this.autoplay) this.play()

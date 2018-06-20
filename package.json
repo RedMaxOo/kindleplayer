@@ -18,7 +18,8 @@
     "vue": "^2.5.2",
     "vue-aplayer": "^1.6.0",
     "vue-router": "^3.0.1",
-    "vue-video-player": "^5.0.2"
+    "vue-video-player": "^5.0.2",
+    "wavesurfer.js": "^2.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
