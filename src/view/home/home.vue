@@ -10,9 +10,9 @@
             </div>
         </div>
         <div class="banner">
-            <el-carousel height="500px" style="width:100%;">
+            <el-carousel height="450px" style="width: 1098px;margin:auto;">
                 <el-carousel-item v-for="(item,index) in videoPoster" :key="item">
-                    <img :src="item" width=100% height=500 @click="popup(index)">
+                    <img :src="item" width="1098" height="450" @click="popup(index)">
                 </el-carousel-item>
             </el-carousel>
             <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
@@ -229,14 +229,17 @@
     color: #666666;
   }
   .album-list {
-    margin-left:-18px;
-  margin-top:-18px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: space-between;
+    margin-top:-20px;
+    margin-bottom:20px;
     li {
       width: 240px;
       height: 250px;
-      display: inline-block;
-    padding:18px;
-    overflow:hidden;
+      margin-top:20px;
       .el-carousel{
         border-radius: 5px;
       }

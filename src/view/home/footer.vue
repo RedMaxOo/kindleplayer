@@ -15,13 +15,13 @@
     background-color:#212939;
     box-shadow: 0 -2px 5px 0;
     width:100%;
-    height:60px;
+    height:50px;
     .text{
       font-family: Avenir-Heavy;
       font-size: 16px;
       color: #FFFFFF;
       margin:auto 0;
-      line-height:60px;
+      line-height:50px;
       text-align: center;
     }
   }
