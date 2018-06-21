@@ -871,10 +871,9 @@ const VueAPlayer = {
   mounted () {
     const params = {
       container: '#waveform',
-      waveColor: 'violet',
-      progressColor: 'purple'
+      waveColor: '#D4D4D4',
+      progressColor: '#9BCD9B'
     }
-    debugger
     var wavesurfer = new WaveSurfer(params)
     wavesurfer.init()
     this.waveOption = wavesurfer

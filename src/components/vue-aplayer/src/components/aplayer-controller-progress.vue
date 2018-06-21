@@ -111,6 +111,7 @@ export default {
 <style lang="less">
 
   .aplayer-bar-wrap {
+    display: none;
     margin: 60px 0 0 5px;
     padding: 4px 0;
     cursor: pointer;

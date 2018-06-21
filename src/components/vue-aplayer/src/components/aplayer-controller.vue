@@ -91,7 +91,9 @@ export default {
     display: flex;
     align-items: center;
     position: relative;
-
+    .container{
+      padding: 0;
+    }
     .aplayer-time {
       display: flex;
       align-items: center;

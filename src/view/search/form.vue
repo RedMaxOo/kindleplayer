@@ -18,16 +18,13 @@
         <el-form-item label="Telephone number">
           <el-input v-model="ruleForm.tele"></el-input>
         </el-form-item>
-        <el-form-item label="Song title">
+        <el-form-item label="Song title" prop="title">
           <el-input v-model="ruleForm.title"></el-input>
-        </el-form-item>
-        <el-form-item label="Song Writer / Artist">
-          <el-input v-model="ruleForm.artist"></el-input>
         </el-form-item>
         <el-form-item>
           <div slot="label">
-            <el-tooltip class="item" effect="dark" content="Bottom Center 提示文字" placement="bottom">
-              <span>Production name</span>
+            <el-tooltip class="item" effect="dark" content="State the name of the production, product or brand (typically the title of a film, the name of a TV show, or the brand that is being advertised)" placement="bottom">
+              <span>Production name <i class="icon-tips"></i></span>
             </el-tooltip>
           </div>
           <el-input v-model="ruleForm.production"></el-input>
@@ -42,6 +39,14 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <div slot="label">
+            <el-tooltip class="item" effect="dark" content="State how long you would like to license the song for your project (e.g. 3 months, 6 months, 1 year, etc.) " placement="bottom">
+              <span>Term <i class="icon-tips"></i></span>
+            </el-tooltip>
+          </div>
+          <el-input v-model="ruleForm.production"></el-input>
+        </el-form-item>
         <el-form-item label="Territory">
           <el-input v-model="ruleForm.territory"></el-input>
         </el-form-item>
@@ -55,26 +60,11 @@
 
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">SUBMIT</el-button>
+          <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">SUBMIT</el-button>
           <el-button @click="resetForm('ruleForm')">CANCEL</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
-    <select class="form-control ng-pristine ng-invalid ng-invalid-required ng-touched" id="media-type" ng-model="enquiry.mediaType" required="required" aria-required="true" aria-invalid="true" style="">
-      <option value="">Select a value</option>
-      <option value="ADS">Advertisements</option>
-      <option value="CORPORATE">Corporate</option>
-      <option value="FILM">Film</option>
-      <option value="GAMES">Games</option>
-      <option value="MERCHANDISE">Merchandise</option>
-      <option value="ONLINE">Online</option>
-      <option value="PRINT">Print</option>
-      <option value="RADIO">Radio</option>
-      <option value="TRAILER">Trailer</option>
-      <option value="TV">TV</option>
-      <option value="TVPROMO">TV Promo</option>
-      <option value="OTHER">Other</option>
-    </select>
   </div>
 </template>
 
@@ -150,9 +140,6 @@ export default {
         title: [
           { required: true, message: '请填写歌曲名称', trigger: 'blur' },
         ],
-        artist: [
-          { required: true, message: '请填写歌曲作者', trigger: 'blur' },
-        ],
         title: [
           { required: true, message: '请填写歌曲名称', trigger: 'blur' },
         ],
@@ -163,7 +150,9 @@ export default {
     }
   },
   methods: {
+    submitForm () {
 
+    }
   },
   computed: {
 //    dialogVisible () {
@@ -178,6 +167,13 @@ export default {
     border-radius: 4px;
     .el-select{
       width: 100%;
+    }
+  }
+  .color-submit{
+    background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
+    border-radius: 4px;
+    &:hover{
+      background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
     }
   }
 </style>

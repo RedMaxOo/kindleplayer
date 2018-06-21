@@ -32,7 +32,7 @@
                 </div>
               </template>
               <ul class="list-content">
-                <li v-for="subitem in listSubData" v-bind:key="subitem.id" @click="showAlbumDetail(subitem)">{{subitem.ALBUM_DISPLAY_TITLE}}</li>
+                <li v-for="subitem in listSubData" v-bind:key="subitem.id" @click="showAlbumDetail(subitem)">{{subitem.album_display_title}}</li>
               </ul>
             </el-collapse-item>
           </el-collapse>
@@ -103,12 +103,17 @@
       </el-main>
     </el-container>
     <dialog-form ref="dialog" :showdialog="showForm"></dialog-form>
-    <aplayer></aplayer>
+    <aplayer :musicList="musicList" :isPlayOne="playnum"></aplayer>
   </div>
 </template>
 <script>
 import DialogForm from './form.vue'
 import Aplayer from '@/components/player/index.vue'
+import mp3 from '../../assets/music/wet.mp3'
+import aaa from '../../assets/music/aaa.mp3'
+import bbb from '../../assets/music/bbb.mp3'
+import ccc from '../../assets/music/ccc.mp3'
+import ddd from '../../assets/music/ddd.mp3'
 export default {
   components: {Aplayer, DialogForm},
   data () {
@@ -139,7 +144,39 @@ export default {
       tabActive: '1',
       activeName: '',
       itemName: 'style',
-      musicLists: [], // 播放器列表
+      playnum: 0,
+      musicList: [
+        {
+          title: 'htifoipri ',
+          information: 'Silent Siren',
+          src: mp3, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
+          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+        },
+        {
+          title: 'htifoipri ',
+          information: 'Silent Siren',
+          src: aaa, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
+          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+        },
+        {
+          title: 'htifoipri ',
+          information: 'Silent Siren',
+          src: bbb, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
+          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+        },
+        {
+          title: 'htifoipri ',
+          information: 'Silent Siren',
+          src: ccc, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
+          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+        },
+        {
+          title: 'htifoipri ',
+          information: 'Silent Siren',
+          src: ddd, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
+          pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+        }
+      ] // 播放器列表
     }
   },
   methods: {
@@ -217,7 +254,7 @@ export default {
               title: this.trackList[i].track_display_title,
               artist: this.trackList[i].track_description,
               src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + this.trackList[i].track_audio_filename,
-              pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
             })
           }
           // console.log('search', this.albumList)
