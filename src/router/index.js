@@ -4,6 +4,7 @@ import Home from '@/view/home/home'
 import Index from '@/view/home/index'
 import Search from '@/view/search/index'
 import Login from '@/view/my/login'
+import Register from '@/view/my/register'
 
 Vue.use(Router)
 export default new Router({
@@ -22,6 +23,11 @@ export default new Router({
           path: '/search',
           name: 'search',
           component: Search
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: Register
         }
       ]
     },

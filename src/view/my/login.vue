@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="layout">
+    <div class="login-layout">
     </div>
     <div class="title">Music is social , Let's make it fun</div>
     <div class="login-form">
@@ -53,8 +53,8 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$http.post('api/login',this.ruleForm,{transformRequest: [ data => {
-              data = this.qs.stringify(data);
-              return data;
+              data = this.qs.stringify(data)
+              return data
             }]},{
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -62,7 +62,8 @@
             }).then(res=>{
               if(res.status === 200) {
                 if(res.data.code === '0000') {
-                  this.$router.go(-1)
+//                  this.$router.go(-1)
+                  this.$router.push({path:'/'})
                 }
                 else if(res.data.code === 'LG1111'){
                   alert(''+res.data.message)
@@ -70,9 +71,9 @@
               }
             })
           } else {
-            return false;
+            return false
           }
-        });
+        })
       }
     },
     computed: {
@@ -95,7 +96,7 @@
       z-index: 1;
       text-shadow: 0 2px 4px #310054;
     }
-    .layout{
+    .login-layout{
       position:absolute;
       left:0px;
       top:0px;

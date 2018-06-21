@@ -2,6 +2,7 @@
     <div>
         <div class="searchbox">
             <div class="searchlogo">
+              <div class="title">Behind The Moon</div>
               <!--<input placeholder="请输入内容" class="searchinput" v-model="searchcontent">-->
             </div>
             <div class="searchinput">
@@ -189,6 +190,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,1);
+    opacity: 0.9;
 }
 .searchbox{
     width:1098px;
@@ -200,6 +202,14 @@
     height: 105px;
     background: url('../../assets/img/binder.png') no-repeat 0 center;
     float: left;
+    .title{
+      display: inline-block;
+      font-family: Avenir-Heavy;
+      font-size: 20px;
+      color: rgb(255, 255, 255);
+      margin-top: 40px;
+      margin-left: 20px;
+    }
 }
 .searchinput {
     width: 700px;
