@@ -1,3 +1,4 @@
+
 <template>
   <div class="ml-player"  :class="{'aplayer-hide': hidePlayer}">
     <div class="bottom-tab" @click="hidePlayerFun"></div>
@@ -27,14 +28,13 @@
 <script>
 import WaveSurfer from 'wavesurfer.js'
 import Aplayer from '@/components/vue-aplayer/src/vue-aplayer'
-
+let waveOption
 export default {
   components: {Aplayer},
   props: ['isPlayOne', 'musicList'],
   data () {
     return {
       hidePlayer: true,
-      waveOption: {},
       playIndex: this.isPlayOne
     }
   },
@@ -44,7 +44,7 @@ export default {
     },
     play () {
 //      this.currentMusic = this.musicLists[0]
-      this.waveOption.playPause()
+      waveOption.playPause()
     },
     playPrev () {
       if (this.playIndex && this.playIndex <= this.musicList.length) {
@@ -71,10 +71,10 @@ export default {
         progressColor: 'purple'
       }
       var wavesurfer = new WaveSurfer(params)
-      wavesurfer.empty()
-      this.wavesurfer.init()
-      this.waveOption = wavesurfer
-      wavesurfer.load(curMusric)
+      wavesurfer.init()
+      waveOption = wavesurfer
+      waveOption.empty()
+      waveOption.load(curMusric)
     }
   },
   computed: {

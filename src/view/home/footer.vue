@@ -16,6 +16,8 @@
     box-shadow: 0 -2px 5px 0;
     width:100%;
     height:50px;
+    position: fixed;
+    bottom: 0;
     .text{
       font-family: Avenir-Heavy;
       font-size: 16px;

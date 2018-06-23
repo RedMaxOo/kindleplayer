@@ -6,8 +6,8 @@
       :visible.sync="dialogVisible"
       width="46%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="208px" class="demo-ruleForm">
-        <el-form-item label="name" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="name" prop="username">
+          <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
         <el-form-item label="Company" prop="region">
           <el-input v-model="ruleForm.company"></el-input>
@@ -21,15 +21,15 @@
         <el-form-item label="Song title" prop="title">
           <el-input v-model="ruleForm.title"></el-input>
         </el-form-item>
-        <el-form-item>
-          <div slot="label">
+        <el-form-item prop="albumname">
+          <span slot="label">
             <el-tooltip class="item" effect="dark" content="State the name of the production, product or brand (typically the title of a film, the name of a TV show, or the brand that is being advertised)" placement="bottom">
               <span>Production name <i class="icon-tips"></i></span>
             </el-tooltip>
-          </div>
-          <el-input v-model="ruleForm.production"></el-input>
+          </span>
+          <el-input v-model="ruleForm.albumname"></el-input>
         </el-form-item>
-        <el-form-item label="Media Type">
+        <el-form-item label="Media Type" prop="type">
           <el-select v-model="ruleForm.type" placeholder="请选择" width="100%">
             <el-option
               v-for="item in mediaOptions"
@@ -39,15 +39,15 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item>
-          <div slot="label">
+        <el-form-item prop="term">
+          <span slot="label">
             <el-tooltip class="item" effect="dark" content="State how long you would like to license the song for your project (e.g. 3 months, 6 months, 1 year, etc.) " placement="bottom">
               <span>Term <i class="icon-tips"></i></span>
             </el-tooltip>
-          </div>
-          <el-input v-model="ruleForm.production"></el-input>
+          </span>
+          <el-input v-model="ruleForm.term"></el-input>
         </el-form-item>
-        <el-form-item label="Territory">
+        <el-form-item label="Territory" prop="territory">
           <el-input v-model="ruleForm.territory"></el-input>
         </el-form-item>
         <el-form-item label="Additional info">
@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  props: ['showdialog'],
+  props: ['showdialog', 'ruleForm'],
   data () {
     return {
       dialogVisible: false,
@@ -129,9 +129,8 @@ export default {
         }
 
       ],
-      ruleForm: {},
       rules: {
-        name: [
+        username: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
         ],
         email: [
@@ -140,21 +139,51 @@ export default {
         title: [
           { required: true, message: '请填写歌曲名称', trigger: 'blur' },
         ],
-        title: [
-          { required: true, message: '请填写歌曲名称', trigger: 'blur' },
+        albumname: [
+          { required: true, message: '不能为空', trigger: 'blur' },
         ],
-        title: [
-          { required: true, message: '请填写歌曲名称', trigger: 'blur' },
+        type: [
+          { required: true, message: '请选择', trigger: 'blur' },
         ],
+        term: [
+          { required: true, message: '不能为空', trigger: 'blur' },
+        ],
+        territory: [
+          { required: true, message: '不能为空', trigger: 'blur' },
+        ]
       }
     }
   },
   methods: {
-    submitForm () {
-
+    submitForm (ruleForm) {
+      this.$refs[ruleForm].validate((valid) => {
+        if (valid) {
+          let params = {
+            email: this.ruleForm.email,
+            username: this.ruleForm.username,
+            mobile: this.ruleForm.tele,
+            company: this.ruleForm.company,
+            metaID: this.ruleForm.type,
+            albumNM: this.ruleForm.albumname,
+            trackNM: this.ruleForm.title,
+            term: this.ruleForm.term,
+            territory: this.ruleForm.territory,
+            additional_info: this.ruleForm.textarea
+          }
+          this.$http.get('api/url/open/meta/cr', params).then(res => {
+            if (res.status === 200) {
+              this.listData = res.data.result
+              // console.log(this.listData)
+            }
+          })
+        } else {
+          console.log('error submit!!')
+          return false;
+        }
+      })
     }
   },
-  computed: {
+  mounted () {
 //    dialogVisible () {
 //      return this.showdialog
 //    }

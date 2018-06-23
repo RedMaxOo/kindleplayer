@@ -871,7 +871,8 @@ const VueAPlayer = {
   mounted () {
     const params = {
       container: '#waveform',
-      waveColor: '#D4D4D4',
+      waveColor: 'gray',
+      barWidth: 2,
       progressColor: '#9BCD9B'
     }
     var wavesurfer = new WaveSurfer(params)

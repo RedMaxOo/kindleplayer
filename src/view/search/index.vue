@@ -102,7 +102,7 @@
         </div>
       </el-main>
     </el-container>
-    <dialog-form ref="dialog" :showdialog="showForm"></dialog-form>
+    <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
     <aplayer :musicList="musicList" :isPlayOne="playnum"></aplayer>
   </div>
 </template>
@@ -119,6 +119,7 @@ export default {
   data () {
     return {
       showForm: false, // 表单组件展示状态
+      forminfor: {},
       height: 0,
       mainHeight: 0,
       showSingList: true,
@@ -184,8 +185,16 @@ export default {
       item.isPlay = !item.isPlay
     },
     showPower (item) {
-      console.log(this.$refs.dialog)
       this.$refs.dialog.dialogVisible = true
+      this.forminfor = {
+        username: 'dff',
+        email: '417@qq.com',
+        albumname: item.album_display_title,
+        title: item.track_display_title,
+        type: '',
+        term: '',
+        territory: ''
+      }
     },
     handleTabClick (tab) { // tab切换操作
       if (tab.name === '2') {

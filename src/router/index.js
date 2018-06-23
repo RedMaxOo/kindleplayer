@@ -5,7 +5,7 @@ import Index from '@/view/home/index'
 import Search from '@/view/search/index'
 import Login from '@/view/my/login'
 import Register from '@/view/my/register'
-
+import BannerEdit from '@/view/edit/index'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -28,6 +28,11 @@ export default new Router({
           path: '/register',
           name: 'register',
           component: Register
+        },
+        {
+          path: '/banner-edit',
+          name: 'banner-edit',
+          component: BannerEdit
         }
       ]
     },
