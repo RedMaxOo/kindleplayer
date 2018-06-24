@@ -19,7 +19,7 @@
           <el-button class="button" @click="login('ruleForm')">SIGN IN</el-button>
         </el-form-item>
         <el-form-item>
-          <div class="bottom"><span>Forgot Password</span>  |  <span>Register</span></div>
+          <div class="bottom"><span>Forgot Password</span>  |  <span @click="goRegister">Register</span></div>
         </el-form-item>
       </el-form>
     </div>
@@ -63,6 +63,8 @@
               if(res.status === 200) {
                 if(res.data.code === '0000') {
 //                  this.$router.go(-1)
+                  sessionStorage.setItem('username',this.ruleForm.username)
+                  sessionStorage.setItem('token',res.data.result)
                   this.$router.push({path:'/'})
                 }
                 else if(res.data.code === 'LG1111'){
@@ -74,6 +76,9 @@
             return false
           }
         })
+      },
+      goRegister(){
+        this.$router.push({path:'/register'})
       }
     },
     computed: {

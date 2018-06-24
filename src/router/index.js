@@ -5,6 +5,7 @@ import Index from '@/view/home/index'
 import Search from '@/view/search/index'
 import Login from '@/view/my/login'
 import Register from '@/view/my/register'
+import RegisterSuccess from '@/view/my/regsuccess'
 import BannerEdit from '@/view/edit/index'
 Vue.use(Router)
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
           path: '/register',
           name: 'register',
           component: Register
+        },
+        {
+          path: '/register-success',
+          name: 'regsuccess',
+          component: RegisterSuccess
         },
         {
           path: '/banner-edit',

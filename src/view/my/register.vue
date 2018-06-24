@@ -3,21 +3,21 @@
     <div class="title">CREATE YOUR ACCOUNT</div>
     <div class="register-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
         <el-form-item prop="username">
           <el-input v-model="ruleForm.username" placeholder="Username"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" v-model="ruleForm.password" placeholder="Password" ></el-input>
+        <el-form-item prop="pwd1">
+          <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
         </el-form-item>
-        <el-form-item prop="confirmpwd">
-          <el-input type="password" v-model="ruleForm.confirmpwd" placeholder="Confirm Password"></el-input>
+        <el-form-item prop="pwd2">
+          <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
         </el-form-item>
         <el-form-item prop="email">
           <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
         </el-form-item>
-        <el-form-item prop="contact">
-          <el-input v-model="ruleForm.contact" placeholder="Contact"></el-input>
+        <el-form-item prop="mobile">
+          <el-input v-model="ruleForm.mobile" placeholder="Mobile"></el-input>
         </el-form-item>
         <el-form-item prop="company">
           <el-input v-model="ruleForm.company" placeholder="Company"></el-input>
@@ -25,7 +25,7 @@
         <el-form-item prop="address">
           <el-input v-model="ruleForm.address" placeholder="Address"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item v-show="isShowBtn">
           <el-button class="button" @click="register('ruleForm')">Register</el-button>
         </el-form-item>
       </el-form>
@@ -38,30 +38,29 @@
     data () {
       var validateNumber = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('年龄不能为空'));
+          return callback(new Error('电话不能为空'))
         }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            debugger
-            callback(new Error('请输入数字值'));
-          }
-        },1000)
+        if (!(/^\d+$/.test(value))) {
+            callback(new Error('请输入正整数'))
+        }
+        callback()
       }
       var validatePass = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.confirmpwd !== '') {
-            this.$refs.ruleForm.validateField('confirmpwd');
+        }
+        else {
+          if (this.ruleForm.pwd2 !== '') {
+            this.$refs.ruleForm.validateField('pwd2')
           }
           callback();
         }
       };
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.password) {
-          callback(new Error('两次输入密码不一致!'));
+          callback(new Error('请确认密码'));
+        } else if (value !== this.ruleForm.pwd1) {
+          callback(new Error('两次输入密码不一致!'))
         } else {
           callback();
         }
@@ -69,10 +68,10 @@
       return {
         ruleForm: {
           username:"",
-          password:"",
-          confirmpwd:"",
+          pwd1:"",
+          pwd2:"",
           email:"",
-          contact:"",
+          mobile:"",
           company:"",
           address:"",
         },
@@ -80,33 +79,28 @@
           username: [
             { required: true, message: '请输入姓名', trigger: 'blur' },
           ],
-          password: [
-            { validator:validatePass, message: '请输入密码', trigger: 'blur' },
+          pwd1: [
+            { validator:validatePass, trigger: 'blur' },
           ],
-          confirmpwd: [
+          pwd2: [
             { validator:validatePass2, trigger: 'blur' },
           ],
           email: [
             { required: true, message: '请输入邮箱', trigger: 'blur' },
           ],
-          contact: [
+          mobile: [
             { validator:validateNumber, trigger: 'blur' },
-          ],
-          company: [
-            { required: false, message: '', trigger: 'blur' },
-          ],
-          address: [
-            { required: false, message: '', trigger: 'blur' },
           ]
         },
-
+        isShowBtn:true,
+        formDisabled:false
       }
     },
     methods: {
       register(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post('api/register',this.ruleForm,{transformRequest: [ data => {
+            this.$http.post('api/open/user/regUser',this.ruleForm,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
             }]},{
@@ -115,12 +109,7 @@
               }
             }).then(res=>{
               if(res.status === 200) {
-                if(res.data.code === '0000') {
-                  this.$router.go(-1)
-                }
-                else if(res.data.code === 'LG1111'){
-                  alert(''+res.data.message)
-                }
+                this.$router.push({path:'/register-success'})
               }
             })
           } else {
@@ -128,19 +117,23 @@
           }
         });
       },
-      getUserInfo(uid){
-        this.$http.get('api/open/hp/banner').then(res=>{
+      getUserInfo(){
+        var token = sessionStorage.getItem('token')
+        this.$http.get('api/api/user/getUser',{headers: {
+          'Authorization': token
+        }}).then(res=>{
           if(res.status === 200) {
-            let data = res.data.result
-            let posters = data.map(item => item.img_path)
-            let videos = data.map(item => item.video_path)
-            this.videoSource = videos
-            //this.videoPoster = posters
-            console.log(posters)
-            console.log(videos)
+            if(res.data) {
+              this.ruleForm = res.data.result
+              this.isShowBtn = false
+              this.formDisabled = true
+            }
           }
         })
       }
+    },
+    mounted(){
+      this.getUserInfo()
     }
   }
 </script>
@@ -149,8 +142,10 @@
     width:1098px;
     margin:auto;
     height: 100%;
+    overflow-y: scroll;
     background-color: white;
     margin-top: 20px;
+    margin-bottom:50px;
     .title{
       height: 80px;
       line-height: 80px;
@@ -164,14 +159,6 @@
     }
   }
   .register-form {
-    /*width: 380px;*/
-    /*height: 400px;*/
-    /*margin: 0 auto;*/
-    /*top: 110px;*/
-    /*line-height: 400px;*/
-    /*position: relative;*/
-    /*background: #FFFFFF;*/
-    /*border-radius: 5px;*/
     .el-form-item{
       margin-bottom:0px;
     }

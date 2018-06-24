@@ -190,7 +190,6 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,1);
-    opacity: 0.9;
 }
 .searchbox{
     width:1098px;
@@ -245,7 +244,7 @@
     flex-wrap: wrap;
     align-content: space-between;
     margin-top:-20px;
-    margin-bottom:20px;
+    margin-bottom:60px;
     li {
       width: 240px;
       height: 250px;

@@ -4,34 +4,79 @@
         <div class="logo"></div>
         <ul class="top-bar">
           <li v-for="item in menus">
-            <span @click="jumpTo(item)">{{item}}</span>
+            <span v-if="item === 'LOGIN'">
+              <el-dropdown v-if="isLogin">
+                <span><i class="user"></i>
+                  {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item><span @click="toInfo">Infomation</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toBanner">Banner</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="logout">Logout</span></el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+              <span v-if="!isLogin" @click="jumpTo(item)">LOGIN</span>
+            </span>
+            <span v-if="item!=='LOGIN'" @click="jumpTo(item)">{{item}}
+            </span>
           </li>
         </ul>
+      <!--<dialog-form ref="dialog"></dialog-form>-->
     </div>
   </div>
 </template>
 <script>
+  import DialogForm from '../search/form.vue'
 export default {
   name: 'XHeader',
+  components: {DialogForm},
   data(){
     return{
-      menus:['LOGIN','COPYRIGHT','CONNECT','EN/CN'],
+      menus:['LOGIN','HOME','COPYRIGHT','CONNECT','EN/CN'],
+      isLogin:false,
+      username:'',
+      showForm:false
     }
   },
   methods:{
+    showPower (item) {
+      this.$refs.dialog.dialogVisible = true
+    },
     jumpTo(type){
       switch (type){
         case 'LOGIN':
           this.$router.push({path:'/login'})
           break
+        case 'HOME':
+          this.$router.push({path:'/'})
+          break
         case 'COPYRIGHT':
+          this.$router.push({path:'/'})
           break;
         case 'CONNECT':
           break;
         case 'EN/CN':
           break;
       }
+    },
+    toInfo(){
+      this.$router.push({path:'/register'})
+    },
+    toBanner(){
+      this.$router.push({path:'/banner-edit'})
+    },
+    logout(){
+      sessionStorage.removeItem('username')
+      sessionStorage.removeItem('token')
+      window.location.reload()
+    }
 
+  },
+  mounted(){
+    var user = sessionStorage.getItem('username')
+    if(user){
+      this.username = user
+      this.isLogin = true
     }
   }
 }
@@ -72,5 +117,13 @@ export default {
       color: #E172A7 !important;
       cursor: pointer;
      }
+  }
+  .user
+  {
+    display: inline-block;
+    width:14px;
+    height:14px;
+    background: url("../../assets/icons/user.png") no-repeat center center;
+    background-size: 14px 14px;
   }
 </style>

@@ -18,6 +18,7 @@
     height:50px;
     position: fixed;
     bottom: 0;
+    z-index:5;
     .text{
       font-family: Avenir-Heavy;
       font-size: 16px;
