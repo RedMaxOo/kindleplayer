@@ -130,7 +130,7 @@ export default {
     left: -5px;
     background: #000;
     width: 100%;
-    z-index: 1;
+    z-index: 10;
     background-image: linear-gradient(-225deg, #212939 0%, #161A24 100%);
     -webkit-box-shadow: 0 -2px 5px 0 rgba(91, 180, 219, 0.5);
     box-shadow: 0 -2px 5px 0 rgba(91, 180, 219, 0.5);
