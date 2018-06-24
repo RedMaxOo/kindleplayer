@@ -52,16 +52,16 @@
           <!--专辑列表-->
           <div class="album-list" v-if="!showSingList">
             <div class="list-item" v-for="(item, index) in listSubData" :key="index">
-              <img :src="item.ALBUM_COVER" alt="">
-              <div class="list-item-tit">{{item.ALBUM_DISPLAY_TITLE}}</div>
+              <img :src="item.album_cover" alt="">
+              <div class="list-item-tit">{{item.album_display_title}}</div>
             </div>
           </div>
           <!--歌曲列表-->
           <div class="album-detail" v-if="showSingList">
             <div class="main-list" v-if="albumInfor">
-              <img :src="albumInfor.ALBUM_COVER" alt="">
+              <img :src="albumInfor.album_cover" alt="">
               <div class="mian-cnct">
-                <h3 class="cnct-tit">{{albumInfor.ALBUM_DISPLAY_TITLE}}</h3>
+                <h3 class="cnct-tit">{{albumInfor.album_display_title}}</h3>
                 <p class="cnct-des"></p>
               </div>
             </div>
@@ -79,7 +79,7 @@
                   <template slot="title">
                     <div class="list-cell">
                       <div class="list-cell-hd">
-                        <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item)"><i class="icon-plays"></i></span>
+                        <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item,index)"><i class="icon-plays"></i></span>
                         <div class="list-hd-befor">{{item.track_display_title}}</div>
                         <div class="list-hd-mid">{{item.album_display_title}}</div>
                         <div class="list-hd-after">{{item.time}}</div>
@@ -90,10 +90,9 @@
                     </div>
                   </template>
                   <ul class="list-content detail-infor">
-                    <li><label for="">Composer:</label><div>{{item.Composer}}</div></li>
-                    <li><label for="">Alternate:</label><div>{{item.Alternate}}</div></li>
-                    <li><label for="">Publisher:</label><div>{{item.Publisher}}</div></li>
-                    <li><label for="">UserTags:</label><div>{{item.UserTags}}</div></li>
+                    <li><label for="">Composer:</label><div>{{item.track_artis}}</div></li>
+                    <li><label for="">Alternate:</label><div>{{item.track_alternate_title}}</div></li>
+                    <li><label for="">Publisher:</label><div>{{item.track_publisher}}</div></li>
                   </ul>
                 </el-collapse-item>
               </el-collapse>
@@ -103,12 +102,12 @@
       </el-main>
     </el-container>
     <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
-    <aplayer :musicList="musicList" :isPlayOne="playnum"></aplayer>
+    <aplayer :musicList="musicLists" :isPlayOne="playnum"></aplayer>
   </div>
 </template>
 <script>
 import DialogForm from './form.vue'
-import Aplayer from '@/components/player/index.vue'
+import Aplayer from '@/components/player/play.vue'
 import mp3 from '../../assets/music/wet.mp3'
 import aaa from '../../assets/music/aaa.mp3'
 import bbb from '../../assets/music/bbb.mp3'
@@ -123,7 +122,7 @@ export default {
       height: 0,
       mainHeight: 0,
       showSingList: true,
-      seachValue: 'Moon,hunt',
+      seachValue: '',
       showSelectTitle: '',
       showTotleNum: 0,
       sidetabs: [ // tab选项卡name
@@ -146,6 +145,7 @@ export default {
       activeName: '',
       itemName: 'style',
       playnum: 0,
+      musicLists: [],
       musicList: [
         {
           title: 'htifoipri ',
@@ -183,6 +183,7 @@ export default {
   methods: {
     palyAction (item) {
       item.isPlay = !item.isPlay
+      this.playnum = this.index
     },
     showPower (item) {
       this.$refs.dialog.dialogVisible = true
@@ -197,6 +198,7 @@ export default {
       }
     },
     handleTabClick (tab) { // tab切换操作
+      this.index = ''
       if (tab.name === '2') {
         this.getLibary()
         this.itemName = 'library'
@@ -223,49 +225,52 @@ export default {
       }
     },
     showAlbumDetail (val) {
-      this.albumInfor = val
       this.showSingList = true
-      this.getMetaList(val.ALBUM_CODE)
+      this.getMetaList(val.album_code)
     },
     getSearchResult () { // 搜索结果接口
       let params = {
         keywords: this.seachValue
       }
-
       this.musicLists = []
       this.$http.get('api/open/hp/search', {params}).then(res => {
         if (res.status === 200) {
-          this.trackList = res.data.result
-          this.showTotleNum = this.trackList.length
+          let data = res.data.result
+          this.showTotleNum = data.length
           for (var i = 0; i < this.showTotleNum; i++) {
+            data[i].isPlay = false
             this.musicLists.push({
-              title: this.trackList[i].track_display_title,
-              artist: this.trackList[i].track_description,
-              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + this.trackList[i].track_audio_filename,
-              pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+              title: data[i].track_display_title,
+              artist: data[i].track_description,
+              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
+              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
             })
           }
+          this.trackList = data
           // console.log('search', this.albumList)
         }
       })
     },
     getMetaList (val) {
       let params = {
-        style: val
+        albumCode: val
       }
       this.musicLists = []
       this.$http.get('api/open/hp/metas', {params}).then(res => {
         if (res.status === 200) {
-          this.trackList = res.data.result
-          this.showTotleNum = this.trackList.length
+          this.albumInfor = res.data.result.album
+          let data = res.data.result.tracks
+          this.showTotleNum = data.length
           for (var i = 0; i < this.showTotleNum; i++) {
+            data[i].isPlay = false
             this.musicLists.push({
-              title: this.trackList[i].track_display_title,
-              artist: this.trackList[i].track_description,
-              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + this.trackList[i].track_audio_filename,
-              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+              title: data[i].track_display_title,
+              artist: data[i].track_description,
+              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
+              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg',
             })
           }
+          this.trackList = data
           // console.log('search', this.albumList)
         }
       })
@@ -310,9 +315,10 @@ export default {
           }
         })
       }
-    },
+    }
   },
   mounted () {
+    this.seachValue = this.$route.query.searchValue
     this.getStyles()
     this.getSearchResult()
     let bodyHeight = document.documentElement.clientHeight
@@ -463,6 +469,9 @@ export default {
     .list-cell{
       background-image: linear-gradient(-148deg, rgba(255, 93, 81, 0.4) 0%, rgba(200, 75, 213, 0.4) 34%, rgba(126, 94, 255, 0.4) 67%, rgba(68, 192, 237, 0.4) 100%);
       color: #ffffff;
+    }
+    .el-collapse-item__header{
+      color: #fff;
     }
   }
   .list-descripe{
