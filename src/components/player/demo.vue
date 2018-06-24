@@ -1,4 +1,3 @@
-
 <template>
   <div class="ml-player"  :class="{'aplayer-hide': hidePlayer}">
     <div class="bottom-tab" @click="hidePlayerFun"></div>
@@ -19,6 +18,7 @@
           </div>
         </div>
       </div>
+      <audio ref="audio" controls></audio>
       <div class="player-info">
         <div id="waveform" class="container"></div>
       </div>
@@ -27,14 +27,15 @@
 </template>
 <script>
 import WaveSurfer from 'wavesurfer.js'
-import Aplayer from '@/components/vue-aplayer/src/vue-aplayer'
-let waveOption
+//import Aplayer from '@/components/vue-aplayer/src/vue-aplayer'
+const aaa = require('../../assets/music/aaa.mp3')
 export default {
-  components: {Aplayer},
+//  components: {Aplayer},
   props: ['isPlayOne', 'musicList'],
   data () {
     return {
       hidePlayer: true,
+      waveOption: {},
       playIndex: this.isPlayOne
     }
   },
@@ -44,7 +45,8 @@ export default {
     },
     play () {
 //      this.currentMusic = this.musicLists[0]
-      waveOption.playPause()
+      this.audio.src = aaa
+      this.audio.play()
     },
     playPrev () {
       if (this.playIndex && this.playIndex <= this.musicList.length) {
@@ -60,7 +62,7 @@ export default {
       } else {
         this.playIndex = 0
       }
-      this.loadMusic(this.currentMusic.src)
+//      this.loadMusic(this.currentMusic.src)
     },
     loadMusic (curMusric) {
       this.currentMusic = this.musicList[3]
@@ -73,11 +75,18 @@ export default {
       var wavesurfer = new WaveSurfer(params)
       wavesurfer.init()
       waveOption = wavesurfer
-      waveOption.empty()
-      waveOption.load(curMusric)
+      waveOption.load(
+        curMusric,
+        [1],
+        true
+      )
     }
   },
   computed: {
+    audio () {
+      debugger
+      return this.$refs.audio
+    },
     // sync music
     currentMusic: {
       get () {
@@ -97,7 +106,7 @@ export default {
     },
   },
   mounted () {
-    this.loadMusic(this.currentMusic.src)
+//    this.loadMusic(this.currentMusic.src)
   }
 }
 </script>
@@ -302,3 +311,4 @@ export default {
     }
   }
 </style>
+
