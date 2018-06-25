@@ -17,12 +17,28 @@
               </el-dropdown>
               <span v-if="!isLogin" @click="jumpTo(item)">LOGIN</span>
             </span>
-            <span v-if="item!=='LOGIN'" @click="jumpTo(item)">{{item}}
+            <span v-if="item!=='LOGIN' && item!=='CONNECT'  && item!=='EN/CN'" @click="jumpTo(item)">{{item}}
+            </span>
+            <span v-if="item==='CONNECT'" @click="showConect">{{item}}
+            </span>
+            <span v-if="item==='EN/CN'" @click="changeLangEvent">{{item}}
             </span>
           </li>
         </ul>
       <!--<dialog-form ref="dialog"></dialog-form>-->
     </div>
+    <el-dialog
+      class="email-dialog"
+      title="EMAIL"
+      :visible.sync="emailDialog"
+      width="42%"
+    >
+      <div class="center">
+        <i class="icon-email"></i>
+        <span>jeffry.christiansen@gmail.com</span>
+        <a href="mailto:jeffry.christiansen@gmail.com"><i class="icon-send">ssss</i></a>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -35,7 +51,8 @@ export default {
       menus:['LOGIN','HOME','COPYRIGHT','CONNECT','EN/CN'],
       isLogin:false,
       username:'',
-      showForm:false
+      showForm:false,
+      emailDialog:false
     }
   },
   methods:{
@@ -59,6 +76,9 @@ export default {
           break;
       }
     },
+    showConect () {
+      this.emailDialog = true
+    },
     toInfo(){
       this.$router.push({path:'/register'})
     },
@@ -69,8 +89,22 @@ export default {
       sessionStorage.removeItem('username')
       sessionStorage.removeItem('token')
       window.location.reload()
+    },
+    changeLangEvent () {
+      this.$confirm('确定切换语言吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if ( this.lang === 'zh-CN' ) {
+          this.lang = 'en-US';
+          this.$i18n.locale = this.lang;//关键语句
+        }else {
+          this.lang = 'zh-CN';
+          this.$i18n.locale = this.lang;//关键语句
+        }
+      });
     }
-
   },
   mounted(){
     var user = sessionStorage.getItem('username')
@@ -125,5 +159,29 @@ export default {
     height:14px;
     background: url("../../assets/icons/user.png") no-repeat center center;
     background-size: 14px 14px;
+  }
+</style>
+<style lang="less">
+  .email-dialog {
+    .el-dialog__title, .email-dialog .el-dialog__headerbtn .el-dialog__close{
+      font-weight: bold;
+      color: #5BB4DB;
+    }
+    .el-dialog{
+      background: #F3F9FC;
+      border-radius: 4px;
+    }
+    .el-dialog__body{
+      padding: 30px;
+    }
+    .center{
+      background: #FFFFFF;
+      border: 1px solid #DDE3E8;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 20px;
+      color: #666666;
+      line-height: 80px;
+    }
   }
 </style>

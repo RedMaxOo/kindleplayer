@@ -1,6 +1,6 @@
 <template>
   <div class="container edit-wrapper">
-    <div class="main-title">BANNER MANAGEMENT</div>
+    <div class="main-title">{{$t('m.music')}}</div>
     <el-row class="list-tit" type="flex" justify="end">
       <el-col :span="10">
         <el-button type="text" icon="icon-img">IMAGES</el-button>

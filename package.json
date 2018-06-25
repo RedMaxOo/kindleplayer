@@ -16,6 +16,7 @@
     "hls.js": "^0.10.1",
     "qs": "^6.5.2",
     "vue": "^2.5.2",
+    "vue-i18n": "^8.0.0",
     "vue-router": "^3.0.1",
     "vue-video-player": "^5.0.2",
     "wavesurfer.js": "^2.0.6"

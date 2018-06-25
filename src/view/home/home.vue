@@ -50,6 +50,7 @@
               </li>
             </ul>
         </div>
+
     </div>
 </template>
 <script>
@@ -63,6 +64,7 @@
   },
   data () {
     return {
+      centerDialogVisible: true,
       isShowVideo: false,
       videoPoster: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528041454300&di=ddc102fa8a65769f76694565a542169f&imgtype=0&src=http%3A%2F%2Fdl.zhuansoo.com%2FuserHead%2F8%2F9%2F3%2F89344e0c0f065d6ddb4defd5c312e0fc.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529352273000&di=630545ceadb022627fc64fa6beadab4d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F018b1255437b400000019ae9238ea6.jpg'],
       videoSource: [],
@@ -284,5 +286,3 @@
   top:15%;
 }
 </style>
-
-
