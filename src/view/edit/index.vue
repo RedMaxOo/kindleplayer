@@ -2,37 +2,27 @@
   <div class="container edit-wrapper">
     <div class="main-title">{{$t('m.music')}}</div>
     <el-row class="list-tit" type="flex" justify="end">
-      <el-col :span="10">
+      <el-col :span="11">
         <el-button type="text" icon="icon-img">IMAGES</el-button>
       </el-col>
-      <el-col :span="10">
+      <el-col :span="11">
         <el-button type="text" icon="icon-url">URL</el-button>
       </el-col>
     </el-row>
     <el-row class="edit-list" v-for="(item,index) in editList" :key="index"  type="flex" justify="end">
-      <el-col :span="4"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
-      <el-col :span="10">
+      <el-col :span="3"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
+      <el-col :span="11">
         <div class="grid-content upload">
-          <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
-            <el-upload
-              slot="append"
-              class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
-              :before-remove="beforeRemove"
-              multiple
-              :limit="3"
-              :on-exceed="handleExceed"
-              :file-list="fileList">
-              <el-button  icon="icon-uploadm"></el-button>
-            </el-upload>
-          </el-input>
+          <div class="input-with-select el-input el-input-group el-input-group--append">
+            <input autocomplete="off" placeholder="请输入内容" v-model="item.img" class="el-input__inner">
+            <div class="el-input-group__append"><button type="button" class="el-button el-button--default"><!----><i class="icon-uploadm"><input
+              type="file" @change="update($event,index)"></i><!----></button></div>
+          </div>
         </div>
       </el-col>
-      <el-col :span="10">
+      <el-col :span="11">
         <div class="grid-content">
-          <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" style="width:100%">
+          <el-input placeholder="请输入内容" v-model="item.url" class="input-with-select" style="width:100%">
             <el-button slot="append" icon="icon-clearm" @click="deletList(index)"></el-button>
           </el-input>
         </div>
@@ -40,12 +30,12 @@
     </el-row>
     <!--添加 提交-->
     <el-row class="edit-list" type="flex" justify="end">
-      <el-col :span="4" style="text-indent: -999px">j</el-col>
-      <el-col :span="10">
+      <el-col :span="3" style="text-indent: -999px">j</el-col>
+      <el-col :span="11">
         <el-button class="editBtn addbtn" icon="icon-add" @click="addList"></el-button>
       </el-col>
-      <el-col :span="10">
-        <el-button class="editBtn submit" type="primiry">SUBMIT</el-button>
+      <el-col :span="11">
+        <el-button class="editBtn submit" type="primiry" @click="submitUpload">SUBMIT</el-button>
       </el-col>
     </el-row>
   </div>
@@ -106,6 +96,14 @@ export default {
         })
       }
     },
+    update (e, i) {
+      debugger
+      console.log(e.target.files[0].name)
+      this.$set(this.editList[i], 'img', e.target.files[0].name)
+    },
+    handleChange (file, fileList) {
+      console.log(file, fileList)
+    },
     handleRemove (file, fileList) {
       console.log(file, fileList)
     },
@@ -117,6 +115,9 @@ export default {
     },
     beforeRemove (file, fileList) {
       return this.$confirm(`确定移除${file.name}？`)
+    },
+    submitUpload () {
+
     }
   }
 }
@@ -144,7 +145,7 @@ export default {
     text-align: center;
   }
   .list-tit{
-    padding: 0 20px 0 60px;
+    padding: 0 52px 0 80px;
     text-align: center;
     .el-col{
       padding-right: 80px;
@@ -159,7 +160,7 @@ export default {
   }
   .edit-list{
     margin-bottom: 30px;
-    padding: 0 20px 0 90px;
+    padding: 0 52px 0 110px;
     line-height: 40px;
     .edit-list-label{
       width: 60px;
@@ -197,6 +198,12 @@ export default {
       color: #FFFFFF;
       background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
       border-radius: 4px;
+    }
+  }
+  .icon-uploadm{
+    input{
+      width: 100%;
+      opacity: 0;
     }
   }
 </style>

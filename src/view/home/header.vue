@@ -32,15 +32,15 @@
       width="42%"
     >
       <div class="center">
-        <i class="icon-email"></i>
+        <i class="icon-email-big"></i>
         <span>jeffry.christiansen@gmail.com</span>
-        <a href="mailto:jeffry.christiansen@gmail.com"><i class="icon-send">ssss</i></a>
+        <a href="mailto:jeffry.christiansen@gmail.com"><i class="icon-copy"></i></a>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-  import DialogForm from '../search/form.vue'
+import DialogForm from '../search/form.vue'
 export default {
   name: 'XHeader',
   components: {DialogForm},
@@ -180,6 +180,9 @@ export default {
       font-size: 20px;
       color: #666666;
       line-height: 80px;
+      span{
+        padding:0 60px 0 40px;
+      }
     }
   }
 </style>

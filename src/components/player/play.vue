@@ -8,7 +8,7 @@
         <div class="player-control">
           <div class="player-tit">
             <h3>{{currentMusic?currentMusic.title:''}}</h3>
-            <p>{{currentMusic?currentMusic.information:''}}</p>
+            <p>{{currentMusic?currentMusic.album:''}}</p>
           </div>
           <div class="player-bnt-group">
             <button @click="playPrev"><i class="icon-prev"></i></button>
@@ -46,9 +46,9 @@ export default {
       this.loadMusic(this.currentMusic.src)
 //      this.currentMusic = this.musicLists[0]
       waveOption.playPause()
+
     },
     playPrev () {
-      debugger
       waveOption.empty()
       if (this.playIndex && this.playIndex <= this.musicList.length) {
         this.playIndex--
@@ -105,7 +105,9 @@ export default {
     }
   },
   watch: {
-    playIndex (val) {
+    isPlayOne (val) {
+      this.playIndex = val
+      this.currentMusic = this.musicList[val]
       this.$emit('update:isPlayOne', val)
     },
   },

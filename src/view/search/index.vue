@@ -4,7 +4,7 @@
       <el-input
         placeholder="请输入内容"
         suffix-icon="el-icon-search"
-        v-model="seachValue"><el-button slot="append" icon="el-icon-search" @click=""></el-button>
+        v-model="seachValue"><el-button slot="append" icon="el-icon-search" @click="getSearchResult"></el-button>
       </el-input>
     </div>
     <el-container class="page-main">
@@ -102,7 +102,7 @@
       </el-main>
     </el-container>
     <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
-    <aplayer :musicList="musicLists" :isPlayOne="playnum"></aplayer>
+    <aplayer ref="player" :musicList="musicLists" :isPlayOne="playnum"></aplayer>
   </div>
 </template>
 <script>
@@ -181,9 +181,13 @@ export default {
     }
   },
   methods: {
-    palyAction (item) {
+    palyAction (item, i) {
+      this.trackList.map((item) => {
+        item.isPlay = false
+      })
       item.isPlay = !item.isPlay
-      this.playnum = this.index
+      this.playnum = i
+      this.$refs.player.play()
     },
     showPower (item) {
       this.$refs.dialog.dialogVisible = true
@@ -243,7 +247,8 @@ export default {
               title: data[i].track_display_title,
               artist: data[i].track_description,
               src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
-              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
+              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg',
+              album: data[i].album_title
             })
           }
           this.trackList = data
@@ -268,6 +273,7 @@ export default {
               artist: data[i].track_description,
               src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
               img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg',
+              album: data[i].album_title
             })
           }
           this.trackList = data
