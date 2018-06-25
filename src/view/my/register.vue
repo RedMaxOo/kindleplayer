@@ -4,8 +4,8 @@
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
-        <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="Username"></el-input>
+        <el-form-item prop="userID">
+          <el-input v-model="ruleForm.userID" placeholder="User name"></el-input>
         </el-form-item>
         <el-form-item prop="pwd1">
           <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
@@ -15,6 +15,9 @@
         </el-form-item>
         <el-form-item prop="email">
           <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
+        </el-form-item>
+        <el-form-item prop="username">
+          <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
         </el-form-item>
         <el-form-item prop="mobile">
           <el-input v-model="ruleForm.mobile" placeholder="Mobile"></el-input>
@@ -39,11 +42,15 @@
       var validateNumber = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('电话不能为空'))
+        }else  if (!this.isvalidPhone(value)){
+          callback(new Error('请输入正确的11位手机号码'))
         }
-        if (!(/^\d+$/.test(value))) {
-            callback(new Error('请输入正整数'))
+        else {
+//        if (!(/^\d+$/.test(value))) {
+//            callback(new Error('请输入正整数'))
+//        }
+          callback()
         }
-        callback()
       }
       var validatePass = (rule, value, callback) => {
         if (!value) {
@@ -67,6 +74,7 @@
       }
       return {
         ruleForm: {
+          userID:'',
           username:"",
           pwd1:"",
           pwd2:"",
@@ -76,8 +84,11 @@
           address:"",
         },
         rules: {
-          username: [
+          userID: [
             { required: true, message: '请输入姓名', trigger: 'blur' },
+          ],
+          username: [
+            { required: true, message: '请输入ID', trigger: 'blur' },
           ],
           pwd1: [
             { validator:validatePass, trigger: 'blur' },
@@ -97,6 +108,10 @@
       }
     },
     methods: {
+      isvalidPhone(str) {
+        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+        return reg.test(str)
+      },
       register(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -109,7 +124,7 @@
               }
             }).then(res=>{
               if(res.status === 200) {
-                this.$router.push({path:'/register-success'})
+//                this.$router.push({path:'/register-success'})
               }
             })
           } else {

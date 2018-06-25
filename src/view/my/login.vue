@@ -62,13 +62,15 @@
             }).then(res=>{
               if(res.status === 200) {
                 if(res.data.code === '0000') {
-//                  this.$router.go(-1)
                   sessionStorage.setItem('username',this.ruleForm.username)
                   sessionStorage.setItem('token',res.data.result)
                   this.$router.push({path:'/'})
                 }
                 else if(res.data.code === 'LG1111'){
-                  alert(''+res.data.message)
+                  this.$message({
+                    message: res.data.message,
+                    type: 'error'
+                  })
                 }
               }
             })

@@ -44,7 +44,7 @@
               <li v-for="items in albums">
                 <el-carousel width="240px" height="250px" arrow="never" :interval="5000" indicator-position="none">
                   <el-carousel-item v-for="item in items" :key="item">
-                    <img :src="item" @click="goSearch">
+                    <img :src="item" @click="goAlbum(item)">
                   </el-carousel-item>
                 </el-carousel>
               </li>
@@ -81,7 +81,8 @@
           src: "http://vjs.zencdn.net/v/oceans.mp4"
         }],
         poster: "",
-      }
+      },
+      albumList:[]
     }
   },
   computed: {
@@ -116,25 +117,32 @@
     getAlbums(){
       this.$http.get('api/open/album/all').then(res => {
         if(res.status === 200) {
-          let data = res.data.result
-          let albums = data.map(item => item.album_cover)
-//          this.albums = albums.slice(0,8)
-          for(var j=0;j<8;j++){
-            this.$set(this.albums,j,[albums[j]])
+          this.albumList = res.data.result
+          let albums = this.albumList.map(item => item.album_cover)
+          var len = Math.round(albums.length / 8)
+          for (var i = 0, j = 0, lens = albums.length; i < lens, j < len + 1; i += len,j++) {
+            this.$set(this.albums,j,albums.slice(i, i + len))
           }
-          for (var i = 8, j = 0, lens = albums.length; i < lens, j < 8; i++,j++) {
-//            this.$set(this.albums,j,albums.slice(i, i + len))
-            this.albums[j].push(albums[i])
-            this.$set(this.albums,j,this.albums[j])
-            if(j===7){j=0}
-            if(i===lens-1){break}
-          }
-          console.log(this.albums)
+
         }
       })
     },
     goSearch(){
-      this.$router.push({path:'/search',query:{searchValue:this.searchValue}})
+      if(this.searchValue == ""){
+        this.$message({
+          message: '请输入搜索条件',
+          type: 'warning'
+        })
+      }else {
+        this.searchValue = this.searchValue.replace('，', ',')
+        this.$router.push({path: '/search', query: {searchValue: this.searchValue}})
+      }
+    },
+    goAlbum(src){
+      var code = this.albumList.filter(item => item.album_cover == src)[0].album_code
+      if(code) {
+        this.$router.push({path: '/search', query: {albumCode: code}})
+      }
     },
     //video.js
     onPlayerPlay(player) {
@@ -240,6 +248,7 @@
     color: #666666;
   }
   .album-list {
+    width:100%;
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;

@@ -3,9 +3,9 @@
     <div class="header">
         <div class="logo"></div>
         <ul class="top-bar">
-          <li v-for="item in menus">
-            <span v-if="item === 'LOGIN'">
-              <el-dropdown v-if="isLogin">
+          <li><span v-if="!isLogin" @click="jumpToLogin">LOGIN</span></li>
+          <li v-if="isLogin">
+            <span><el-dropdown>
                 <span><i class="user"></i>
                   {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
@@ -15,16 +15,14 @@
                   <el-dropdown-item><span @click="logout">Logout</span></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <span v-if="!isLogin" @click="jumpTo(item)">LOGIN</span>
-            </span>
-            <span v-if="item!=='LOGIN' && item!=='CONNECT'  && item!=='EN/CN'" @click="jumpTo(item)">{{item}}
-            </span>
-            <span v-if="item==='CONNECT'" @click="showConect">{{item}}
-            </span>
-            <span v-if="item==='EN/CN'" @click="changeLangEvent">{{item}}
             </span>
           </li>
+          <li><span @click="jumpToHome">HOME</span></li>
+          <li><span @click="showPower">COPYRIGHT</span></li>
+          <li><span @click="showConect">CONNECT</span></li>
+          <li><span @click="changeLangEvent">EN/CN</span></li>
         </ul>
+      <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
       <!--<dialog-form ref="dialog"></dialog-form>-->
     </div>
     <el-dialog
@@ -48,32 +46,30 @@ export default {
   components: {DialogForm},
   data(){
     return{
-      menus:['LOGIN','HOME','COPYRIGHT','CONNECT','EN/CN'],
       isLogin:false,
       username:'',
       showForm:false,
-      emailDialog:false
+      emailDialog:false,
+      forminfor: {}
     }
   },
   methods:{
-    showPower (item) {
-      this.$refs.dialog.dialogVisible = true
+    jumpToLogin(){
+      this.$router.push({path:'/login'})
     },
-    jumpTo(type){
-      switch (type){
-        case 'LOGIN':
-          this.$router.push({path:'/login'})
-          break
-        case 'HOME':
-          this.$router.push({path:'/'})
-          break
-        case 'COPYRIGHT':
-          this.$router.push({path:'/'})
-          break;
-        case 'CONNECT':
-          break;
-        case 'EN/CN':
-          break;
+    jumpToHome(){
+      this.$router.push({path:'/'})
+    },
+    showPower () {
+      this.$refs.dialog.dialogVisible = true
+      this.forminfor = {
+        username: '',
+        email: '',
+        albumname: '',
+        title:'',
+        type: '',
+        term: '',
+        territory: ''
       }
     },
     showConect () {
@@ -88,6 +84,7 @@ export default {
     logout(){
       sessionStorage.removeItem('username')
       sessionStorage.removeItem('token')
+      this.$router.push({path:'/'})
       window.location.reload()
     },
     changeLangEvent () {
@@ -146,11 +143,12 @@ export default {
       font-family: Avenir-Medium;
       font-size: 16px;
       color: #666666;
+      &:hover{
+         color: #E172A7;
+         cursor: pointer;
+       }
     }
-    &:hover{
-      color: #E172A7 !important;
-      cursor: pointer;
-     }
+
   }
   .user
   {
