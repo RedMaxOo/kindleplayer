@@ -98,10 +98,10 @@ export default {
       }).then(() => {
         if ( this.lang === 'zh-CN' ) {
           this.lang = 'en-US';
-          this.$i18n.locale = this.lang;//关键语句
+          this.$i18n.locale = this.lang //关键语句
         }else {
           this.lang = 'zh-CN';
-          this.$i18n.locale = this.lang;//关键语句
+          this.$i18n.locale = this.lang //关键语句
         }
       });
     }

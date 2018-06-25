@@ -6,7 +6,9 @@ import Search from '@/view/search/index'
 import Login from '@/view/my/login'
 import Register from '@/view/my/register'
 import RegisterSuccess from '@/view/my/regsuccess'
+import Retrieve from '@/view/my/retrieve'
 import BannerEdit from '@/view/edit/index'
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -34,6 +36,11 @@ export default new Router({
           path: '/register-success',
           name: 'regsuccess',
           component: RegisterSuccess
+        },
+        {
+          path: '/retrieve',
+          name: 'retrieve',
+          component: Retrieve
         },
         {
           path: '/banner-edit',
