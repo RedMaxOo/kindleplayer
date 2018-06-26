@@ -12,10 +12,18 @@
           </div>
           <div class="player-bnt-group">
             <button @click="playPrev"><i class="icon-prev"></i></button>
-            <button @click="play"><i class="icon-play"></i></button>
+            <button @click="play"><i :class="isPlaying?'icon-play':'icon-pause'"></i></button>
             <button @click="playNext"><i class="icon-next"></i></button>
             <span></span>
-            <span class="horn"><i class="icon-horn"></i></span>
+            <span class="horn">
+              <i class="icon-horn"></i>
+              <el-slider
+                v-model="volume"
+                vertical
+                @change="changeVolume"
+                height="80px">
+              </el-slider>
+            </span>
           </div>
         </div>
       </div>
@@ -35,18 +43,22 @@ export default {
   data () {
     return {
       hidePlayer: true,
-      playIndex: this.isPlayOne
+      isPlaying: false,
+      playIndex: this.isPlayOne,
+      volume: 0
     }
   },
   methods: {
+    changeVolume (val) {
+      waveOption.setVolume = val / 100
+    },
     hidePlayerFun () {
       this.hidePlayer = !this.hidePlayer
     },
     play () {
       this.loadMusic(this.currentMusic.src)
-//      this.currentMusic = this.musicLists[0]
+      this.isPlaying = !this.isPlaying
       waveOption.playPause()
-
     },
     playPrev () {
       waveOption.empty()
@@ -77,18 +89,9 @@ export default {
       }
     },
     loadMusic (curMusric) {
-      const params = {
-        container: '#waveform',
-        waveColor: 'violet',
-        barWidth: 2,
-        progressColor: 'purple'
-      }
-      var wavesurfer = new WaveSurfer(params)
-      wavesurfer.init()
-      waveOption = wavesurfer
       waveOption.empty()
       waveOption.load(curMusric)
-    }
+    },
   },
   computed: {
     // sync music
@@ -99,10 +102,11 @@ export default {
       set (val) {
         this.$emit('update:music', val)
       }
-    },
-    volume () { // 获取音量
-      return this.waveOption.getVolume()
     }
+    // volume () { // 获取音量
+    //   debugger
+    //   return waveOption.getVolume()
+    // }
   },
   watch: {
     isPlayOne (val) {
@@ -112,7 +116,16 @@ export default {
     },
   },
   mounted () {
-
+    const params = {
+      container: '#waveform',
+      waveColor: 'violet',
+      barWidth: 2,
+      progressColor: 'purple'
+    }
+    var wavesurfer = new WaveSurfer(params)
+    wavesurfer.init()
+    waveOption = wavesurfer
+    this.volume = waveOption.getVolume()*100
     if (this.currentMusic) {
       this.$nextTick(function () {
         // DOM is now updated
@@ -297,6 +310,24 @@ export default {
           top:-12px;
           position: absolute;
           cursor: pointer;
+          z-index: 1;
+          .el-slider{
+            position: absolute;
+            right: -5px;
+            top: -79px;
+            display: none;
+            z-index: -1;
+            .el-slider__button{
+              width: 12px;
+              height: 12px;
+              border: 1px solid #409EFF;
+            }
+          }
+          &:hover{
+            .el-slider{
+              display: block;
+            }
+          }
         }
       }
     }
