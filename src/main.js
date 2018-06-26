@@ -8,16 +8,26 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/style/index.less'
 import axios from 'axios'
+import Vuex from 'vuex'
 import qs from 'qs'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.qs = qs
 Vue.use(VueI18n)
 Vue.use(ElementUI)
-
+Vue.use(Vuex)
+const store = new Vuex.Store({
+  state: {
+    isPlayOne: 0
+  },
+  mutations: {
+    changePlaying (state, msg) {
+      state.isPlayOne = msg;
+    },
+  }
+})
 const i18n = new VueI18n({
   locale: 'en-US',    // 语言标识
-  //this.$i18n.locale // 通过切换locale的值来实现语言切换
   messages: {
     'zh-CN': require('./common/zh'),   // 中文语言包
     'en-US': require('./common/en')    // 英文语言包
@@ -29,6 +39,7 @@ new Vue({
   el: '#app',
   router,
   i18n,
+  store,
   components: { App },
   template: '<App/>'
 })

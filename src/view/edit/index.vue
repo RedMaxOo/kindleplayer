@@ -47,23 +47,23 @@ export default {
       input5: '',
       editList: [
         {
-          img: '3',
+          img: '',
           url: ''
         },
         {
-          img: '4',
+          img: '',
           url: ''
         },
         {
-          img: '5',
+          img: '',
           url: ''
         },
         {
-          img: '6',
+          img: '',
           url: ''
         },
         {
-          img: '7',
+          img: '',
           url: ''
         }
       ],
@@ -100,6 +100,20 @@ export default {
       debugger
       console.log(e.target.files[0].name)
       this.$set(this.editList[i], 'img', e.target.files[0].name)
+      var fd = new FormData()
+      fd.append('file', e.target.files[0])
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      this.$http.post('api/api/file/banner', fd, config).then(res => {
+        if (res.status === 200) {
+          this.listData = res.data.result
+          // console.log(this.listData)
+        }
+      })
+
     },
     handleChange (file, fileList) {
       console.log(file, fileList)
