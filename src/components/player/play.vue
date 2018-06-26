@@ -12,7 +12,7 @@
           </div>
           <div class="player-bnt-group">
             <button @click="playPrev"><i class="icon-prev"></i></button>
-            <button @click="play"><i :class="isPlaying?'icon-play':'icon-pause'"></i></button>
+            <button @click="toggle"><i :class="isPlaying?'icon-pause':'icon-play'"></i></button>
             <button @click="playNext"><i class="icon-next"></i></button>
             <span></span>
             <span class="horn">
@@ -44,8 +44,9 @@ export default {
     return {
       hidePlayer: true,
       isPlaying: false,
-      playIndex: this.isPlayOne,
-      volume: 0
+      playIndex: this.$store.state.isPlayOne,
+      volume: 0,
+      listState: false
     }
   },
   methods: {
@@ -55,42 +56,53 @@ export default {
     hidePlayerFun () {
       this.hidePlayer = !this.hidePlayer
     },
-    play () {
-      this.loadMusic(this.currentMusic.src)
+    toggle () {
       this.isPlaying = !this.isPlaying
       waveOption.playPause()
     },
+    play () {
+      this.isPlaying = true
+      if (this.isPlaying) {
+        waveOption.play()
+        this.hidePlayer = false
+      }
+    },
+    pause () {
+      this.isPlaying = false
+      if (!this.isPlaying) {
+        waveOption.pause()
+      }
+    },
     playPrev () {
-      waveOption.empty()
+//      waveOption.empty()
       if (this.playIndex && this.playIndex <= this.musicList.length) {
         this.playIndex--
       } else {
         this.playIndex = this.musicList.length - 1
       }
-      if (this.currentMusic.src) {
-        waveOption.load(this.currentMusic.src)
-        waveOption.on('ready', function () {
-          waveOption.play()
-        })
-      }
+//      this.$store.state.isPlayOne = this.playIndex
+      this.$store.commit('changePlaying', this.playIndex)
+      this.loadMusic(this.currentMusic.src)
     },
     playNext () {
-      waveOption.empty()
       if (this.playIndex < this.musicList.length - 1) {
         this.playIndex++
       } else {
         this.playIndex = 0
       }
-      if (this.currentMusic.src) {
-        waveOption.load(this.currentMusic.src)
+      this.$store.state.isPlayOne = this.playIndex
+      this.$store.commit('changePlaying', this.playIndex)
+      this.loadMusic(this.currentMusic.src)
+    },
+    loadMusic (curMusric) {
+//      waveOption.empty()
+      waveOption.load(curMusric)
+      if (this.isPlaying) {
         waveOption.on('ready', function () {
           waveOption.play()
         })
       }
-    },
-    loadMusic (curMusric) {
-      waveOption.empty()
-      waveOption.load(curMusric)
+
     },
   },
   computed: {
@@ -112,8 +124,15 @@ export default {
     isPlayOne (val) {
       this.playIndex = val
       this.currentMusic = this.musicList[val]
+      this.loadMusic(this.currentMusic.src)
       this.$emit('update:isPlayOne', val)
     },
+    musicList (val) {
+      if (val.length > 0) {
+        this.loadMusic(this.currentMusic.src)
+      }
+      debugger
+    }
   },
   mounted () {
     const params = {
@@ -125,14 +144,7 @@ export default {
     var wavesurfer = new WaveSurfer(params)
     wavesurfer.init()
     waveOption = wavesurfer
-    this.volume = waveOption.getVolume()*100
-    if (this.currentMusic) {
-      this.$nextTick(function () {
-        // DOM is now updated
-        // `this` is bound to the current instance
-        this.loadMusic(this.currentMusic.src)
-      })
-    }
+    this.volume = waveOption.getVolume() * 100
   }
 }
 </script>
@@ -350,7 +362,7 @@ export default {
       overflow: hidden;
       .container{
         width: 100%;
-        padding: 0;
+        margin: 0;
       }
     }
   }

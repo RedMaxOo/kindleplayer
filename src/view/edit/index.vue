@@ -47,23 +47,23 @@ export default {
       input5: '',
       editList: [
         {
-          img: '3',
+          img: '',
           url: ''
         },
         {
-          img: '4',
+          img: '',
           url: ''
         },
         {
-          img: '5',
+          img: '',
           url: ''
         },
         {
-          img: '6',
+          img: '',
           url: ''
         },
         {
-          img: '7',
+          img: '',
           url: ''
         }
       ],

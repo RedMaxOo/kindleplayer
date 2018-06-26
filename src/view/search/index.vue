@@ -102,17 +102,18 @@
       </el-main>
     </el-container>
     <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
-    <aplayer ref="player" :musicList="musicLists" :isPlayOne="playnum"></aplayer>
+    <aplayer ref="player" :musicList="musicLists" :isPlayOne="playnum" ></aplayer>
   </div>
 </template>
 <script>
 import DialogForm from './form.vue'
 import Aplayer from '@/components/player/play.vue'
-import mp3 from '../../assets/music/wet.mp3'
-import aaa from '../../assets/music/aaa.mp3'
-import bbb from '../../assets/music/bbb.mp3'
-import ccc from '../../assets/music/ccc.mp3'
-import ddd from '../../assets/music/ddd.mp3'
+import a from '../../assets/music/wet.mp3'
+import b from '../../assets/music/aaa.mp3'
+import c from '../../assets/music/bbb.mp3'
+import d from '../../assets/music/ccc.mp3'
+import e from '../../assets/music/ddd.mp3'
+let mp = [a,b,c,d,e]
 export default {
   components: {Aplayer, DialogForm},
   data () {
@@ -144,50 +145,24 @@ export default {
       tabActive: '1',
       activeName: '',
       itemName: 'style',
-      playnum: 0,
-      musicLists: [],
-      musicList: [
-        {
-          title: 'htifoipri ',
-          information: 'Silent Siren',
-          src: mp3, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
-          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
-        },
-        {
-          title: 'htifoipri ',
-          information: 'Silent Siren',
-          src: aaa, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
-          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
-        },
-        {
-          title: 'htifoipri ',
-          information: 'Silent Siren',
-          src: bbb, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
-          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
-        },
-        {
-          title: 'htifoipri ',
-          information: 'Silent Siren',
-          src: ccc, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
-          img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
-        },
-        {
-          title: 'htifoipri ',
-          information: 'Silent Siren',
-          src: ddd, // https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/AMP01_TK18_SPYRE_HUNTERS_Paul_Dinletir_(ASCAP)_NAOMIVILLE_MUSIC.mp3
-          pic: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg'
-        }
-      ] // 播放器列表
+      musicLists: [], // 播放器列表
     }
   },
   methods: {
     palyAction (item, i) {
-      this.trackList.map((item) => {
-        item.isPlay = false
-      })
+      if (item.isPlay) {
+        this.$refs.player.pause()
+      } else {
+        this.$refs.player.play()
+      }
+      if (!item.isPlay) {
+        this.trackList.map((item) => {
+          item.isPlay = false
+        })
+      }
+
       item.isPlay = !item.isPlay
-      this.playnum = i
-      this.$refs.player.play()
+      this.$store.commit('changePlaying', i)
     },
     showPower (item) {
       this.$refs.dialog.dialogVisible = true
@@ -203,6 +178,7 @@ export default {
     },
     handleTabClick (tab) { // tab切换操作
       this.index = ''
+      this.listData = []
       if (tab.name === '2') {
         this.getLibary()
         this.itemName = 'library'
@@ -237,6 +213,7 @@ export default {
         keywords: this.seachValue
       }
       this.musicLists = []
+      this.trackList = []
       this.$http.get('api/open/hp/search', {params}).then(res => {
         if (res.status === 200) {
           let data = res.data.result
@@ -246,7 +223,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
+              src: mp[i], //'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
               img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg',
               album: data[i].album_title
             })
@@ -321,6 +298,22 @@ export default {
           }
         })
       }
+    }
+  },
+  computed: {
+    playnum () {
+      let flag = false
+      if (flag) {
+        this.trackList.map((item,i) => {
+          if (i !== this.$store.state.isPlayOne) {
+            item.isPlay = false
+          } else {
+            item.isPlay = true
+          }
+        })
+      }
+      flag = true
+      return this.$store.state.isPlayOne
     }
   },
   mounted () {
