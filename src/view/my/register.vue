@@ -124,6 +124,11 @@
               }
             }).then(res=>{
               if(res.status === 200) {
+                this.$message({
+                  message: '信息提交成功！请登录邮箱激活您的账号！',
+                  type: 'success'
+                })
+
 //                this.$router.push({path:'/register-success'})
               }
             })

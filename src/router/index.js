@@ -8,6 +8,7 @@ import Register from '@/view/my/register'
 import RegisterSuccess from '@/view/my/regsuccess'
 import Retrieve from '@/view/my/retrieve'
 import BannerEdit from '@/view/edit/index'
+import ActiveUser from '@/view/my/active-user'
 
 Vue.use(Router)
 export default new Router({
@@ -46,7 +47,12 @@ export default new Router({
           path: '/banner-edit',
           name: 'banner-edit',
           component: BannerEdit
-        }
+        },
+        {
+          path: '/active-user',
+          name: 'activeuser',
+          component: ActiveUser
+        },
       ]
     },
     {
