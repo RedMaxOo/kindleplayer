@@ -11,7 +11,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><span @click="toInfo">Infomation</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="toBanner">Banner</span></el-dropdown-item>
+                  <el-dropdown-item v-show="admin"><span @click="toBanner">Banner</span></el-dropdown-item>
                   <el-dropdown-item><span @click="logout">Logout</span></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -50,7 +50,8 @@ export default {
       username:'',
       showForm:false,
       emailDialog:false,
-      forminfor: {}
+      forminfor: {},
+      admin:false
     }
   },
   methods:{
@@ -101,9 +102,16 @@ export default {
           this.$i18n.locale = this.lang //关键语句
         }
       });
+    },
+    isAdmin(){
+      var admin = sessionStorage.getItem('admin')
+      if(admin){
+        this.admin = true
+      }
     }
   },
   mounted(){
+    this.isAdmin()
     var user = sessionStorage.getItem('username')
     if(user){
       this.username = user

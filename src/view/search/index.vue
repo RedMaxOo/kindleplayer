@@ -323,6 +323,10 @@ export default {
     let bodyHeight = document.documentElement.clientHeight
     this.height = bodyHeight - 90
     this.mainHeight = bodyHeight - document.querySelector('.page-main').offsetTop - 40 - 30
+    let albumCode = this.$route.query.albumCode || ''
+    if(albumCode){
+      this.getMetaList(albumCode)
+    }
   }
 }
 </script>

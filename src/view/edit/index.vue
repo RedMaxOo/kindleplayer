@@ -115,9 +115,11 @@ export default {
       fd.append('file', e.target.files[0])
       fd.append('id', i + 1)
       fd.append('url', 'http:www.baidu.com')
+      var token = sessionStorage.getItem('token')
       let config = {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data',
+          'Authorization': token
         }
       }
       this.$http.post('api/api/file/banner', fd, config).then(res => {
