@@ -12,19 +12,20 @@
     <el-row class="edit-list" v-for="(item,index) in editList" :key="index"  type="flex" justify="end">
       <el-col :span="3"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
       <el-col :span="11">
+        <div class="grid-content">
+          <el-input placeholder="请输入内容" v-model="item.url" class="input-with-select" style="width:100%">
+            <el-button slot="append" icon="icon-clearm" @click="clearCurrent(item)"></el-button>
+          </el-input>
+        </div>
+      </el-col>
+      <el-col :span="11">
         <div class="grid-content upload">
           <div class="input-with-select el-input el-input-group el-input-group--append">
             <input autocomplete="off" placeholder="请输入内容" v-model="item.img" class="el-input__inner">
             <div class="el-input-group__append"><button type="button" class="el-button el-button--default"><!----><i class="icon-uploadm"><input
               type="file" @change="update($event,index)"></i><!----></button></div>
           </div>
-        </div>
-      </el-col>
-      <el-col :span="11">
-        <div class="grid-content">
-          <el-input placeholder="请输入内容" v-model="item.url" class="input-with-select" style="width:100%">
-            <el-button slot="append" icon="icon-clearm" @click="deletList(index)"></el-button>
-          </el-input>
+          <el-button v-if="index > 4" class="clear-btn" @click="deletList(index)" icon="el-icon-close"></el-button>
         </div>
       </el-col>
     </el-row>
@@ -86,6 +87,9 @@ export default {
         })
       }
     },
+    clearCurrent (item) {
+      item.url = ''
+    },
     deletList (val) {
       if (this.editList.length > 5) {
         this.editList.splice(val, 1)
@@ -98,10 +102,19 @@ export default {
     },
     update (e, i) {
       debugger
+      if (!this.editList[i].url) {
+        this.$message({
+          message: '请先填写当前url地址，再上传图片',
+          type: 'warning'
+        })
+        return
+      }
       console.log(e.target.files[0].name)
       this.$set(this.editList[i], 'img', e.target.files[0].name)
       var fd = new FormData()
       fd.append('file', e.target.files[0])
+      fd.append('id', i + 1)
+      fd.append('url', 'http:www.baidu.com')
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -189,6 +202,7 @@ export default {
     input,.el-input-group--append .el-input__inner{
       padding-right: 0;
       border-radius: 4px;
+      outline: none;
     }
     .upload{
       input{
@@ -218,6 +232,18 @@ export default {
     input{
       width: 100%;
       opacity: 0;
+    }
+  }
+  .clear-btn {
+    position: absolute;
+    right: 49px;
+    top: 0;
+    &.el-button{
+      border: 0;
+      font-size: 20px;
+      &:hover{
+        background: transparent;
+      }
     }
   }
 </style>
