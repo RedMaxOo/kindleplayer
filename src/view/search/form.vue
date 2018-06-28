@@ -4,7 +4,7 @@
       class="form-dialog"
       title="LICENCE INQUIRY"
       :visible.sync="dialogVisible"
-      width="46%">
+      width="33%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="208px" class="demo-ruleForm">
         <el-form-item label="name" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
@@ -61,7 +61,7 @@
         </el-form-item>
         <el-form-item>
           <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">SUBMIT</el-button>
-          <el-button @click="resetForm('ruleForm')">CANCEL</el-button>
+          <el-button @click="dialogVisible = false">CANCEL</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -188,6 +188,9 @@ export default {
 }
 </script>
 <style lang="less">
+  .form-dialog{
+    background-image: linear-gradient(45deg, rgba(70,52,169,.4) 0%, rgba(246,54,105,.4) 100%);
+  }
   .form-dialog .el-dialog{
     background: #F3F9FC;
     border-radius: 4px;
