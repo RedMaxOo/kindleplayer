@@ -114,7 +114,7 @@
       },
       register(formName){
         this.$refs[formName].validate((valid) => {
-          if (valid) {
+          if (valid) {  
             this.$http.post('api/open/user/regUser',this.ruleForm,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
@@ -123,13 +123,14 @@
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
             }).then(res=>{
-              if(res.status === 200) {
+              if(res.status === 200 && res.data.result === 'Y') {
+               this.$router.push({path:'/register-success'})
+              }
+              else{
                 this.$message({
-                  message: '信息提交成功！请登录邮箱激活您的账号！',
-                  type: 'success'
+                   message: 'register error', //res.data.message,
+                    type: 'warning'
                 })
-
-//                this.$router.push({path:'/register-success'})
               }
             })
           } else {
