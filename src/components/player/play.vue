@@ -115,10 +115,6 @@ export default {
         this.$emit('update:music', val)
       }
     }
-    // volume () { // 获取音量
-    //   debugger
-    //   return waveOption.getVolume()
-    // }
   },
   watch: {
     isPlayOne (val) {
@@ -131,7 +127,6 @@ export default {
       if (val.length > 0) {
         this.loadMusic(this.currentMusic.src)
       }
-      debugger
     }
   },
   mounted () {
