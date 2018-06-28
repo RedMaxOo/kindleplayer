@@ -26,6 +26,16 @@
 export default {
   name: 'retrieve',
   data () {
+    var validateCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('请输入验证码'))
+      }else  if (this.ruleForm.code.toLowerCase() !== this.codeMsg.toLowerCase()) {
+        callback(new Error('请输入正确的验证码'))
+      }
+      else {
+        callback()
+      }
+    }
     return {
       codeMsg: '',
       ruleForm: {
@@ -41,7 +51,7 @@ export default {
           { required: true, message: '请输入邮箱', trigger: 'blur' }
         ],
         code: [
-          { required: true, message: '请输入校验码', trigger: 'blur' }
+          {validator: validateCode, message: '请输入校验码', trigger: 'blur' }
         ]
       },
       isShowBtn: true,
@@ -63,44 +73,34 @@ export default {
       this.codeMsg = code
     },
     submit (formName) {
+      let  params = {
+        userID:this.ruleForm.username,
+        email:this.ruleForm.useremail
+      }
       this.$refs[formName].validate((valid) => {
+
         if (valid) {
           debugger
-          this.$http.post('api/open/user/sendMail', this.ruleForm, {transformRequest: [ data => {
+          this.$http.post('api/open/user/sendMail', params, {transformRequest: [ data => {
             data = this.qs.stringify(data);
             return data;
-            }]},{
+          }]},{
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
             }
-          }).then(res=>{
-            if(res.status === 200) {
-              this.$router.push({path:'/register-success'})
+          }).then(res => {
+            if (res.status === 200) {
+              this.$router.push({path: '/login'})
             }
           })
         } else {
           return false;
         }
       });
-    },
-    getUrl(){
-      var token = sessionStorage.getItem('token')
-      this.$http.get('api/api/user/getUser',{headers: {
-          'Authorization': token
-        }}).then(res=>{
-        if(res.status === 200) {
-          if(res.data) {
-            this.ruleForm = res.data.result
-            this.isShowBtn = false
-            this.formDisabled = true
-          }
-        }
-      })
     }
   },
   mounted () {
     this.createCode()
-    this.getUserInfo()
   }
 }
 </script>

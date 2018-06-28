@@ -19,6 +19,17 @@ body{
     padding-bottom: 0;
   }
 }
+.clearfix:after{
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
+}
+.clearfix{
+  zoom:1;
+}
+
 .register-form{
   padding-bottom: 50px;
   margin-bottom: 50px;
@@ -91,6 +102,12 @@ body{
   height:12px;
   display: inline-block;
   background: url("../assets/icons/yzm.png") no-repeat center;
+}
+.icon-play-btn{
+  width: 48px;
+  height:48px;
+  display: inline-block;
+  background: url("../assets/icons/play-light.png") no-repeat center;
 }
 .icon-tips{
   width: 16px;

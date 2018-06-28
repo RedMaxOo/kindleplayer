@@ -19,7 +19,7 @@
           <el-button class="button" @click="login('ruleForm')">SIGN IN</el-button>
         </el-form-item>
         <el-form-item>
-          <div class="bottom"> <router-link to="/reset" style="margin-right:10px;">Forgot Password</router-link>  |  <span @click="goRegister">Register</span></div>
+          <div class="bottom">  <router-link to="/retrieve">Forgot Password</router-link> |  <span @click="goRegister">Register</span></div>
         </el-form-item>
       </el-form>
     </div>
@@ -34,13 +34,10 @@
     name:"login",
     data () {
       return {
-        ruleForm: {
-          username:'',
-          password:''
-        },
+        ruleForm: {},
         rules: {
           username: [
-            { required: true, message: '请输入用户ID', trigger: 'blur' },
+            { required: true, message: '请输入ID', trigger: 'blur' },
           ],
           password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
@@ -52,11 +49,10 @@
       }
     },
     methods: {
-     
       login(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post('api/login',this.ruleForm ,{transformRequest: [ data => {
+            this.$http.post('api/login', this.ruleForm, {transformRequest: [ data => {
               data = this.qs.stringify(data)
               return data
             }]},{
@@ -74,7 +70,7 @@
                   this.$message({
                     message: res.data.message,
                     type: 'error',
-                    duration:'5000'
+                    duration: '5000'
                   })
                 }
               }
@@ -87,8 +83,6 @@
       goRegister(){
         this.$router.push({path:'/register'})
       }
-    },
-    computed: {
     }
   }
 </script>
