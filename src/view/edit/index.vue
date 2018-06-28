@@ -109,12 +109,12 @@ export default {
         })
         return
       }
-      console.log(e.target.files[0].name)
+
       this.$set(this.editList[i], 'img', e.target.files[0].name)
       var fd = new FormData()
       fd.append('file', e.target.files[0])
       fd.append('id', i + 1)
-      fd.append('url', 'http:www.baidu.com')
+      fd.append('url', this.editList[i].url)
       var token = sessionStorage.getItem('token')
       let config = {
         headers: {

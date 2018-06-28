@@ -19,7 +19,7 @@
           <el-button class="button" @click="login('ruleForm')">SIGN IN</el-button>
         </el-form-item>
         <el-form-item>
-          <div class="bottom"><span>Forgot Password</span>  |  <span @click="goRegister">Register</span></div>
+          <div class="bottom">  <router-link to="/foo">Forgot Password</router-link> |  <span @click="goRegister">Register</span></div>
         </el-form-item>
       </el-form>
     </div>

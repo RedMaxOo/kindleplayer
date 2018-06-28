@@ -127,7 +127,7 @@
       },
       register(formName){
         this.$refs[formName].validate((valid) => {
-          if (valid) {  
+          if (valid) {
             this.$http.post('api/open/user/regUser',this.ruleForm,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
