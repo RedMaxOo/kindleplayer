@@ -11,7 +11,9 @@
           <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
         </el-form-item>
         <el-form-item prop="pwd2">
+          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
           <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
+          </el-tooltip>
         </el-form-item>
         <el-form-item prop="email">
           <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
@@ -46,9 +48,6 @@
           callback(new Error('请输入正确的11位手机号码'))
         }
         else {
-//        if (!(/^\d+$/.test(value))) {
-//            callback(new Error('请输入正整数'))
-//        }
           callback()
         }
       }
@@ -62,7 +61,7 @@
           }
           callback();
         }
-      };
+      }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请确认密码'));
@@ -70,6 +69,16 @@
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback();
+        }
+      }
+      var validateEmail = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('邮箱不能为空'))
+        }else  if (!this.isvalidEmail(value)){
+          callback(new Error('请输入正确的邮箱，以便您激活账号'))
+        }
+        else {
+          callback()
         }
       }
       return {
@@ -97,7 +106,7 @@
             { validator:validatePass2, trigger: 'blur' },
           ],
           email: [
-            { required: true, message: '请输入邮箱', trigger: 'blur' },
+            { validator: validateEmail, trigger: 'blur' },
           ],
           mobile: [
             { validator:validateNumber, trigger: 'blur' },
@@ -110,6 +119,10 @@
     methods: {
       isvalidPhone(str) {
         const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+        return reg.test(str)
+      },
+      isvalidEmail(str) {
+        const reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
         return reg.test(str)
       },
       register(formName){
