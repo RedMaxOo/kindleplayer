@@ -7,6 +7,7 @@ import Login from '@/view/my/login'
 import Register from '@/view/my/register'
 import RegisterSuccess from '@/view/my/regsuccess'
 import Retrieve from '@/view/my/retrieve'
+import Reset from '@/view/my/reset'
 import BannerEdit from '@/view/edit/index'
 import ActiveUser from '@/view/my/active-user'
 
@@ -42,6 +43,11 @@ export default new Router({
           path: '/retrieve',
           name: 'retrieve',
           component: Retrieve
+        },
+        {
+          path: '/reset',
+          name: 'reset',
+          component: Reset
         },
         {
           path: '/banner-edit',

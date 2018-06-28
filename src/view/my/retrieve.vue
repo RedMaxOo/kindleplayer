@@ -5,13 +5,15 @@
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="Username"></el-input>
+          <el-input v-model="ruleForm.username" placeholder="When registered name" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
-        <el-form-item prop="pwd1">
-          <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
+        <el-form-item prop="useremail">
+          <el-input  v-model="ruleForm.useremail" placeholder="When registered mail" prefix-icon="icon-email-small"></el-input>
         </el-form-item>
-        <el-form-item prop="pwd2">
-          <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
+        <el-form-item prop="code">
+          <el-input type="password" v-model="ruleForm.code" placeholder="Verification code" prefix-icon="el-icon-code">
+            <template slot="append"><div class="codemsg">{{codeMsg}}</div></template>
+          </el-input>
         </el-form-item>
         <el-form-item v-show="isShowBtn">
           <el-button class="button" @click="submit('ruleForm')">SUBMIT</el-button>
@@ -22,51 +24,49 @@
 </template>
 <script>
 export default {
-  name:"register",
+  name: 'retrieve',
   data () {
-    var validateNumber = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('电话不能为空'))
-      }
-      if (!(/^\d+$/.test(value))) {
-        callback(new Error('请输入正整数'))
-      }
-      callback()
-    }
-    var validatePass = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入密码'))
-      }
-      else {
-        if (this.ruleForm.pwd !== '') {
-          this.$refs.ruleForm.validateField('pwd')
-        }
-        callback()
-      }
-    }
     return {
+      codeMsg: '',
       ruleForm: {
-        pwd: '',
-        email: '',
+        username: '',
+        useremail: '',
         code: ''
       },
       rules: {
-        pwd: [
-          { validator:validatePass, trigger: 'blur' },
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
-        email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
+        useremail: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '请输入校验码', trigger: 'blur' }
         ]
       },
-      isShowBtn:true,
-      formDisabled:false
+      isShowBtn: true,
+      formDisabled: false
     }
   },
   methods: {
+    createCode () {
+      var code = ''
+      var codeLength = 4
+      var selectChar = new Array(1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
+      for (var i = 0; i < codeLength; i++) {
+        var charIndex = Math.floor(Math.random() * 34)
+        code += selectChar[charIndex]
+      }
+      if (code.length !== codeLength) {
+        this.createCode()
+      }
+      this.codeMsg = code
+    },
     submit (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$http.post('api/open/user/regUser',this.ruleForm,{transformRequest: [ data => {
+          debugger
+          this.$http.post('api/open/user/sendMail', this.ruleForm, {transformRequest: [ data => {
             data = this.qs.stringify(data);
             return data;
             }]},{
@@ -83,7 +83,7 @@ export default {
         }
       });
     },
-    getUserInfo(){
+    getUrl(){
       var token = sessionStorage.getItem('token')
       this.$http.get('api/api/user/getUser',{headers: {
           'Authorization': token
@@ -98,7 +98,8 @@ export default {
       })
     }
   },
-  mounted(){
+  mounted () {
+    this.createCode()
     this.getUserInfo()
   }
 }
@@ -144,6 +145,21 @@ export default {
       font-family: Avenir-Heavy;
       font-size: 18px;
       color: #FFFFFF;
+    }
+    .el-input-group__append{
+      right: 0;
+      padding: 0 0 0 20px;
+      .codemsg{
+        border: 1px solid #DDE3E8;
+        border-radius: 4px;
+        height: 40px;
+        line-height: 40px;
+        width: 100px;
+        box-sizing: border-box;
+        padding: 0 10px;
+        letter-spacing: 7px;
+        text-align: center;
+      }
     }
   }
 </style>
