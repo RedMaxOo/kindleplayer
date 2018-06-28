@@ -9,6 +9,7 @@ import RegisterSuccess from '@/view/my/regsuccess'
 import Retrieve from '@/view/my/retrieve'
 import Reset from '@/view/my/reset'
 import BannerEdit from '@/view/edit/index'
+import Case from '@/view/case/case'
 import ActiveUser from '@/view/my/active-user'
 
 Vue.use(Router)
@@ -59,6 +60,11 @@ export default new Router({
           name: 'activeuser',
           component: ActiveUser
         },
+        {
+          path: '/case',
+          name: 'case',
+          component: Case
+        }
       ]
     },
     {
