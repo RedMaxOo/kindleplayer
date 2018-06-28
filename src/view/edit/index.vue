@@ -3,10 +3,10 @@
     <div class="main-title">{{$t('m.music')}}</div>
     <el-row class="list-tit" type="flex" justify="end">
       <el-col :span="11">
-        <el-button type="text" icon="icon-img">IMAGES</el-button>
+        <el-button type="text" icon="icon-img">URL</el-button>
       </el-col>
       <el-col :span="11">
-        <el-button type="text" icon="icon-url">URL</el-button>
+        <el-button type="text" icon="icon-url">IMAGES</el-button>
       </el-col>
     </el-row>
     <el-row class="edit-list" v-for="(item,index) in editList" :key="index"  type="flex" justify="end">
@@ -32,12 +32,12 @@
     <!--添加 提交-->
     <el-row class="edit-list" type="flex" justify="end">
       <el-col :span="3" style="text-indent: -999px">j</el-col>
-      <el-col :span="11">
+      <el-col :span="16">
         <el-button class="editBtn addbtn" icon="icon-add" @click="addList"></el-button>
       </el-col>
-      <el-col :span="11">
+      <!--<el-col :span="11">
         <el-button class="editBtn submit" type="primiry" @click="submitUpload">SUBMIT</el-button>
-      </el-col>
+      </el-col>-->
     </el-row>
   </div>
 </template>
@@ -144,9 +144,6 @@ export default {
     },
     beforeRemove (file, fileList) {
       return this.$confirm(`确定移除${file.name}？`)
-    },
-    submitUpload () {
-
     }
   }
 }

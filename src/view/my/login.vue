@@ -13,7 +13,9 @@
           <el-input type="password" v-model="ruleForm.password" placeholder="Password" prefix-icon="el-icon-pwd"></el-input>
         </el-form-item>
         <el-form-item prop="code">
-          <el-input v-model="ruleForm.code" placeholder="Code" prefix-icon="el-icon-code"></el-input>
+          <el-input v-model="ruleForm.code" placeholder="Verification Code" prefix-icon="el-icon-code">
+            <template slot="append"><div class="codemsg">{{codeMsg}}</div></template>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button class="button" @click="login('ruleForm')">SIGN IN</el-button>
@@ -33,6 +35,16 @@
   export default {
     name:"login",
     data () {
+      var validateCode = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入验证码'))
+        }else  if (this.ruleForm.code.toLowerCase() !== this.codeMsg.toLowerCase()) {
+          callback(new Error('请输入正确的验证码'))
+        }
+        else {
+          callback()
+        }
+      }
       return {
         ruleForm: {},
         rules: {
@@ -43,9 +55,10 @@
             { required: true, message: '请输入密码', trigger: 'blur' },
           ],
           code: [
-//            { required: true, message: '请输入验证码', trigger: 'blur' },
+            {validator: validateCode, trigger: 'blur' } 
           ]
-        }
+        },
+        codeMsg:''
       }
     },
     methods: {
@@ -82,8 +95,24 @@
       },
       goRegister(){
         this.$router.push({path:'/register'})
+      },
+      createCode () {
+        var code = ''
+        var codeLength = 4
+        var selectChar = new Array(1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
+        for (var i = 0; i < codeLength; i++) {
+          var charIndex = Math.floor(Math.random() * 34)
+          code += selectChar[charIndex]
+        }
+        if (code.length !== codeLength) {
+          this.createCode()
+        }
+        this.codeMsg = code
       }
-    }
+    },
+     mounted () {
+       this.createCode()
+     }
   }
 </script>
 <style lang="less">
@@ -176,6 +205,21 @@
       /*height: 200px;*/
       margin-left:auto;
       margin-right:auto;
+    }
+    .el-input-group__append{
+      right: 0;
+      padding: 0 0 0 20px;
+      .codemsg{
+        border: 1px solid #DDE3E8;
+        border-radius: 4px;
+        height: 40px;
+        line-height: 40px;
+        width: 100px;
+        box-sizing: border-box;
+        padding: 0 10px;
+        letter-spacing: 7px;
+        text-align: center;
+      }
     }
   }
 </style>
