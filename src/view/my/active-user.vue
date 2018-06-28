@@ -1,13 +1,13 @@
 <template>
   <div class="register-layout">
-    <div class="title">CREATE YOUR ACCOUNT</div>
+    <div class="title">ACTIVE ACCOUNT</div>
     <div class="imgbox" v-show="regsuccess">
       <img src="../../assets/icons/success.png" width="70" height="70">
     </div>
     <div class="text1" v-show="regsuccess">User Active Successfully!</div>
-    <div class="imgbox" v-show="regfail">
+    <!--<div class="imgbox" v-show="regfail">
       <img src="../../assets/icons/success.png" width="70" height="70">
-    </div>
+    </div>-->
     <div class="text1" v-show="regfail">User Active Fail!</div>
   </div>
 </template>
@@ -28,8 +28,16 @@
         }
         this.$http.post('api/open/user/activeUser',{params}).then(res=>{
           if(res.status === 200) {
-            debugger
-            this.regsuccess = true
+            if(res.data.code === "9999"){
+              this.regfail = true
+                this.$message({
+                   message: 'active error', //res.data.message,
+                    type: 'error'
+                })
+            }
+            else{
+              this.regsuccess = true
+            }
           }
         })
       }

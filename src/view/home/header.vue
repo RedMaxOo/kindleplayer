@@ -10,9 +10,9 @@
                   {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><span @click="toInfo">Infomation</span></el-dropdown-item>
-                  <el-dropdown-item v-show="admin"><span @click="toBanner">Banner</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="logout">Logout</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toInfo">INFORMATION</span></el-dropdown-item>
+                  <el-dropdown-item v-show="admin"><span @click="toBanner">BANNER</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="logout">LOGOUT</span></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </span>
@@ -77,7 +77,7 @@ export default {
       this.emailDialog = true
     },
     toInfo(){
-      this.$router.push({path:'/register'})
+      this.$router.push({path:'/myinfo'})
     },
     toBanner(){
       this.$router.push({path:'/banner-edit'})
@@ -85,6 +85,7 @@ export default {
     logout(){
       sessionStorage.removeItem('username')
       sessionStorage.removeItem('token')
+      sessionStorage.removeItem('admin')
       this.$router.push({path:'/'})
       window.location.reload()
     },
@@ -103,18 +104,34 @@ export default {
         }
       });
     },
-    isAdmin(){
-      var admin = sessionStorage.getItem('admin')
-      if(admin){
-        this.admin = true
+    getUserInfo(){
+      var token = sessionStorage.getItem('token')
+      if(token) {
+        this.$http.get('api/api/user/getUser', {
+          headers: {
+            'Authorization': token
+          }
+        }).then(res => {
+          if (res.status === 200) {
+            if (res.data.result) {
+              this.username = res.data.result.user_nm
+              var role = res.data.result.role
+              var isAdmin = (role && role === 'ROLE_ADMIN')
+              if(isAdmin) {
+                this.admin = true
+                this.isLogin = true
+                sessionStorage.setItem('admin', isAdmin)
+              }
+            }
+          }
+        })
       }
     }
   },
   mounted(){
-    this.isAdmin()
+    this.getUserInfo()
     var user = sessionStorage.getItem('username')
     if(user){
-      this.username = user
       this.isLogin = true
     }
   }

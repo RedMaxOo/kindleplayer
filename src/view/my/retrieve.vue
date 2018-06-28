@@ -1,6 +1,6 @@
 <template>
   <div class="register-layout">
-    <div class="title">CREATE YOUR ACCOUNT</div>
+    <div class="title">RETRIEVE PASSWORD</div>
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">

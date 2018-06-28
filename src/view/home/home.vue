@@ -144,26 +144,6 @@
         this.$router.push({path: '/search', query: {albumCode: code}})
       }
     },
-    getUserInfo(){
-      var token = sessionStorage.getItem('token')
-      if(token) {
-        this.$http.get('api/api/user/getUser', {
-          headers: {
-            'Authorization': token
-          }
-        }).then(res => {
-          if (res.status === 200) {
-            if (res.data.result) {
-              var role = res.data.result.role
-              var isAdmin = (role && role === 'ROLE_ADMIN')
-              if(isAdmin) {
-                sessionStorage.setItem('admin', isAdmin)
-              }
-            }
-          }
-        })
-      }
-    },
     //video.js
     onPlayerPlay(player) {
       // console.log('player play!', player)
@@ -205,7 +185,6 @@
     }
   },
   mounted(){
-    this.getUserInfo()
     this.getBanner()
     this.getAlbums()
   }

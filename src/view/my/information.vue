@@ -1,29 +1,19 @@
 <template>
-  <div class="register-layout">
-    <div class="title">CREATE YOUR ACCOUNT</div>
-    <div class="reg-form">
+  <div class="info-layout">
+    <div class="title">PERSONAL INFORMATION</div>
+    <div class="info-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
         <el-form-item prop="userID">
-          <el-tooltip class="item" effect="dark" content="Username由数字和字母组成" placement="right">
+          <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
             <el-input v-model="ruleForm.userID" placeholder="User name"></el-input>
-          </el-tooltip>
-        </el-form-item>
-        <el-form-item prop="pwd1">
-          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
-          </el-tooltip>
-        </el-form-item>
-        <el-form-item prop="pwd2">
-          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="email">
           <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
         </el-form-item>
         <el-form-item prop="username">
-          <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
+          <el-tooltip class="item" effect="dark" content="Username由数字和字母组成" placement="right">
             <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
           </el-tooltip>
         </el-form-item>
@@ -45,7 +35,7 @@
 </template>
 <script>
   export default {
-    name:"register",
+    name:"myinfo",
     data () {
       var validateNumber = (rule, value, callback) => {
         if (!value) {
@@ -87,23 +77,11 @@
           callback()
         }
       }
-      var validateUser = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('UserID/Username不能为空'))
-        }else  if (!this.isvalidUser(value)){
-          callback(new Error('UserID/Username必须是数字和字母的组合'))
-        }
-        else {
-          callback()
-        }
-      }
       return {
         title:'',
         ruleForm: {
           userID:'',
           username:"",
-          pwd1:"",
-          pwd2:"",
           email:"",
           mobile:"",
           company:"",
@@ -111,10 +89,10 @@
         },
         rules: {
           userID: [
-            { validator:validateUser, trigger: 'blur' },
+            { required: true, message: '请输入姓名', trigger: 'blur' },
           ],
           username: [
-            { validator:validateUser, trigger: 'blur' },
+            { required: true, message: '请输入ID', trigger: 'blur' },
           ],
           pwd1: [
             { validator:validatePass, trigger: 'blur' },
@@ -132,10 +110,6 @@
       }
     },
     methods: {
-      isvalidUser(str){
-        const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,20}$/
-        return reg.test(str)
-      },
       isvalidPhone(str) {
         const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
         return reg.test(str)
@@ -170,14 +144,38 @@
             return false;
           }
         });
+      },
+      getUserInfo(){
+        var token = sessionStorage.getItem('token')
+        this.$http.get('api/api/user/getUser',{headers: {
+          'Authorization': token
+        }}).then(res=>{
+          if(res.status === 200) {
+            if(res.data.code === '1111'){
+                this.$message({
+                   message: res.data.message,
+                    type: 'error',
+                    duration:'5000'
+                })
+            }
+            else{
+                if(res.data) {
+                    this.ruleForm = res.data.result
+                    this.ruleForm.userID = res.data.result.user_id
+                    this.ruleForm.username = res.data.result.user_nm
+                }
+            }
+          }
+        })
       }
     },
     mounted(){
+      this.getUserInfo()
     }
   }
 </script>
 <style lang="less">
-  .register-layout{
+  .info-layout{
     width:1098px;
     margin:auto;
     height: 100%;
@@ -197,8 +195,8 @@
       text-shadow: 0 2px 4px rgba(108,108,108,0.50);
     }
   }
-  .reg-form {
-    margin:0;
+  .info-form {
+      margin:0;
     .el-form-item{
       margin-bottom:0px;
     }

@@ -10,6 +10,7 @@ import Retrieve from '@/view/my/retrieve'
 import Reset from '@/view/my/reset'
 import BannerEdit from '@/view/edit/index'
 import ActiveUser from '@/view/my/active-user'
+import Myinfo from '@/view/my/information'
 
 Vue.use(Router)
 export default new Router({
@@ -58,6 +59,11 @@ export default new Router({
           path: '/active-user',
           name: 'activeuser',
           component: ActiveUser
+        },
+        {
+          path: '/myinfo',
+          name: 'myinfo',
+          component: Myinfo
         },
       ]
     },
