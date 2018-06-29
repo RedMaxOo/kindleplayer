@@ -5,7 +5,7 @@
       title="LICENCE INQUIRY"
       :visible.sync="dialogVisible"
       width="33%">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="208px" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
         <el-form-item label="name" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>

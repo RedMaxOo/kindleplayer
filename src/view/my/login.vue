@@ -65,7 +65,11 @@
       login(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post('api/login', this.ruleForm, {transformRequest: [ data => {
+            let  params = {
+              username:this.ruleForm.username,
+              password:this.ruleForm.password
+            }
+            this.$http.post('api/login', params, {transformRequest: [ data => {
               data = this.qs.stringify(data)
               return data
             }]},{

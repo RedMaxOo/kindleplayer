@@ -94,7 +94,7 @@
     popup(index) {
       this.isShowVideo = true
       this.playerOptions.sources[0].src = this.videoSource[index]
-//      this.playerOptions.poster = this.videoPoster[index]
+      // this.playerOptions.poster = this.videoPoster[index]
     },
     hideModal(){
 //      this.playerOptions.sources[0].src = ""
@@ -108,7 +108,7 @@
           let posters = data.map(item => item.img_path)
           let videos = data.map(item => item.video_path)
           this.videoSource = videos
-          //this.videoPoster = posters
+          this.videoPoster = posters
           console.log(posters)
           console.log(videos)
         }

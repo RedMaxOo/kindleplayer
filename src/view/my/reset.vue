@@ -5,7 +5,7 @@
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
         <el-form-item prop="username">
-          <el-input type="password" v-model="ruleForm.pwd1" placeholder="password" prefix-icon="el-icon-pwd"></el-input>
+          <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" prefix-icon="el-icon-pwd"></el-input>
         </el-form-item>
         <el-form-item prop="useremail">
           <el-input  type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password" prefix-icon="el-icon-pwd"></el-input>

@@ -23,20 +23,18 @@
     methods:{
       checkRegister(){
         let token = this.$route.query.t || ''
-        let params = {
-          token:JSON.stringify(token)
-        }
-        this.$http.post('api/open/user/activeUser',{params}).then(res=>{
+        this.$http.post('api/open/user/activeUser?t='+token).then(res=>{
           if(res.status === 200) {
-            if(res.data.code === "9999"){
-              this.regfail = true
-                this.$message({
-                   message: 'active error', //res.data.message,
-                    type: 'error'
-                })
+            if(res.data.result == 'Y'){
+              this.regsuccess = true
             }
             else{
-              this.regsuccess = true
+              this.regfail = true
+                this.$message({
+                   message: res.data.message,
+                  type: 'error',
+                  duration:'5000'
+                })
             }
           }
         })

@@ -5,10 +5,10 @@
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="When registered name" prefix-icon="el-icon-user"></el-input>
+          <el-input v-model="ruleForm.username" placeholder="Your registered name" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <el-form-item prop="useremail">
-          <el-input  v-model="ruleForm.useremail" placeholder="When registered mail" prefix-icon="icon-email-small"></el-input>
+          <el-input  v-model="ruleForm.useremail" placeholder="Your registered email" prefix-icon="icon-email-small"></el-input>
         </el-form-item>
         <el-form-item prop="code">
           <el-input type="password" v-model="ruleForm.code" placeholder="Verification code" prefix-icon="el-icon-code">

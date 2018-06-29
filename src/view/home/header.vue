@@ -18,6 +18,7 @@
             </span>
           </li>
           <li><span @click="jumpToHome">HOME</span></li>
+          <li><span @click="jumpToCase">CASE</span></li>
           <li><span @click="showPower">COPYRIGHT</span></li>
           <li><span @click="showConect">CONNECT</span></li>
           <li><span @click="changeLangEvent">EN/CN</span></li>
@@ -60,6 +61,9 @@ export default {
     },
     jumpToHome(){
       this.$router.push({path:'/'})
+    },
+    jumpToCase(){
+      this.$router.push({path:'/case'})
     },
     showPower () {
       this.$refs.dialog.dialogVisible = true
