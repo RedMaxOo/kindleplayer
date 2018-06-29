@@ -4,13 +4,17 @@
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
-        <el-form-item prop="username">
-          <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" prefix-icon="el-icon-pwd"></el-input>
+        <el-form-item prop="pwd1">
+          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
+            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
+          </el-tooltip>
         </el-form-item>
-        <el-form-item prop="useremail">
-          <el-input  type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password" prefix-icon="el-icon-pwd"></el-input>
+        <el-form-item prop="pwd2">
+          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
+            <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
+          </el-tooltip>
         </el-form-item>
-        <el-form-item v-show="isShowBtn">
+        <el-form-item>
           <el-button class="button" @click="submit('ruleForm')">SUBMIT</el-button>
         </el-form-item>
       </el-form>
@@ -24,44 +28,30 @@
       return {
         codeMsg: '',
         ruleForm: {
-          username: '',
-          useremail: '',
+          pw1: '',
+          pw2: '',
           code: ''
         },
         rules: {
-          username: [
-            { required: true, message: '请输入用户名', trigger: 'blur' }
+          pwd1: [
+            { required: true, message: '请输入旧密码', trigger: 'blur' }
           ],
-          useremail: [
-            { required: true, message: '请输入邮箱', trigger: 'blur' }
-          ],
-          code: [
-            { required: true, message: '请输入校验码', trigger: 'blur' }
+          pwd2: [
+            { required: true, message: '请输入新密码', trigger: 'blur' }
           ]
-        },
-        isShowBtn: true,
-        formDisabled: false
+        }
       }
     },
     methods: {
-      createCode () {
-        var code = ''
-        var codeLength = 4
-        var selectChar = new Array(1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
-        for (var i = 0; i < codeLength; i++) {
-          var charIndex = Math.floor(Math.random() * 34)
-          code += selectChar[charIndex]
-        }
-        if (code.length !== codeLength) {
-          this.createCode()
-        }
-        this.codeMsg = code
-      },
       submit (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            debugger
-            this.$http.post('api/open/user/sendMail', this.ruleForm, {transformRequest: [ data => {
+            let params ={
+              token : this.$route.query.t,
+              pw1:this.ruleForm.pwd1,
+              pw2:this.ruleForm.pdw2
+            }
+            this.$http.post(this.baseUrl + 'open/user/resetPW', params, {transformRequest: [ data => {
                 data = this.qs.stringify(data);
                 return data;
               }]},{
@@ -77,25 +67,9 @@
             return false;
           }
         });
-      },
-      getUrl(){
-        var token = sessionStorage.getItem('token')
-        this.$http.get('api/api/user/getUser',{headers: {
-            'Authorization': token
-          }}).then(res=>{
-          if(res.status === 200) {
-            if(res.data) {
-              this.ruleForm = res.data.result
-              this.isShowBtn = false
-              this.formDisabled = true
-            }
-          }
-        })
       }
     },
     mounted () {
-      this.createCode()
-      this.getUserInfo()
     }
   }
 </script>

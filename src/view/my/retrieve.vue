@@ -81,7 +81,7 @@ export default {
 
         if (valid) {
           debugger
-          this.$http.post('api/open/user/sendMail', params, {transformRequest: [ data => {
+          this.$http.post(this.baseUrl + 'open/user/sendMail', params, {transformRequest: [ data => {
             data = this.qs.stringify(data);
             return data;
           }]},{

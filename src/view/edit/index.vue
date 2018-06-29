@@ -122,7 +122,7 @@ export default {
           'Authorization': token
         }
       }
-      this.$http.post('api/api/file/banner', fd, config).then(res => {
+      this.$http.post(this.baseUrl + 'api/file/banner', fd, config).then(res => {
         if (res.status === 200) {
           this.listData = res.data.result
           // console.log(this.listData)

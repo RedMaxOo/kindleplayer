@@ -66,7 +66,7 @@
     return {
       centerDialogVisible: true,
       isShowVideo: false,
-      videoPoster: ['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528041454300&di=ddc102fa8a65769f76694565a542169f&imgtype=0&src=http%3A%2F%2Fdl.zhuansoo.com%2FuserHead%2F8%2F9%2F3%2F89344e0c0f065d6ddb4defd5c312e0fc.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529352273000&di=630545ceadb022627fc64fa6beadab4d&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F018b1255437b400000019ae9238ea6.jpg'],
+      videoPoster: [],
       videoSource: [],
       searchValue: '',
       albums:[],
@@ -78,7 +78,7 @@
         language: 'en',
         sources: [{
           type: "video/mp4",
-          src: "http://vjs.zencdn.net/v/oceans.mp4"
+          src: ""
         }],
         poster: "",
       },
@@ -102,7 +102,9 @@
       this.isShowVideo = false
     },
     getBanner(){
-      this.$http.get('api/open/hp/banner').then(res=>{
+      console.log(this.baseUrl)
+      debugger
+      this.$http.get(this.baseUrl + 'open/hp/banner').then(res=>{
         if(res.status === 200) {
           let data = res.data.result
           let posters = data.map(item => item.img_path)
@@ -115,7 +117,7 @@
       })
     },
     getAlbums(){
-      this.$http.get('api/open/album/all').then(res => {
+      this.$http.get(this.baseUrl + 'open/album/all').then(res => {
         if(res.status === 200) {
           this.albumList = res.data.result
           let albums = this.albumList.map(item => item.album_cover)

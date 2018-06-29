@@ -43,9 +43,20 @@ export default {
     }
   },
   methods: {
+    getCases(){
+      debugger
+       var token = sessionStorage.getItem('token')
+        this.$http.post(this.baseUrl + 'open/hp/examples',{headers: {
+          'Authorization': token
+        }}).then(res=>{
+          if(res.status === 200) {
+            debugger
+          }
+        })
+     }
   },
   mounted () {
-
+    this.getCases()
   }
 }
 </script>

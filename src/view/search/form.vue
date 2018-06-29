@@ -170,7 +170,7 @@ export default {
             territory: this.ruleForm.territory,
             additional_info: this.ruleForm.textarea
           }
-          this.$http.get('api/open/meta/cr', params).then(res => {
+          this.$http.get(this.baseUrl + 'open/meta/cr', params).then(res => {
             if (res.status === 200) {
               this.listData = res.data.result
               // console.log(this.listData)

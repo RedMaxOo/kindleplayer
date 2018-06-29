@@ -11,6 +11,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><span @click="toInfo">INFORMATION</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toPassword">RESET PASSWORD</span></el-dropdown-item>
                   <el-dropdown-item v-show="admin"><span @click="toBanner">BANNER</span></el-dropdown-item>
                   <el-dropdown-item><span @click="logout">LOGOUT</span></el-dropdown-item>
                 </el-dropdown-menu>
@@ -65,6 +66,9 @@ export default {
     jumpToCase(){
       this.$router.push({path:'/case'})
     },
+    toPassword(){
+      this.$router.push({path:'/reset'})
+    },
     showPower () {
       this.$refs.dialog.dialogVisible = true
       this.forminfor = {
@@ -111,7 +115,7 @@ export default {
     getUserInfo(){
       var token = sessionStorage.getItem('token')
       if(token) {
-        this.$http.get('api/api/user/getUser', {
+        this.$http.get(this.baseUrl + 'api/user/getUser', {
           headers: {
             'Authorization': token
           }

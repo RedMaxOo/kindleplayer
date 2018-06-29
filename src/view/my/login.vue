@@ -69,7 +69,8 @@
               username:this.ruleForm.username,
               password:this.ruleForm.password
             }
-            this.$http.post('api/login', params, {transformRequest: [ data => {
+            //this.baseUrl + 
+            this.$http.post('http://sunday2.greatcoding.cn/km/login', params, {transformRequest: [ data => {
               data = this.qs.stringify(data)
               return data
             }]},{
@@ -79,15 +80,14 @@
             }).then(res=>{
               if(res.status === 200) {
                 if(res.data.code === '0000') {
-                  sessionStorage.setItem('username',this.ruleForm.username)
+                  // sessionStorage.setItem('username',this.ruleForm.username)
                   sessionStorage.setItem('token',res.data.result)
                   this.$router.push({path:'/'})
                 }
                 else if(res.data.code === 'LG1111'){
                   this.$message({
                     message: res.data.message,
-                    type: 'error',
-                    duration: '5000'
+                    type: 'error'
                   })
                 }
               }

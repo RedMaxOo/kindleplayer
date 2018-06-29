@@ -62,7 +62,7 @@
               <img :src="albumInfor.album_cover" alt="">
               <div class="mian-cnct">
                 <h3 class="cnct-tit">{{albumInfor.album_display_title}}</h3>
-                <p class="cnct-des"></p>
+                <p class="cnct-des">{{albumInfor.album_des}}</p>
               </div>
             </div>
             <div class="mainbox">
@@ -214,7 +214,7 @@ export default {
       }
       this.musicLists = []
       this.trackList = []
-      this.$http.get('api/open/hp/search', {params}).then(res => {
+      this.$http.get(this.baseUrl + 'open/hp/search', {params}).then(res => {
         if (res.status === 200) {
           let data = res.data.result
           this.showTotleNum = data.length
@@ -223,7 +223,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: mp[i], //'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
+              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3', //mp[i],
               img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })
@@ -238,9 +238,10 @@ export default {
         albumCode: val
       }
       this.musicLists = []
-      this.$http.get('api/open/hp/metas', {params}).then(res => {
+      this.$http.get(this.baseUrl + 'open/hp/metas', {params}).then(res => {
         if (res.status === 200) {
           this.albumInfor = res.data.result.album
+          this.albumInfor.album_des = res.data.result.tracks[0].album_description || ''
           let data = res.data.result.tracks
           this.showTotleNum = data.length
           for (var i = 0; i < this.showTotleNum; i++) {
@@ -260,7 +261,7 @@ export default {
     },
     getStyles () {
       this.listData = []
-      this.$http.get('api/open/hp/styles').then(res => {
+      this.$http.get(this.baseUrl + 'open/hp/styles').then(res => {
         if (res.status === 200) {
           this.listData = res.data.result
           // console.log(this.listData)
@@ -268,7 +269,7 @@ export default {
       })
     },
     getLibary () {
-      this.$http.get('api/open/hp/libraries').then(res => {
+      this.$http.get(this.baseUrl + 'open/hp/libraries').then(res => {
         if (res.status === 200) {
           this.listData = res.data.result
           // console.log(this.listData)
@@ -282,7 +283,7 @@ export default {
         params = {
           style: value
         }
-        this.$http.get('api/open/hp/albumsByStyle', {params}).then(res => {
+        this.$http.get(this.baseUrl + 'open/hp/albumsByStyle', {params}).then(res => {
           if (res.status === 200) {
             this.listSubData = res.data.result
           }
@@ -292,7 +293,7 @@ export default {
         params = {
           lib: value
         }
-        this.$http.get('api/open/hp/albumsByLib', {params}).then(res => {
+        this.$http.get(this.baseUrl + 'open/hp/albumsByLib', {params}).then(res => {
           if (res.status === 200) {
             this.listSubData = res.data.result
           }

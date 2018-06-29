@@ -61,6 +61,9 @@
         if (!value) {
           callback(new Error('请输入密码'));
         }
+        else if(!this.isvalidPwd(value)){
+          callback(new Error('密码是6-12位数字和字母的组合'))
+        }
         else {
           if (this.ruleForm.pwd2 !== '') {
             this.$refs.ruleForm.validateField('pwd2')
@@ -71,7 +74,10 @@
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请确认密码'));
-        } else if (value !== this.ruleForm.pwd1) {
+        } 
+        else if(!this.isvalidPwd(value)){
+          callback(new Error('密码是6-12位数字和字母的组合'))
+        }else if (value !== this.ruleForm.pwd1) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback();
@@ -133,7 +139,12 @@
     },
     methods: {
       isvalidUser(str){
-        const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,20}$/
+        const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
+        return reg.test(str)
+      },
+      isvalidPwd(str){
+        debugger
+        const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,12}$/
         return reg.test(str)
       },
       isvalidPhone(str) {
@@ -147,7 +158,7 @@
       register(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post('api/open/user/regUser',this.ruleForm,{transformRequest: [ data => {
+            this.$http.post(this.baseUrl + 'open/user/regUser',this.ruleForm,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
             }]},{
@@ -161,8 +172,7 @@
               else{
                 this.$message({
                    message: res.data.message,
-                    type: 'error',
-                    duration:'5000'
+                    type: 'error'
                 })
               }
             })

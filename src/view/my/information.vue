@@ -121,7 +121,7 @@
       register(formName){
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post('api/open/user/regUser',this.ruleForm,{transformRequest: [ data => {
+            this.$http.post(this.baseUrl + 'open/user/regUser',this.ruleForm,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
             }]},{
@@ -135,8 +135,7 @@
               else{
                 this.$message({
                    message: res.data.message,
-                    type: 'error',
-                    duration:'5000'
+                    type: 'error'
                 })
               }
             })
@@ -147,15 +146,14 @@
       },
       getUserInfo(){
         var token = sessionStorage.getItem('token')
-        this.$http.get('api/api/user/getUser',{headers: {
+        this.$http.get(this.baseUrl + 'api/user/getUser',{headers: {
           'Authorization': token
         }}).then(res=>{
           if(res.status === 200) {
             if(res.data.code === '1111'){
                 this.$message({
                    message: res.data.message,
-                    type: 'error',
-                    duration:'5000'
+                    type: 'error'
                 })
             }
             else{
