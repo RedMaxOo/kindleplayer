@@ -205,4 +205,7 @@ export default {
       background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
     }
   }
+  .el-tooltip__popper{
+    width: 200px;
+  }
 </style>

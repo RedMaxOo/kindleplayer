@@ -27,7 +27,7 @@
                 <div class="list-cell">
                   <div class="list-cell-hd">
                     <div class="list-hd-mid">{{item[itemName]}}</div>
-                    <i class="icon-list" @click.stop="showAlbum(item[itemName])"></i>
+                    <i class="icon-list" @click.stop="showAlbum(index, item)"></i>
                   </div>
                 </div>
               </template>
@@ -51,7 +51,7 @@
         <div class="main-wrapper" :style="{height: mainHeight + 'px'}">
           <!--专辑列表-->
           <div class="album-list" v-if="!showSingList">
-            <div class="list-item" v-for="(item, index) in listSubData" :key="index">
+            <div class="list-item" v-for="(item, index) in listSubData" :key="index" @click="showAlbumDetail(item)">
               <img :src="item.album_cover" alt="">
               <div class="list-item-tit">{{item.album_display_title}}</div>
             </div>
@@ -108,12 +108,6 @@
 <script>
 import DialogForm from './form.vue'
 import Aplayer from '@/components/player/play.vue'
-import a from '../../assets/music/wet.mp3'
-import b from '../../assets/music/aaa.mp3'
-import c from '../../assets/music/bbb.mp3'
-import d from '../../assets/music/ccc.mp3'
-import e from '../../assets/music/ddd.mp3'
-let mp = [a,b,c,d,e]
 export default {
   components: {Aplayer, DialogForm},
   data () {
@@ -178,7 +172,9 @@ export default {
     },
     handleTabClick (tab) { // tab切换操作
       this.index = ''
+      this.sidelistctive = ''
       this.listData = []
+      this.listSubData = []
       if (tab.name === '2') {
         this.getLibary()
         this.itemName = 'library'
@@ -187,8 +183,8 @@ export default {
         this.itemName = 'style'
       }
     },
-    showAlbum () { // collaps
-      this.handleCollapseChange()
+    showAlbum (val) { // collaps
+      this.handleCollapseChange(val)
     },
     handleCollapseChange (val) { // collapse 下拉操作
       this.showSingList = false

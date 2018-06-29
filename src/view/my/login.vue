@@ -55,7 +55,7 @@
             { required: true, message: '请输入密码', trigger: 'blur' },
           ],
           code: [
-            {validator: validateCode, trigger: 'blur' } 
+            {validator: validateCode, trigger: 'blur' }
           ]
         },
         codeMsg:''
@@ -69,7 +69,7 @@
               username:this.ruleForm.username,
               password:this.ruleForm.password
             }
-            //this.baseUrl + 
+            //this.baseUrl +
             this.$http.post('http://sunday2.greatcoding.cn/km/login', params, {transformRequest: [ data => {
               data = this.qs.stringify(data)
               return data

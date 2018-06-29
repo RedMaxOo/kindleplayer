@@ -16,7 +16,7 @@ import Case from '@/view/case/case'
 Vue.use(Router)
 export default new Router({
   mode: 'history',
-  base:'km',
+  base: 'km',
   routes: [
     {
       path: '/',
