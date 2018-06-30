@@ -49,7 +49,7 @@
             let params ={
               token : this.$route.query.t,
               pw1:this.ruleForm.pwd1,
-              pw2:this.ruleForm.pdw2
+              pw2:this.ruleForm.pwd2
             }
             this.$http.post(this.baseUrl + 'open/user/resetPW', params, {transformRequest: [ data => {
                 data = this.qs.stringify(data);

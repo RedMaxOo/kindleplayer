@@ -44,10 +44,7 @@ export default {
   },
   methods: {
     getCases(){
-       var token = sessionStorage.getItem('token')
-        this.$http.post(this.baseUrl + 'open/hp/examples',{headers: {
-          'Authorization': token
-        }}).then(res=>{
+        this.$http.post(this.baseUrl + 'open/hp/examples').then(res=>{
           if(res.status === 200) {
           }
         })

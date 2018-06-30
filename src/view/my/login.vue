@@ -70,7 +70,7 @@
               password:this.ruleForm.password
             }
             //this.baseUrl +
-            this.$http.post(this.baseUrl  + 'login', params, {transformRequest: [ data => {
+            this.$http.post('/api/login', params, {transformRequest: [ data => {
               data = this.qs.stringify(data)
               return data
             }]},{
@@ -80,7 +80,7 @@
             }).then(res=>{
               if(res.status === 200) {
                 if(res.data.code === '0000') {
-                  // sessionStorage.setItem('username',this.ruleForm.username)
+                  sessionStorage.setItem('username',this.ruleForm.username)
                   sessionStorage.setItem('token',res.data.result)
                   this.$router.push({path:'/'})
                 }

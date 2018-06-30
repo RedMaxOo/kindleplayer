@@ -15,8 +15,8 @@ import Case from '@/view/case/case'
 
 Vue.use(Router)
 export default new Router({
-  mode: 'history',
-  base: 'km',
+  // mode: 'history',
+  base: 'kindlemusic',
   routes: [
     {
       path: '/',

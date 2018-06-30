@@ -127,7 +127,6 @@ export default {
               var isAdmin = (role && role === 'ROLE_ADMIN')
               if(isAdmin) {
                 this.admin = true
-                this.isLogin = true
                 sessionStorage.setItem('admin', isAdmin)
               }
             }
