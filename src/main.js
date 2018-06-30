@@ -19,7 +19,9 @@ Vue.use(ElementUI)
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    isPlayOne: 0
+    isPlayOne: 0,
+    username: '',
+    useremail: ''
   },
   mutations: {
     changePlaying (state, msg) {
