@@ -55,13 +55,21 @@
           if (this.ruleForm.pwd2 !== '') {
             this.$refs.ruleForm.validateField('pwd2')
           }
-          callback();
+          else if(!isvalidPwd(value)){
+            callback(new Error('密码必须由6-12位数字和字母组成'));
+          }
+          else{
+            callback()
+            }
         }
       }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请确认密码'));
-        } else if (value !== this.ruleForm.pwd1) {
+        }else if(!isvalidPwd(value)){
+            callback(new Error('密码必须由6-12位数字和字母组成'));
+          }
+         else if (value !== this.ruleForm.pwd1) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback();
@@ -72,6 +80,16 @@
           return callback(new Error('邮箱不能为空'))
         }else  if (!this.isvalidEmail(value)){
           callback(new Error('请输入正确的邮箱，以便您激活账号'))
+        }
+        else {
+          callback()
+        }
+      }
+      var validateUser = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('UserID/Username不能为空'))
+        }else  if (!this.isvalidUser(value)){
+          callback(new Error('UserID/Username必须是数字和字母的组合'))
         }
         else {
           callback()
@@ -89,10 +107,10 @@
         },
         rules: {
           userID: [
-            { required: true, message: '请输入姓名', trigger: 'blur' },
+            { validator:validateUser,  trigger: 'blur' },
           ],
           username: [
-            { required: true, message: '请输入ID', trigger: 'blur' },
+            { validator:validateUser,  trigger: 'blur' },
           ],
           pwd1: [
             { validator:validatePass, trigger: 'blur' },
@@ -110,6 +128,14 @@
       }
     },
     methods: {
+      isvalidUser(str){
+        const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]/
+        return reg.test(str)
+      },
+       isvalidPwd(str){
+        const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/
+        return reg.test(str)
+      },
       isvalidPhone(str) {
         const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
         return reg.test(str)

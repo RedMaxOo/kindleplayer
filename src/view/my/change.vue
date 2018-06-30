@@ -1,17 +1,17 @@
 <template>
   <div class="register-layout">
-    <div class="title">RESET PASSWORD</div>
+    <div class="title">CHANGE PASSWORD</div>
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
         <el-form-item prop="pwd1">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
+            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Old Password" ></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="pwd2">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
+            <el-input type="password" v-model="ruleForm.pwd2" placeholder="New Password"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item>
@@ -23,32 +23,25 @@
 </template>
 <script>
   export default {
-    name: 'reset',
+    name: 'change',
     data () {
-       var validatePass = (rule, value, callback) => {
+        var validatePass = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请输入密码'));
         }
+        else if(!this.isvalidPwd(value)){
+          callback(new Error('密码是6-12位数字和字母的组合'))
+        }
         else {
-          if (this.ruleForm.pwd2 !== '') {
-            this.$refs.ruleForm.validateField('pwd2')
-          }else if(!this.isvalidPwd(value)){
-            callback(new Error('密码是6-12位数字和字母的组合'))
-          }else {
-            if (this.ruleForm.pwd2 !== '') {
-              this.$refs.ruleForm.validateField('pwd2')
-            }
-            callback();
-          }
+          callback();
         }
       }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请确认密码'));
-        } else if(!this.isvalidPwd(value)){
+        } 
+        else if(!this.isvalidPwd(value)){
           callback(new Error('密码是6-12位数字和字母的组合'))
-        }else if (value !== this.ruleForm.pwd1) {
-          callback(new Error('两次输入密码不一致!'))
         } else {
           callback();
         }
@@ -56,8 +49,8 @@
       return {
         codeMsg: '',
         ruleForm: {
-          pwd1: '',
-          pwd2: '',
+          pw1: '',
+          pw2: '',
           code: ''
         },
         rules: {
@@ -66,13 +59,12 @@
           ],
           pwd2: [
             { validator:validatePass2, trigger: 'blur' },
-          ],
+          ]
         }
       }
     },
     methods: {
-      isvalidPwd(str){
-        debugger
+    isvalidPwd(str){
         const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,12}$/
         return reg.test(str)
       },
@@ -80,16 +72,16 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let params ={
-              token : this.$route.query.t,
               pw1:this.ruleForm.pwd1,
               pw2:this.ruleForm.pwd2
             }
-            this.$http.post(this.baseUrl + 'open/user/resetPW', params, {transformRequest: [ data => {
+            this.$http.post(this.baseUrl + 'open/user/changePW', params, {transformRequest: [ data => {
                 data = this.qs.stringify(data);
                 return data;
               }]},{
               headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': sessionStorage.getItem('token')
               }
             }).then(res=>{
               if(res.status === 200) {

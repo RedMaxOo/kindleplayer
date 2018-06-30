@@ -12,6 +12,7 @@ import BannerEdit from '@/view/edit/index'
 import ActiveUser from '@/view/my/active-user'
 import Myinfo from '@/view/my/information'
 import Case from '@/view/case/case'
+import Change from '@/view/my/change'
 
 Vue.use(Router)
 export default new Router({
@@ -71,6 +72,11 @@ export default new Router({
           path: '/case',
           name: 'case',
           component: Case
+        },
+        {
+          path: '/change',
+          name: 'change',
+          component: Change
         }
       ]
     },
