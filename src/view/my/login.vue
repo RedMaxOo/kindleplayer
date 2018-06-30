@@ -97,6 +97,27 @@
           }
         })
       },
+      getUserInfo(){
+        var token = sessionStorage.getItem('token')
+        this.$http.get(this.baseUrl + 'api/user/getUser',{headers: {
+          'Authorization': token
+        }}).then(res=>{
+          if(res.status === 200) {
+            if(res.data.code === '1111'){
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+            else{
+              if(res.data) {
+                this.$store.state.username = res.data.result.user_id
+                this.$store.state.useremail = res.data.result.email
+              }
+            }
+          }
+        })
+      },
       goRegister(){
         this.$router.push({path:'/register'})
       },

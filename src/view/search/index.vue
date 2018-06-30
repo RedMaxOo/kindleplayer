@@ -161,8 +161,8 @@ export default {
     showPower (item) {
       this.$refs.dialog.dialogVisible = true
       this.forminfor = {
-        username: 'dff',
-        email: '417@qq.com',
+        username: this.$store.state.username,
+        email: this.$store.state.username,
         albumname: item.album_display_title,
         title: item.track_display_title,
         type: '',
