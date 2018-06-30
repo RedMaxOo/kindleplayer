@@ -143,7 +143,6 @@
         return reg.test(str)
       },
       isvalidPwd(str){
-        debugger
         const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,12}$/
         return reg.test(str)
       },

@@ -103,7 +103,6 @@
     },
     getBanner(){
       console.log(this.baseUrl)
-      debugger
       this.$http.get(this.baseUrl + 'open/hp/banner').then(res=>{
         if(res.status === 200) {
           let data = res.data.result

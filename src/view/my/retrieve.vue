@@ -80,7 +80,6 @@ export default {
       this.$refs[formName].validate((valid) => {
 
         if (valid) {
-          debugger
           this.$http.post(this.baseUrl + 'open/user/sendMail', params, {transformRequest: [ data => {
             data = this.qs.stringify(data);
             return data;

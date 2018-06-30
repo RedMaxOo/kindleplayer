@@ -101,7 +101,6 @@ export default {
       }
     },
     update (e, i) {
-      debugger
       if (!this.editList[i].url) {
         this.$message({
           message: '请先填写当前url地址，再上传图片',
