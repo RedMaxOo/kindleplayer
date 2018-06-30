@@ -142,6 +142,9 @@
 </script>
 <style lang="less">
   .login{
+    .el-input__prefix{
+      left: 10px;
+    }
     .title{
       font-family: Avenir-HeavyOblique;
       font-size: 30px;
@@ -199,14 +202,17 @@
         font-size: 12px;
         color: #999999;
         text-align: center;
-        span{
+        a{
           cursor: pointer;
           width:100px;
           margin-right:10px;
+          color: #999999;
+          text-decoration: none;
         }
         span:nth-child(2){
           color: #5BB4DB;
           margin-left:10px;
+          cursor: pointer;
         }
       }
     }

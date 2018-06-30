@@ -281,7 +281,7 @@
     background: #FFFFFF;
     border: 2px solid #FFFFFF;
   }
-  .el-carousel__indicator{padding: 20px;}
+  .el-carousel__indicator{padding: 10px;}
   .is-active{
     .el-carousel__button{background: #D53575;}
   }

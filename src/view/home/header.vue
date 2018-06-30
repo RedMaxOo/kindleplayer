@@ -1,7 +1,7 @@
 <template>
   <div class="pagelayout">
     <div class="header">
-        <div class="logo"></div>
+        <div class="logo"><a href="http://kindle.greatcoding.cn/kindlemusic/"></a></div>
         <ul class="top-bar">
           <li><span v-if="!isLogin" @click="jumpToLogin">LOGIN</span></li>
           <li v-if="isLogin">
@@ -98,18 +98,18 @@ export default {
       window.location.reload()
     },
     changeLangEvent () {
-      this.$confirm('确定切换语言吗?', '提示', {
+      this.$confirm('功能开发中。。。。', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        if ( this.lang === 'zh-CN' ) {
-          this.lang = 'en-US';
-          this.$i18n.locale = this.lang //关键语句
-        }else {
-          this.lang = 'zh-CN';
-          this.$i18n.locale = this.lang //关键语句
-        }
+//        if ( this.lang === 'zh-CN' ) {
+//          this.lang = 'en-US';
+//          this.$i18n.locale = this.lang //关键语句
+//        }else {
+//          this.lang = 'zh-CN';
+//          this.$i18n.locale = this.lang //关键语句
+//        }
       });
     },
     getUserInfo(){
@@ -160,6 +160,11 @@ export default {
     height:90px;
     background: url('../../assets/img/logo.png') no-repeat 0 center;
     float: left;
+    a{
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   }
   .top-bar{
     height:90px;
@@ -193,7 +198,9 @@ export default {
 </style>
 <style lang="less">
   .email-dialog {
-    .el-dialog__title, .email-dialog .el-dialog__headerbtn .el-dialog__close{
+    background-image: linear-gradient(45deg, rgba(70, 52, 169, 0.4) 0%, rgba(246, 54, 105, 0.4) 100%);
+
+    .el-dialog__title, .email-dialog, .el-dialog__headerbtn .el-dialog__close{
       font-weight: bold;
       color: #5BB4DB;
     }
