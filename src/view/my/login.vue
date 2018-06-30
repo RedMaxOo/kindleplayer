@@ -70,7 +70,7 @@
               password:this.ruleForm.password
             }
             //this.baseUrl +
-            this.$http.post('http://sunday2.greatcoding.cn/km/login', params, {transformRequest: [ data => {
+            this.$http.post(this.baseUrl  + 'login', params, {transformRequest: [ data => {
               data = this.qs.stringify(data)
               return data
             }]},{

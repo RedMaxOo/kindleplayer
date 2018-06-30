@@ -12,7 +12,7 @@
         </div>
         <div class="banner">
             <el-carousel height="450px" style="width: 1098px;margin:auto;">
-                <el-carousel-item v-for="(item,index) in videoPoster" :key="item">
+                <el-carousel-item v-for="(item,index) in videoPoster" :key="index">
                     <img :src="item" width="1098" height="450" @click="popup(index)">
                 </el-carousel-item>
             </el-carousel>
@@ -43,7 +43,7 @@
             <ul class="album-list">
               <li v-for="items in albums">
                 <el-carousel width="240px" height="250px" arrow="never" :interval="5000" indicator-position="none">
-                  <el-carousel-item v-for="item in items" :key="item">
+                  <el-carousel-item v-for="(item,index) in items" :key="index">
                     <img :src="item" @click="goAlbum(item)">
                   </el-carousel-item>
                 </el-carousel>

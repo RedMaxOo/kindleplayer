@@ -60,7 +60,10 @@
               }
             }).then(res=>{
               if(res.status === 200) {
-                this.$router.push({path:'/register-success'})
+                if(res.status.result === 'Y'){
+                  sessionStorage.clear()
+                  this.$router.push({path:'/login'})
+                }                
               }
             })
           } else {
