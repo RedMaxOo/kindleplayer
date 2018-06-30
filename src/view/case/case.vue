@@ -2,57 +2,85 @@
   <div class="case-wrapper clearfix">
     <div class="case-item" v-for="(item, index) in caseData" :key="index">
       <div class="img-box">
-        <img :src="item.img" alt="">
-        <el-button  type="text" icon="icon-play-btn"></el-button>
+        <div class="overlay"></div>
+        <img :src="item.img_path" alt="" width="360px" height="170px">
+        <el-button  type="text" icon="icon-play-btn" @click="popup(index)"></el-button>
         <div class="time is-play">
           <i class="icon-plays"></i>
-          01:30:38-01:35:47
+          {{item.description}}
         </div>
       </div>
       <div class="case-infor">
         <div class="diliver"></div>
         <h3>{{item.title}}</h3>
-        <p>{{item.music}}</p>
+        <p>{{item.track_title}}<span style="margin-left:10px;">{{item.track_singer}}</span></p>
       </div>
+      
     </div>
+    <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
+            <div @click.stop="" class="video-box">
+              <video-player
+                               class="vjs-custom-skin"
+                               ref="videoPlayer"
+                               :options="playerOptions"
+                               :playsinline="true">
+                </video-player>
+            </div>
+        </div>
   </div>
 </template>
 <script>
-import img from '../../assets/img/1.png'
+  import 'video.js/dist/video-js.css'
+  import 'vue-video-player/src/custom-theme.css'
+  import { videoPlayer } from 'vue-video-player'
+  
 export default {
+  components:{videoPlayer},
   data () {
     return {
-      caseData: [
-        {
-          title:'Starship Troopers',
-          music:'Girls Like You.    Maroon 5 / Cardi B',
-          img: img
-        },
-        {
-          title:'Starship Troopers',
-          music:'Girls Like You.    Maroon 5 / Cardi B',
-          img: img
-        },
-        {
-          title:'Starship Troopers',
-          music:'Girls Like You.    Maroon 5 / Cardi B',
-          img: img
-        },
-        {
-          title:'Starship Troopers',
-          music:'Girls Like You.    Maroon 5 / Cardi B',
-          img: img
-        }
-      ]
+      isShowVideo:false,
+      caseData: [],
+      playerOptions: {
+        width:'800',
+        height: '500',
+        autoplay: false,
+        muted: true,
+        language: 'en',
+        sources: [{
+          type: "video/mp4",
+          src: ""
+        }],
+        poster: "",
+      }
+    }
+  },
+  computed: {
+    player() {
+      return this.$refs.videoPlayer.player
     }
   },
   methods: {
+     onPlayerPause(player) {
+       console.log('player pause!', player)
+    },
     getCases(){
         this.$http.post(this.baseUrl + 'open/hp/examples').then(res=>{
           if(res.status === 200) {
+            this.caseData = res.data.result || []
           }
         })
-     }
+     },
+    popup(index) {
+      this.isShowVideo = true
+      this.playerOptions.sources[0].src = this.caseData[index].video_path
+      // this.playerOptions.poster = this.caseData[index].img_path
+      // this.playerOptions.poster = this.videoPoster[index]
+    },
+    hideModal(){
+//      this.playerOptions.sources[0].src = ""
+      this.$refs.videoPlayer.player.pause()
+      this.isShowVideo = false
+    },
   },
   mounted () {
     this.getCases()
@@ -74,6 +102,17 @@ export default {
         width: 360px;
         height: 175px;
         border-radius: 4px;
+        .overlay{
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: inline-block;
+            left: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            width: 360px;
+            height: 170px;
+        }
         img{
           border-radius: 4px;
         }
@@ -83,7 +122,7 @@ export default {
           left: 146px;
         }
         .time{
-          display: inline-block;
+          display: flex;
           position: absolute;
           right: 10px;
           bottom: 10px;

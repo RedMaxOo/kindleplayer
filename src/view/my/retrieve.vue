@@ -11,7 +11,7 @@
           <el-input  v-model="ruleForm.useremail" placeholder="Your registered email" prefix-icon="icon-email-small"></el-input>
         </el-form-item>
         <el-form-item prop="code">
-          <el-input type="password" v-model="ruleForm.code" placeholder="Verification code" prefix-icon="el-icon-code">
+          <el-input v-model="ruleForm.code" placeholder="Verification code" prefix-icon="el-icon-code">
             <template slot="append"><div class="codemsg">{{codeMsg}}</div></template>
           </el-input>
         </el-form-item>
@@ -51,7 +51,7 @@ export default {
           { required: true, message: '请输入邮箱', trigger: 'blur' }
         ],
         code: [
-          {validator: validateCode, message: '请输入校验码', trigger: 'blur' }
+          {validator: validateCode, trigger: 'blur' }
         ]
       },
       isShowBtn: true,
@@ -89,7 +89,20 @@ export default {
             }
           }).then(res => {
             if (res.status === 200) {
-              this.$router.push({path: '/login'})
+              if(res.status.result == 'Y'){
+                this.$message({
+                    message: '找回密码申请成功，请前往邮箱重置密码',
+                    type: 'success',
+                    duration:'4000'
+                  })
+
+              }
+              else{
+                  this.$message({
+                    message: '密码找回失败',
+                    type: 'error'
+                  })
+              }
             }
           })
         } else {

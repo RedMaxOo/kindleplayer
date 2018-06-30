@@ -3,15 +3,15 @@
     <div class="title">RESET PASSWORD</div>
     <div class="register-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
         <el-form-item prop="pwd1">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
+            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Old Password" ></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="pwd2">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
+            <el-input type="password" v-model="ruleForm.pwd2" placeholder="New Password"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item>
