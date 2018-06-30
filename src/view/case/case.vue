@@ -4,6 +4,10 @@
       <div class="img-box">
         <img :src="item.img" alt="">
         <el-button  type="text" icon="icon-play-btn"></el-button>
+        <div class="time is-play">
+          <i class="icon-plays"></i>
+          01:30:38-01:35:47
+        </div>
       </div>
       <div class="case-infor">
         <div class="diliver"></div>
@@ -80,6 +84,17 @@ export default {
           position: absolute;
           top: 50px;
           left: 146px;
+        }
+        .time{
+          display: inline-block;
+          position: absolute;
+          right: 10px;
+          bottom: 10px;
+          font-size: 12px;
+          color: #fff;
+          .icon-plays{
+            margin-right: 6px;
+          }
         }
       }
       .case-infor{

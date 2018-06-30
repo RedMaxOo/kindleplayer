@@ -125,6 +125,9 @@ export default {
     }
   }
   .register-form {
+    .el-input__prefix{
+      left: 10px;
+    }
     .el-form-item{
       margin-bottom:0px;
     }

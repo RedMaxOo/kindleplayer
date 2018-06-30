@@ -173,7 +173,7 @@ export default {
           this.$http.get(this.baseUrl + 'open/meta/cr', params).then(res => {
             if (res.status === 200) {
               this.listData = res.data.result
-              // console.log(this.listData)
+              this.dialogVisible = false
             }
           })
         } else {
@@ -194,6 +194,15 @@ export default {
   .form-dialog .el-dialog{
     background: #F3F9FC;
     border-radius: 4px;
+    .el-dialog__title{
+      font-weight: bold;
+      font-size: 20px;
+      color: #5BB4DB;
+    }
+    .el-dialog__headerbtn .el-dialog__close{
+      color: #5BB4DB;
+      font-weight: bolder;
+    }
     .el-select{
       width: 100%;
     }
