@@ -27,7 +27,7 @@
           <el-input v-model="ruleForm.address" placeholder="Address"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" @click="register('ruleForm')">Register</el-button>
+          <el-button class="button" @click="register('ruleForm')">Submit</el-button>
         </el-form-item>
       </el-form>
     </div>

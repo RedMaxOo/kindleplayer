@@ -93,7 +93,7 @@
               }
             }).then(res=>{
               if(res.status === 200) {
-                if(res.status.result === 'Y'){
+                if(res.status.result === 'SEND'){
                   sessionStorage.clear()
                   this.$router.push({path:'/login'})
                 }                
