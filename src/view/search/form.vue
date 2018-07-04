@@ -193,6 +193,8 @@ export default {
   }
   .form-dialog .el-dialog{
     background: #F3F9FC;
+    min-width:500px;
+    padding:0 30px;
     border-radius: 4px;
     .el-dialog__title{
       font-weight: bold;
