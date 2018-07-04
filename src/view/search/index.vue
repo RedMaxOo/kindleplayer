@@ -82,7 +82,7 @@
                         <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item,index)"><i class="icon-plays"></i></span>
                         <div class="list-hd-befor">{{item.track_display_title}}</div>
                         <div class="list-hd-mid">{{item.album_display_title}}</div>
-                        <div class="list-hd-after">{{item.time}}</div>
+                        <div class="list-hd-after">{{item.track_duration}}</div>
 
                         <i class="icon-i" @click.stop="showPower(item)"></i>
                       </div>
