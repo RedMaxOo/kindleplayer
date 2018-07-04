@@ -24,19 +24,26 @@
       checkRegister(){
         let token = this.$route.query.t || ''
         let params = {
-          token:JSON.stringify(token)
+          t:token
         }
-        this.$http.post(this.baseUrl + 'open/user/activeUser',{params}).then(res=>{
+        this.$http.post(this.baseUrl + 'open/user/activeUser',params,{transformRequest: [ data => {
+              data = this.qs.stringify(data);
+              return data;
+            }]},{
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).then(res=>{
           if(res.status === 200) {
-            if(res.data.code === "9999"){
-              this.regfail = true
-                this.$message({
-                   message: 'active error',
-                    type: 'error'
-                })
+            if(res.data.result === 'Y'){
+              this.regsuccess = true
             }
             else{
-              this.regsuccess = true
+              this.regfail = true
+              this.$message({
+                  message: 'active error',
+                  type: 'error'
+              })
             }
           }
         })

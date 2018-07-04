@@ -3,31 +3,31 @@
     <div class="title">PERSONAL INFORMATION</div>
     <div class="info-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
-        <el-form-item prop="userID">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
+        <el-form-item prop="userID" label="用户名">
           <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="User name"></el-input>
+            <el-input v-model="ruleForm.userID" placeholder="UserID" :disabled="true"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="email">
-          <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
+        <el-form-item prop="email" label="邮箱">
+          <el-input v-model="ruleForm.email" placeholder="Email" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item prop="username">
+        <el-form-item prop="username" label="姓名">
           <el-tooltip class="item" effect="dark" content="Username由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
+            <el-input v-model="ruleForm.username" placeholder="UserName"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="mobile">
-          <el-input v-model="ruleForm.mobile" placeholder="Mobile"></el-input>
+        <el-form-item prop="mobile" label="手机号">
+          <el-input v-model="ruleForm.mobile" placeholder="Mobile" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item prop="company">
+        <el-form-item prop="company" label="公司">
           <el-input v-model="ruleForm.company" placeholder="Company"></el-input>
         </el-form-item>
-        <el-form-item prop="address">
+        <el-form-item prop="address" label="地址">
           <el-input v-model="ruleForm.address" placeholder="Address"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" @click="register('ruleForm')">Submit</el-button>
+          <el-button class="button" @click="register('ruleForm')">Save</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -110,7 +110,7 @@
             { validator:validateUser,  trigger: 'blur' },
           ],
           username: [
-            { validator:validateUser,  trigger: 'blur' },
+            { required: true, validator:validateUser,  trigger: 'blur' },
           ],
           pwd1: [
             { validator:validatePass, trigger: 'blur' },
@@ -145,9 +145,14 @@
         return reg.test(str)
       },
       register(formName){
+        let params = {
+          username:this.ruleForm.username,
+          company: this.ruleForm.company,
+          address: this.ruleForm.address
+        }
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post(this.baseUrl + 'open/user/regUser',this.ruleForm,{transformRequest: [ data => {
+            this.$http.post(this.baseUrl + 'api/user/change',params,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
             }]},{
@@ -220,18 +225,18 @@
     }
   }
   .info-form {
-      margin:0;
+      margin-top:30px;
     .el-form-item{
-      margin-bottom:0px;
+      margin-bottom:30px;
     }
     .el-form-item__content {
       width: 380px;
       margin: auto;
       margin-bottom: 0px !important;
     }
-    .el-form-item__content:nth-child(1) {
-      margin-top:30px;
-    }
+    // .el-form-item__content:nth-child(1) {
+    //   margin-top:30px;
+    // }
     .button{
       width:380px;
       height:40px;

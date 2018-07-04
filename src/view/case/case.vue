@@ -44,7 +44,7 @@ export default {
         width:'800',
         height: '500',
         autoplay: false,
-        muted: true,
+        muted: false,
         language: 'en',
         sources: [{
           type: "video/mp4",

@@ -3,37 +3,37 @@
     <div class="title">CREATE YOUR ACCOUNT</div>
     <div class="reg-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
-        <el-form-item prop="userID">
-          <el-tooltip class="item" effect="dark" content="Username由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="User name"></el-input>
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
+        <el-form-item prop="userID" label="用户名">
+          <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
+            <el-input v-model="ruleForm.userID" placeholder="UserID"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd1">
+        <el-form-item prop="pwd1" label="密码">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
             <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd2">
+        <el-form-item prop="pwd2" label="确认密码">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
             <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="email">
+        <el-form-item prop="email" label="邮箱">
           <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
         </el-form-item>
-        <el-form-item prop="username">
-          <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
+        <el-form-item prop="username" label="姓名">
+          <el-tooltip class="item" effect="dark" content="UserName由数字和字母组成" placement="right">
+            <el-input v-model="ruleForm.username" placeholder="UserName"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="mobile">
+        <el-form-item prop="mobile" label="手机号">
           <el-input v-model="ruleForm.mobile" placeholder="Mobile"></el-input>
         </el-form-item>
-        <el-form-item prop="company">
+        <el-form-item prop="company" label="公司">
           <el-input v-model="ruleForm.company" placeholder="Company"></el-input>
         </el-form-item>
-        <el-form-item prop="address">
+        <el-form-item prop="address" label="地址">
           <el-input v-model="ruleForm.address" placeholder="Address"></el-input>
         </el-form-item>
         <el-form-item>
@@ -117,22 +117,22 @@
         },
         rules: {
           userID: [
-            { validator:validateUser, trigger: 'blur' },
+            { required: true, validator:validateUser, trigger: 'blur' },
           ],
           username: [
-            { validator:validateUser, trigger: 'blur' },
+            { required: true, validator:validateUser, trigger: 'blur' },
           ],
           pwd1: [
-            { validator:validatePass, trigger: 'blur' },
+            { required: true, validator:validatePass, trigger: 'blur' },
           ],
           pwd2: [
-            { validator:validatePass2, trigger: 'blur' },
+            { required: true, validator:validatePass2, trigger: 'blur' },
           ],
           email: [
-            { validator: validateEmail, trigger: 'blur' },
+            { required: true, validator: validateEmail, trigger: 'blur' },
           ],
           mobile: [
-            { validator:validateNumber, trigger: 'blur' },
+            { required: true, validator:validateNumber, trigger: 'blur' },
           ]
         }
       }
@@ -207,18 +207,18 @@
     }
   }
   .reg-form {
-    margin:0;
+    margin-top:30px;
     .el-form-item{
-      margin-bottom:0px;
+      margin-bottom:30px;
     }
     .el-form-item__content {
       width: 380px;
       margin: auto;
       margin-bottom: 0px !important;
     }
-    .el-form-item__content:nth-child(1) {
-      margin-top:30px;
-    }
+    // .el-form-item__content:nth-child(1) {
+    //   margin-top:30px;
+    // }
     .button{
       width:380px;
       height:40px;
