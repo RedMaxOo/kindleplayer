@@ -209,10 +209,10 @@ export default {
       width: 100%;
     }
   }
-  .color-submit{
+  .color-submit.el-button--primary{
     background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
     border-radius: 4px;
-    &:hover{
+    &:hover,&:active{
       background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
     }
   }
