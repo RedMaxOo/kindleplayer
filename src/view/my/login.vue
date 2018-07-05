@@ -7,7 +7,7 @@
       <div class="logo"></div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="UserID" prefix-icon="el-icon-user"></el-input>
+          <el-input v-model="ruleForm.username" placeholder="Username" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" v-model="ruleForm.password" placeholder="Password" prefix-icon="el-icon-pwd"></el-input>
@@ -49,7 +49,7 @@ export default {
       ruleForm: {},
       rules: {
         username: [
-          { required: true, message: '请输入ID', trigger: 'blur' },
+          { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -84,10 +84,12 @@ export default {
                 sessionStorage.setItem('token',res.data.result)
                 this.$router.push({path:'/'})
               }
-              else if(res.data.code === 'LG1111'){
+              else{
                 this.$message({
                   message: res.data.message,
-                  type: 'error'
+                  type: 'error',
+                  duration:0,
+                  showClose:true
                 })
               }
             }

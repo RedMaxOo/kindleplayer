@@ -3,13 +3,13 @@
     <div class="title">CHANGE PASSWORD</div>
     <div class="register-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
-        <el-form-item prop="pwd1">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
+        <el-form-item prop="pwd1" label="旧密码">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
             <el-input type="password" v-model="ruleForm.pwd1" placeholder="Old Password" ></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd2">
+        <el-form-item prop="pwd2" label="新密码">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
             <el-input type="password" v-model="ruleForm.pwd2" placeholder="New Password"></el-input>
           </el-tooltip>
@@ -27,7 +27,7 @@
     data () {
         var validatePass = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入密码'));
+          callback(new Error('请输入旧密码'));
         }
         else if(!this.isvalidPwd(value)){
           callback(new Error('密码是6-12位数字和字母的组合'))
@@ -38,7 +38,7 @@
       }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请确认密码'));
+          callback(new Error('请输入新密码'));
         } 
         else if(!this.isvalidPwd(value)){
           callback(new Error('密码是6-12位数字和字母的组合'))
@@ -55,10 +55,10 @@
         },
         rules: {
           pwd1: [
-            { validator:validatePass, trigger: 'blur' },
+            { required:true, validator:validatePass, trigger: 'blur' },
           ],
           pwd2: [
-            { validator:validatePass2, trigger: 'blur' },
+            { required:true, validator:validatePass2, trigger: 'blur' },
           ]
         }
       }
@@ -75,7 +75,7 @@
               pw1:this.ruleForm.pwd1,
               pw2:this.ruleForm.pwd2
             }
-            this.$http.post(this.baseUrl + 'open/user/changePW', params, {transformRequest: [ data => {
+            this.$http.post(this.baseUrl + 'api/user/changePW', params, {transformRequest: [ data => {
                 data = this.qs.stringify(data);
                 return data;
               }]},{
@@ -88,6 +88,14 @@
                 if(res.status.result === 'Y'){
                   sessionStorage.clear()
                   this.$router.push({path:'/login'})
+                } 
+                else{
+                  this.$message({
+                   message: res.data.message,
+                    type: 'error',
+                    duration:0,
+                  showClose:true
+                 })
                 }                
               }
             })
@@ -123,17 +131,18 @@
     }
   }
   .register-form {
+      margin-top:30px;
     .el-form-item{
-      margin-bottom:0px;
+      margin-bottom:30px;
     }
     .el-form-item__content {
       width: 380px;
       margin: auto;
       margin-bottom: 0px !important;
     }
-    .el-form-item__content:nth-child(1) {
-      margin-top:30px;
-    }
+    // .el-form-item__content:nth-child(1) {
+    //   margin-top:30px;
+    // }
     .button{
       width:380px;
       height:40px;

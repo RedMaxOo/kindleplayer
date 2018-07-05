@@ -11,7 +11,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><span @click="toInfo">INFORMATION</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="toBanner">BANNER</span @click="toBanner"></el-dropdown-item>
+                  <el-dropdown-item><span @click="toBanner">BANNER</span></el-dropdown-item>
                   <el-dropdown-item><span @click="toPassword">CHANGE PASSWORD</span></el-dropdown-item>
                   <el-dropdown-item v-show="admin"><span @click="toBanner">BANNER</span></el-dropdown-item>
                   <el-dropdown-item><span @click="logout">LOGOUT</span></el-dropdown-item>
@@ -67,17 +67,16 @@ export default {
     jumpToCase(){
       this.$router.push({path:'/case'})
     },
-    toBanner () {
-      this.$router.push({path:'/banner-edit'})
-    },
     toPassword(){
       this.$router.push({path:'/change'})
     },
     showPower () {
       this.$refs.dialog.dialogVisible = true
       this.forminfor = {
-        username: '',
-        email: '',
+        username: this.$store.state.username,
+        email: this.$store.state.useremail,
+        tele: this.$store.state.mobile,
+        company: this.$store.state.company,
         albumname: '',
         title:'',
         type: '',
@@ -127,6 +126,10 @@ export default {
           if (res.status === 200) {
             if (res.data.result) {
               this.username = res.data.result.user_nm
+              this.$store.state.username = res.data.result.user_id
+              this.$store.state.useremail = res.data.result.email
+              this.$store.state.mobile = res.data.result.mobile
+              this.$store.state.company = res.data.result.company
               var role = res.data.result.role
               var isAdmin = (role && role === 'ROLE_ADMIN')
               if(isAdmin) {

@@ -6,7 +6,7 @@
       :visible.sync="dialogVisible"
       width="33%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-        <el-form-item label="name" prop="username">
+        <el-form-item label="Name" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
         <el-form-item label="Company" prop="region">
@@ -15,7 +15,7 @@
         <el-form-item label="Email" prop="email">
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="Telephone number">
+        <el-form-item label="Telephone number" prop="tele">
           <el-input v-model="ruleForm.tele"></el-input>
         </el-form-item>
         <el-form-item label="Song title" prop="title">
@@ -72,6 +72,38 @@
 export default {
   props: ['showdialog', 'ruleForm'],
   data () {
+    var validateNumber = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入手机号'))
+        }else  if (!this.isvalidPhone(value)){
+          callback(new Error('请输入有效手机号'))
+        }
+        else {
+          callback()
+        }
+    }
+    var validateUserName = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入姓名'))
+        } else if (!this.isvalidUser(value)){
+          callback(new Error('需字母和数字组合'))
+        }else if(value.length > 32){
+          callback(new Error('姓名过长'))
+        }
+        else {
+          callback()
+        }
+    }
+    var validateEmail = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入邮箱'))
+        }else  if (!this.isvalidEmail(value)){
+          callback(new Error('请输入有效邮箱'))
+        }
+        else {
+          callback()
+        }
+    }
     return {
       dialogVisible: false,
       mediaOptions: [
@@ -131,11 +163,14 @@ export default {
       ],
       rules: {
         username: [
-          { required: true, message: '请输入姓名', trigger: 'blur' },
+          { required: true, validator:validateUserName,  trigger: 'blur' },
         ],
         email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
+            { required: true, validator: validateEmail, trigger: 'blur' },
         ],
+        tele: [
+            { required: true, validator:validateNumber, trigger: 'blur' },
+          ],
         title: [
           { required: true, message: '请填写歌曲名称', trigger: 'blur' },
         ],
@@ -155,6 +190,14 @@ export default {
     }
   },
   methods: {
+    isvalidUser(str){
+        const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]/
+        return reg.test(str)
+    },
+    isvalidEmail(str) {
+        const reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
+        return reg.test(str)
+    },
     submitForm (ruleForm) {
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {

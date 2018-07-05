@@ -21,7 +21,9 @@ const store = new Vuex.Store({
   state: {
     isPlayOne: 0,
     username: '',
-    useremail: ''
+    useremail: '',
+    mobile:'',
+    company:''
   },
   mutations: {
     changePlaying (state, msg) {

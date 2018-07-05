@@ -6,7 +6,7 @@
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
         <el-form-item prop="userID" label="用户名">
           <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="UserID"></el-input>
+            <el-input v-model="ruleForm.userID" placeholder="Username"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="pwd1" label="密码">
@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item prop="username" label="姓名">
           <el-tooltip class="item" effect="dark" content="UserName由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="UserName"></el-input>
+            <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="mobile" label="手机号">
@@ -49,9 +49,9 @@
     data () {
       var validateNumber = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('电话不能为空'))
+          return callback(new Error('请输入手机号'))
         }else  if (!this.isvalidPhone(value)){
-          callback(new Error('请输入正确的11位手机号码'))
+          callback(new Error('请输入有效手机号'))
         }
         else {
           callback()
@@ -76,30 +76,59 @@
           callback(new Error('请确认密码'));
         } 
         else if(!this.isvalidPwd(value)){
-          callback(new Error('密码是6-12位数字和字母的组合'))
+          callback(new Error('密码由6-12位字母和数字组成'))
         }else if (value !== this.ruleForm.pwd1) {
-          callback(new Error('两次输入密码不一致!'))
+          callback(new Error('两次密码输入不匹配'))
         } else {
           callback();
         }
       }
       var validateEmail = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('邮箱不能为空'))
+          return callback(new Error('请输入邮箱'))
         }else  if (!this.isvalidEmail(value)){
-          callback(new Error('请输入正确的邮箱，以便您激活账号'))
+          callback(new Error('请输入有效邮箱'))
         }
         else {
           callback()
         }
       }
-      var validateUser = (rule, value, callback) => {
+      var validateUserID = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('UserID/Username不能为空'))
+          return callback(new Error('请输入用户名'))
         }else  if (!this.isvalidUser(value)){
-          callback(new Error('UserID/Username必须是数字和字母的组合'))
+          callback(new Error('需字母和数字组合'))
+        } else if(value.length > 32){
+          callback(new Error('用户名过长'))
         }
         else {
+          callback()
+        }
+      }
+      var validateUserName = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入姓名'))
+        } else if (!this.isvalidUser(value)){
+          callback(new Error('需字母和数字组合'))
+        }else if(value.length > 32){
+          callback(new Error('姓名过长'))
+        }
+        else {
+          callback()
+        }
+      }
+      var validateCompany = (rule, value, callback) => {
+        if(value.length > 100){
+          callback(new Error('公司名称过长'))
+        }
+        else{
+          callback()
+        }
+      }
+      var validateAddress = (rule, value, callback) => {
+        if(value.length > 255){
+          callback(new Error('地址过长'))
+        }else{
           callback()
         }
       }
@@ -117,10 +146,10 @@
         },
         rules: {
           userID: [
-            { required: true, validator:validateUser, trigger: 'blur' },
+            { required: true, validator:validateUserID, trigger: 'blur' },
           ],
           username: [
-            { required: true, validator:validateUser, trigger: 'blur' },
+            { required: true, message:'', validator:validateUserName, trigger: 'blur' },
           ],
           pwd1: [
             { required: true, validator:validatePass, trigger: 'blur' },
@@ -133,6 +162,12 @@
           ],
           mobile: [
             { required: true, validator:validateNumber, trigger: 'blur' },
+          ],
+          company: [
+            { validator: validateCompany, trigger: 'blur' },
+          ],
+          address: [
+            { validator: validateAddress, trigger: 'blur' },
           ]
         }
       }
@@ -171,12 +206,14 @@
               else{
                 this.$message({
                    message: res.data.message,
-                    type: 'error'
+                   type: 'error',
+                    duration:0,
+                    showClose:true
                 })
               }
             })
           } else {
-            return false;
+            return false
           }
         });
       }

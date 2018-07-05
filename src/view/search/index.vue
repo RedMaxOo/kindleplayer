@@ -45,7 +45,7 @@
             <div class="tit">RESEARCH RESULTS</div>
             <div class="scale-item">
               <span class="label" v-if="showSelectTitle">{{showSelectTitle}}</span>
-              <span class="label">Totle: {{showTotleNum}}</span>
+              <span class="label">Total: {{showTotleNum}}</span>
             </div>
         </div>
         <div class="main-wrapper" :style="{height: mainHeight + 'px'}">
@@ -82,7 +82,7 @@
                         <span class="list-cell-icon" v-if="icon" @click.stop="palyAction(item,index)"><i class="icon-plays"></i></span>
                         <div class="list-hd-befor">{{item.track_display_title}}</div>
                         <div class="list-hd-mid">{{item.album_display_title}}</div>
-                        <div class="list-hd-after">{{item.track_duration}}</div>
+                        <div class="list-hd-after">{{formatTime(item.track_duration)}}</div>
 
                         <i class="icon-i" @click.stop="showPower(item)"></i>
                       </div>
@@ -90,7 +90,7 @@
                     </div>
                   </template>
                   <ul class="list-content detail-infor">
-                    <li><label for="">Composer:</label><div>{{item.track_artis}}</div></li>
+                    <li><label for="">Composer:</label><div>{{item.track_artist}}</div></li>
                     <li><label for="">Alternate:</label><div>{{item.track_alternate_title}}</div></li>
                     <li><label for="">Publisher:</label><div>{{item.track_publisher}}</div></li>
                   </ul>
@@ -143,6 +143,15 @@ export default {
     }
   },
   methods: {
+    formatTime(seconds) {
+     return [
+        // parseInt(seconds / 60 / 60),
+        parseInt(seconds / 60 % 60),
+        parseInt(seconds % 60)
+        ]
+        .join(":")
+        .replace(/\b(\d)\b/g, "0$1");
+    },
     palyAction (item, i) {
       if (item.isPlay) {
         this.$refs.player.pause()
@@ -162,7 +171,9 @@ export default {
       this.$refs.dialog.dialogVisible = true
       this.forminfor = {
         username: this.$store.state.username,
-        email: this.$store.state.username,
+        email: this.$store.state.useremail,
+        tele: this.$store.state.mobile,
+        company: this.$store.state.company,
         albumname: item.album_display_title,
         title: item.track_display_title,
         type: '',
@@ -480,7 +491,8 @@ export default {
     color: #999999;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    // white-space: nowrap;
+    text-align: justify;
   }
   .list-content{
     li{

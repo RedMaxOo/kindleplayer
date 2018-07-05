@@ -100,7 +100,9 @@ export default {
               else{
                   this.$message({
                     message: '密码找回失败',
-                    type: 'error'
+                    type: 'error',
+                    duration:0,
+                    showClose:true
                   })
               }
             }

@@ -42,7 +42,9 @@
               this.regfail = true
               this.$message({
                   message: 'active error',
-                  type: 'error'
+                  type: 'error',
+                  duration:0,
+                  showClose:true
               })
             }
           }

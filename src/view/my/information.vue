@@ -6,7 +6,7 @@
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
         <el-form-item prop="userID" label="用户名">
           <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="UserID" :disabled="true"></el-input>
+            <el-input v-model="ruleForm.userID" placeholder="UserName" :disabled="true"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="email" label="邮箱">
@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item prop="username" label="姓名">
           <el-tooltip class="item" effect="dark" content="Username由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="UserName"></el-input>
+            <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="mobile" label="手机号">
@@ -85,13 +85,30 @@
           callback()
         }
       }
-      var validateUser = (rule, value, callback) => {
+      var validateUserName = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('UserID/Username不能为空'))
-        }else  if (!this.isvalidUser(value)){
-          callback(new Error('UserID/Username必须是数字和字母的组合'))
+          return callback(new Error('请输入姓名'))
+        } else if (!this.isvalidUser(value)){
+          callback(new Error('需字母和数字组合'))
+        }else if(value.length > 32){
+          callback(new Error('姓名过长'))
         }
         else {
+          callback()
+        }
+      }
+      var validateCompany = (rule, value, callback) => {
+        if(value.length > 100){
+          callback(new Error('公司名称过长'))
+        }
+        else{
+          callback()
+        }
+      }
+      var validateAddress = (rule, value, callback) => {
+        if(value.length > 255){
+          callback(new Error('地址过长'))
+        }else{
           callback()
         }
       }
@@ -107,22 +124,28 @@
         },
         rules: {
           userID: [
-            { validator:validateUser,  trigger: 'blur' },
+            // { validator:validateUser,  trigger: 'blur' },
           ],
           username: [
-            { required: true, validator:validateUser,  trigger: 'blur' },
+            { required: true, validator:validateUserName,  trigger: 'blur' },
           ],
           pwd1: [
-            { validator:validatePass, trigger: 'blur' },
+            // { validator:validatePass, trigger: 'blur' },
           ],
           pwd2: [
-            { validator:validatePass2, trigger: 'blur' },
+            // { validator:validatePass2, trigger: 'blur' },
           ],
           email: [
-            { validator: validateEmail, trigger: 'blur' },
+            // { validator: validateEmail, trigger: 'blur' },
           ],
           mobile: [
-            { validator:validateNumber, trigger: 'blur' },
+            // { validator:validateNumber, trigger: 'blur' },
+          ],
+          company: [
+            { validator: validateCompany, trigger: 'blur' },
+          ],
+          address: [
+            { validator: validateAddress, trigger: 'blur' },
           ]
         }
       }
@@ -161,12 +184,17 @@
               }
             }).then(res=>{
               if(res.status === 200 && res.data.result === 'Y') {
-               this.$router.push({path:'/register-success'})
+                this.$message({
+                      message: "信息已修改完成!",
+                      type: 'success'
+                  })
               }
               else{
                 this.$message({
                    message: res.data.message,
-                    type: 'error'
+                    type: 'error',
+                    duration:0,
+                  showClose:true
                 })
               }
             })
@@ -184,7 +212,9 @@
             if(res.data.code === '1111'){
                 this.$message({
                    message: res.data.message,
-                    type: 'error'
+                    type: 'error',
+                    duration:0,
+                  showClose:true
                 })
             }
             else{
