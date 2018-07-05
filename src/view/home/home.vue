@@ -41,7 +41,7 @@
         <div class="album">
             <div class="album-title">MUSIC ALBUM</div>
             <ul class="album-list">
-              <li v-for="items in albums">
+              <li v-for="(items,index) in albums" :key="index">
                 <el-carousel width="240px" height="250px" arrow="never" :interval="5000" indicator-position="none">
                   <el-carousel-item v-for="(item,index) in items" :key="index">
                     <img :src="item" @click="goAlbum(item)">

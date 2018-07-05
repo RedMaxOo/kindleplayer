@@ -32,113 +32,113 @@
 </template>
 
 <script>
-  export default {
-    name:"login",
-    data () {
-      var validateCode = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入验证码'))
-        }else  if (this.ruleForm.code.toLowerCase() !== this.codeMsg.toLowerCase()) {
-          callback(new Error('请输入正确的验证码'))
-        }
-        else {
-          callback()
-        }
+export default {
+  name:"login",
+  data () {
+    var validateCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('请输入验证码'))
+      }else  if (this.ruleForm.code.toLowerCase() !== this.codeMsg.toLowerCase()) {
+        callback(new Error('请输入正确的验证码'))
       }
-      return {
-        ruleForm: {},
-        rules: {
-          username: [
-            { required: true, message: '请输入ID', trigger: 'blur' },
-          ],
-          password: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
-          ],
-          code: [
-            {validator: validateCode, trigger: 'blur' }
-          ]
-        },
-        codeMsg:''
+      else {
+        callback()
       }
-    },
-    methods: {
-      login(formName){
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let  params = {
-              username:this.ruleForm.username,
-              password:this.ruleForm.password
+    }
+    return {
+      ruleForm: {},
+      rules: {
+        username: [
+          { required: true, message: '请输入ID', trigger: 'blur' },
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+        ],
+        code: [
+          {validator: validateCode, trigger: 'blur' }
+        ]
+      },
+      codeMsg:''
+    }
+  },
+  methods: {
+    login(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let  params = {
+            username:this.ruleForm.username,
+            password:this.ruleForm.password
+          }
+          //this.baseUrl +
+          this.$http.post(this.baseUrl + 'login', params, {transformRequest: [ data => {
+            data = this.qs.stringify(data)
+            return data
+          }]},{
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
             }
-            //this.baseUrl +
-            this.$http.post(this.baseUrl + 'login', params, {transformRequest: [ data => {
-              data = this.qs.stringify(data)
-              return data
-            }]},{
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+          }).then(res=>{
+            if(res.status === 200) {
+              if(res.data.code === '0000') {
+                sessionStorage.setItem('username',this.ruleForm.username)
+                sessionStorage.setItem('token',res.data.result)
+                this.$router.push({path:'/'})
               }
-            }).then(res=>{
-              if(res.status === 200) {
-                if(res.data.code === '0000') {
-                  sessionStorage.setItem('username',this.ruleForm.username)
-                  sessionStorage.setItem('token',res.data.result)
-                  this.$router.push({path:'/'})
-                }
-                else if(res.data.code === 'LG1111'){
-                  this.$message({
-                    message: res.data.message,
-                    type: 'error'
-                  })
-                }
+              else if(res.data.code === 'LG1111'){
+                this.$message({
+                  message: res.data.message,
+                  type: 'error'
+                })
               }
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    getUserInfo(){
+      var token = sessionStorage.getItem('token')
+      this.$http.get(this.baseUrl + 'api/user/getUser',{headers: {
+        'Authorization': token
+      }}).then(res=>{
+        if(res.status === 200) {
+          if(res.data.code === '1111'){
+            this.$message({
+              message: res.data.message,
+              type: 'error'
             })
-          } else {
-            return false
           }
-        })
-      },
-      getUserInfo(){
-        var token = sessionStorage.getItem('token')
-        this.$http.get(this.baseUrl + 'api/user/getUser',{headers: {
-          'Authorization': token
-        }}).then(res=>{
-          if(res.status === 200) {
-            if(res.data.code === '1111'){
-              this.$message({
-                message: res.data.message,
-                type: 'error'
-              })
-            }
-            else{
-              if(res.data) {
-                this.$store.state.username = res.data.result.user_id
-                this.$store.state.useremail = res.data.result.email
-              }
+          else{
+            if(res.data) {
+              this.$store.state.username = res.data.result.user_id
+              this.$store.state.useremail = res.data.result.email
             }
           }
-        })
-      },
-      goRegister(){
-        this.$router.push({path:'/register'})
-      },
-      createCode () {
-        var code = ''
-        var codeLength = 4
-        var selectChar = new Array(1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
-        for (var i = 0; i < codeLength; i++) {
-          var charIndex = Math.floor(Math.random() * 34)
-          code += selectChar[charIndex]
         }
-        if (code.length !== codeLength) {
-          this.createCode()
-        }
-        this.codeMsg = code
-      }
+      })
     },
-     mounted () {
-       this.createCode()
-     }
-  }
+    goRegister(){
+      this.$router.push({path:'/register'})
+    },
+    createCode () {
+      var code = ''
+      var codeLength = 4
+      var selectChar = new Array(1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
+      for (var i = 0; i < codeLength; i++) {
+        var charIndex = Math.floor(Math.random() * 34)
+        code += selectChar[charIndex]
+      }
+      if (code.length !== codeLength) {
+        this.createCode()
+      }
+      this.codeMsg = code
+    }
+  },
+   mounted () {
+     this.createCode()
+   }
+}
 </script>
 <style lang="less">
   .login{

@@ -13,7 +13,7 @@
       <el-col :span="3"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
       <el-col :span="11">
         <div class="grid-content">
-          <el-input placeholder="请输入内容" v-model="item.url" class="input-with-select" style="width:100%">
+          <el-input placeholder="请输入内容" v-model="item.video_path" class="input-with-select" style="width:100%">
             <el-button slot="append" icon="icon-clearm" @click="clearCurrent(item)"></el-button>
           </el-input>
         </div>
@@ -21,9 +21,13 @@
       <el-col :span="11">
         <div class="grid-content upload">
           <div class="input-with-select el-input el-input-group el-input-group--append">
-            <input autocomplete="off" placeholder="请输入内容" v-model="item.img" class="el-input__inner">
-            <div class="el-input-group__append"><button type="button" class="el-button el-button--default"><!----><i class="icon-uploadm"><input
-              type="file" @change="update($event,index)"></i><!----></button></div>
+            <input autocomplete="off" placeholder="请输入内容" :disable="true" v-model="item.img_path" class="el-input__inner">
+            <div class="el-input-group__append">
+              <button type="button" class="el-button el-button--default">
+                <i class="icon-uploadm"><input type="file" @change="update($event,index)"></i>
+                <span class="shade" v-if="!item.video_path" @click="valitete(index)"></span>
+              </button>
+            </div>
           </div>
           <el-button v-if="index > 4" class="clear-btn" @click="deletList(index)" icon="el-icon-close"></el-button>
         </div>
@@ -48,36 +52,49 @@ export default {
       input5: '',
       editList: [
         {
-          img: '',
-          url: ''
+          img_path: '',
+          video_path: ''
         },
         {
-          img: '',
-          url: ''
+          img_path: '',
+          video_path: ''
         },
         {
-          img: '',
-          url: ''
+          img_path: '',
+          video_path: ''
         },
         {
-          img: '',
-          url: ''
+          img_path: '',
+          video_path: ''
         },
         {
-          img: '',
-          url: ''
+          img_path: '',
+          video_path: ''
         }
       ],
       fileList: []
     }
   },
   methods: {
+    getData () {
+      this.$http.post(this.baseUrl + 'open/hp/banner').then(res => {
+        if (res.status === 200) {
+          let data = res.data.result
+          if (data.length) {
+            this.editList = data
+          } else {
+            this.editList = data
+          }
+
+        }
+      })
+    },
     addList () {
-      if (this.editList.length <= 8){
+      if (this.editList.length <= 8) {
         this.editList.push(
           {
-            img: '',
-            url: ''
+            img_path: '',
+            video_path: ''
           }
         )
       } else {
@@ -88,7 +105,7 @@ export default {
       }
     },
     clearCurrent (item) {
-      item.url = ''
+      item.video_path = ''
     },
     deletList (val) {
       if (this.editList.length > 5) {
@@ -100,20 +117,22 @@ export default {
         })
       }
     },
-    update (e, i) {
-      if (!this.editList[i].url) {
+    valitete (i) {
+      if (!this.editList[i].video_path) {
         this.$message({
           message: '请先填写当前url地址，再上传图片',
-          type: 'warning'
+          type: 'warning',
+          duration: 1500
         })
         return
       }
-
+    },
+    update (e, i) {
       this.$set(this.editList[i], 'img', e.target.files[0].name)
       var fd = new FormData()
       fd.append('file', e.target.files[0])
       fd.append('id', i + 1)
-      fd.append('url', this.editList[i].url)
+      fd.append('url', this.editList[i].video_path)
       var token = sessionStorage.getItem('token')
       let config = {
         headers: {
@@ -121,9 +140,13 @@ export default {
           'Authorization': token
         }
       }
-      this.$http.post(this.baseUrl + 'api/file/banner', fd, config).then(res => {
+      this.$http.post(this.baseUrl + '/api/file/banner', fd, config).then(res => {
         if (res.status === 200) {
-          this.listData = res.data.result
+          this.editList = res.data.result
+          this.$message({
+            message: '上传成功',
+            type: 'success'
+          })
           // console.log(this.listData)
         }
       })
@@ -139,11 +162,14 @@ export default {
       console.log(file)
     },
     handleExceed (files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
     },
     beforeRemove (file, fileList) {
-      return this.$confirm(`确定移除${file.name}？`)
+      // return this.$confirm(`确定移除${file.name}？`)
     }
+  },
+  mounted () {
+    this.getData();
   }
 }
 </script>
@@ -198,13 +224,30 @@ export default {
       text-align: center;
     }
     input,.el-input-group--append .el-input__inner{
-      padding-right: 0;
+      padding-right:70px;
       border-radius: 4px;
       outline: none;
     }
     .upload{
       input{
         background: #F7F7F7;
+      }
+      .icon-uploadm{
+        input{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          cursor:pointer;
+        }
+      }
+      .shade{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
       }
     }
     .el-input-group__append{
