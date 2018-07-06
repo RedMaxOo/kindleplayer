@@ -80,6 +80,7 @@ export default {
           }).then(res=>{
             if(res.status === 200) {
               if(res.data.code === '0000') {
+                this.getUserInfo(res.data.result)
                 sessionStorage.setItem('username',this.ruleForm.username)
                 sessionStorage.setItem('token',res.data.result)
                 this.$router.push({path:'/'})
@@ -99,12 +100,12 @@ export default {
         }
       })
     },
-    getUserInfo(){
-      var token = sessionStorage.getItem('token')
+    getUserInfo(token){
       this.$http.get(this.baseUrl + 'api/user/getUser',{headers: {
         'Authorization': token
       }}).then(res=>{
         if(res.status === 200) {
+          debugger
           if(res.data.code === '1111'){
             this.$message({
               message: res.data.message,
