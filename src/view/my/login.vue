@@ -105,7 +105,6 @@ export default {
         'Authorization': token
       }}).then(res=>{
         if(res.status === 200) {
-          debugger
           if(res.data.code === '1111'){
             this.$message({
               message: res.data.message,

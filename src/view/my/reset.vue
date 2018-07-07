@@ -72,7 +72,6 @@
     },
     methods: {
       isvalidPwd(str){
-        debugger
         const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]{6,12}$/
         return reg.test(str)
       },
@@ -96,7 +95,7 @@
                 if(res.status.result === 'SEND'){
                   sessionStorage.clear()
                   this.$router.push({path:'/login'})
-                }                
+                }
               }
             })
           } else {
