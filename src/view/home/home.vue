@@ -102,7 +102,7 @@
       this.isShowVideo = false
     },
     getBanner(){
-      console.log(this.baseUrl)
+      // console.log(this.baseUrl)
       this.$http.get(this.baseUrl + 'open/hp/banner').then(res=>{
         if(res.status === 200) {
           let data = res.data.result
@@ -110,8 +110,8 @@
           let videos = data.map(item => item.video_path)
           this.videoSource = videos
           this.videoPoster = posters
-          console.log(posters)
-          console.log(videos)
+          // console.log(posters)
+          // console.log(videos)
         }
       })
     },
@@ -150,10 +150,10 @@
       // console.log('player play!', player)
     },
     onPlayerPause(player) {
-       console.log('player pause!', player)
+       // console.log('player pause!', player)
     },
     onPlayerEnded(player) {
-       console.log('player ended!', player)
+       // console.log('player ended!', player)
     },
     onPlayerLoadeddata(player) {
       // console.log('player Loadeddata!', player)
@@ -180,7 +180,7 @@
     // player is ready
     playerReadied(player) {
       // seek to 10s
-      console.log('example player 1 readied', player)
+      // console.log('example player 1 readied', player)
 //      player.currentTime(10)
       // console.log('example 01: the player is readied', player)
     }

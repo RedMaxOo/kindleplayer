@@ -48,10 +48,10 @@ export default {
       // console.log('player play!', player)
     },
     onPlayerPause(player) {
-       console.log('player pause!', player)
+       // console.log('player pause!', player)
     },
     onPlayerEnded(player) {
-       console.log('player ended!', player)
+       // console.log('player ended!', player)
     },
     onPlayerLoadeddata(player) {
       // console.log('player Loadeddata!', player)
@@ -78,7 +78,7 @@ export default {
     // player is ready
     playerReadied(player) {
       // seek to 10s
-      console.log('example player 1 readied', player)
+      // console.log('example player 1 readied', player)
 //      player.currentTime(10)
       // console.log('example 01: the player is readied', player)
     }

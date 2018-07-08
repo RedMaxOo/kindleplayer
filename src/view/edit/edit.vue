@@ -50,43 +50,66 @@ export default {
   data () {
     return {
       input5: '',
-      editList: [
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        }
-      ],
+      editList: [],
       fileList: []
     }
   },
   methods: {
     getData () {
-      this.$http.post(this.baseUrl + 'open/hp/banner').then(res => {
+      this.$http.get(this.baseUrl + 'open/hp/banner').then(res => {
         if (res.status === 200) {
           let data = res.data.result
           if (data.length) {
             this.editList = data
           } else {
-            this.editList = data
+            this.editList = [
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              }
+            ]
           }
 
         }
+      }).catch((err) => {
+        this.editList = [
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          }
+        ]
       })
     },
     addList () {
@@ -153,13 +176,13 @@ export default {
 
     },
     handleChange (file, fileList) {
-      console.log(file, fileList)
+      // console.log(file, fileList)
     },
     handleRemove (file, fileList) {
-      console.log(file, fileList)
+      // console.log(file, fileList)
     },
     handlePreview (file) {
-      console.log(file)
+      // console.log(file)
     },
     handleExceed (files, fileList) {
       // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)

@@ -15,7 +15,7 @@
         <h3>{{item.title}}</h3>
         <p>{{item.track_title}}<span style="margin-left:10px;">{{item.track_singer}}</span></p>
       </div>
-      
+
     </div>
     <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
             <div @click.stop="" class="video-box">
@@ -33,7 +33,7 @@
   import 'video.js/dist/video-js.css'
   import 'vue-video-player/src/custom-theme.css'
   import { videoPlayer } from 'vue-video-player'
-  
+
 export default {
   components:{videoPlayer},
   data () {
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
      onPlayerPause(player) {
-       console.log('player pause!', player)
+       // console.log('player pause!', player)
     },
     getCases(){
         this.$http.post(this.baseUrl + 'open/hp/examples').then(res=>{
