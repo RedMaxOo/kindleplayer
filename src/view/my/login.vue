@@ -80,10 +80,9 @@ export default {
           }).then(res=>{
             if(res.status === 200) {
               if(res.data.code === '0000') {
-                this.getUserInfo(res.data.result)
                 sessionStorage.setItem('username',this.ruleForm.username)
                 sessionStorage.setItem('token',res.data.result)
-                this.$router.push({path:'/'})
+                this.getUserInfo(res.data.result)
               }
               else{
                 this.$message({
@@ -105,20 +104,28 @@ export default {
         'Authorization': token
       }}).then(res=>{
         if(res.status === 200) {
-          debugger
-          if(res.data.code === '1111'){
-            this.$message({
-              message: res.data.message,
-              type: 'error'
-            })
-          }
-          else{
-            if(res.data) {
+            if(res.data.result) {
               this.$store.state.username = res.data.result.user_id
               this.$store.state.useremail = res.data.result.email
+              this.$store.state.mobile = res.data.result.mobile
+              this.$store.state.company = res.data.result.company
+              var role = res.data.result.role
+              var isAdmin = (role && role === 'ROLE_ADMIN')
+              if(isAdmin) {
+                // this.admin = true
+                sessionStorage.setItem('admin', isAdmin)
+              }
+              this.$router.push({path:'/'})
+            }   
+            else{
+              this.$message({
+                  message: '获取用户信息失败',
+                  type: 'error',
+                  duration:0,
+                  showClose:true
+                })            
             }
-          }
-        }
+        } 
       })
     },
     goRegister(){

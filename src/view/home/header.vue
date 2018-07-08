@@ -126,10 +126,10 @@ export default {
           if (res.status === 200) {
             if (res.data.result) {
               this.username = res.data.result.user_nm
-              this.$store.state.username = res.data.result.user_id
-              this.$store.state.useremail = res.data.result.email
-              this.$store.state.mobile = res.data.result.mobile
-              this.$store.state.company = res.data.result.company
+              // this.$store.state.username = res.data.result.user_id
+              // this.$store.state.useremail = res.data.result.email
+              // this.$store.state.mobile = res.data.result.mobile
+              // this.$store.state.company = res.data.result.company
               var role = res.data.result.role
               var isAdmin = (role && role === 'ROLE_ADMIN')
               if(isAdmin) {
@@ -143,8 +143,9 @@ export default {
     }
   },
   mounted(){
-    this.getUserInfo()
+    // this.getUserInfo()
     var user = sessionStorage.getItem('username')
+    this.isAdmin = sessionStorage.getItem('admin') || false
     if(user){
       this.isLogin = true
     }
