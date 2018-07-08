@@ -71,19 +71,18 @@
       submit (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let params ={
-              pw1:this.ruleForm.pwd1,
-              pw2:this.ruleForm.pwd2
-            }
-            this.$http.post(this.baseUrl + 'api/user/changePW', params, {transformRequest: [ data => {
-                data = this.qs.stringify(data);
-                return data;
-              }]},{
+            var token = sessionStorage.getItem('token')
+            var config = {
               headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Authorization': sessionStorage.getItem('token')
+                'Content-Type': 'multipart/form-data',
+                'Authorization': token
               }
-            }).then(res=>{
+            }
+            var fd = new FormData()
+            fd.append('pw1', this.ruleForm.pwd1)
+            fd.append('pw2', this.ruleForm.pwd2)
+            
+            this.$http.post(this.baseUrl + 'api/user/changePW',fd, config).then(res=>{
               if(res.status === 200) {
                 if(res.status.result === 'Y'){
                   sessionStorage.clear()

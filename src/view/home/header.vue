@@ -144,9 +144,9 @@ export default {
   },
   mounted(){
     // this.getUserInfo()
-    var user = sessionStorage.getItem('username')
+    this.username = sessionStorage.getItem('username') || ''
     this.isAdmin = sessionStorage.getItem('admin') || false
-    if(user){
+    if(this.username){
       this.isLogin = true
     }
   }

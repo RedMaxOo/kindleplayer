@@ -168,26 +168,25 @@
         return reg.test(str)
       },
       register(formName){
-        let params = {
-          username:this.ruleForm.username,
-          company: this.ruleForm.company,
-          address: this.ruleForm.address
-        }
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$http.post(this.baseUrl + 'api/user/change',params,{transformRequest: [ data => {
-              data = this.qs.stringify(data);
-              return data;
-            }]},{
+            var token = sessionStorage.getItem('token')
+            var config = {
               headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': token
               }
-            }).then(res=>{
+            }
+            var fd = new FormData()
+            fd.append('username', this.ruleForm.username)
+            fd.append('company', this.ruleForm.company)
+            fd.append('address', this.ruleForm.address)
+            this.$http.post(this.baseUrl + 'api/user/change',fd,config).then(res=>{
               if(res.status === 200 && res.data.result === 'Y') {
                 this.$message({
                       message: "信息已修改完成!",
                       type: 'success'
-                  })
+                  })  
               }
               else{
                 this.$message({
