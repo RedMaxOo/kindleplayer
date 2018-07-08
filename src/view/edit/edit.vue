@@ -21,7 +21,12 @@
       <el-col :span="11">
         <div class="grid-content upload">
           <div class="input-with-select el-input el-input-group el-input-group--append">
-            <input autocomplete="off" placeholder="请输入内容" :disable="true" v-model="item.img_path" class="el-input__inner">
+            <!--<input autocomplete="off" placeholder="请输入内容" disable="true" v-model="item.img_path" class="el-input__inner">-->
+            <el-input
+              placeholder="请选择图片"
+              v-model="item.img_path" class="none-apr"
+              :disabled="true">
+            </el-input>
             <div class="el-input-group__append">
               <button type="button" class="el-button el-button--default">
                 <i class="icon-uploadm"><input type="file" @change="update($event,index)"></i>
@@ -250,6 +255,18 @@ export default {
       padding-right:70px;
       border-radius: 4px;
       outline: none;
+      width: 100%;
+      border: 1px solid #dcdfe6;
+    }
+    .none-apr{
+      .inner{
+        width: 100%;
+        padding: 0;
+        background: none;
+        outline: none;
+        border: none;
+      }
+
     }
     .upload{
       input{
