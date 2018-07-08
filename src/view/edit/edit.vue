@@ -50,28 +50,7 @@ export default {
   data () {
     return {
       input5: '',
-      editList: [
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        },
-        {
-          img_path: '',
-          video_path: ''
-        }
-      ],
+      editList: [],
       fileList: []
     }
   },
@@ -83,10 +62,54 @@ export default {
           if (data.length) {
             this.editList = data
           } else {
-            this.editList = data
+            this.editList = [
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              },
+              {
+                img_path: '',
+                video_path: ''
+              }
+            ]
           }
 
         }
+      }).catch((err) => {
+        this.editList = [
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          },
+          {
+            img_path: '',
+            video_path: ''
+          }
+        ]
       })
     },
     addList () {
