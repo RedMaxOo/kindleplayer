@@ -72,11 +72,12 @@ export default {
     },
     showPower () {
       this.$refs.dialog.dialogVisible = true
+      let userinfor = JSON.parse(sessionStorage.getItem('userinfor'))
       this.forminfor = {
-        username: this.$store.state.username,
-        email: this.$store.state.useremail,
-        tele: this.$store.state.mobile,
-        company: this.$store.state.company,
+        username: userinfor.user_id,
+        email: userinfor.email,
+        tele: userinfor.mobile,
+        company: userinfor.company,
         albumname: '',
         title:'',
         type: '',

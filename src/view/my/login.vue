@@ -105,10 +105,7 @@ export default {
       }}).then(res=>{
         if(res.status === 200) {
             if(res.data.result) {
-              this.$store.state.username = res.data.result.user_id
-              this.$store.state.useremail = res.data.result.email
-              this.$store.state.mobile = res.data.result.mobile
-              this.$store.state.company = res.data.result.company
+              sessionStorage.setItem('userinfor', JSON.stringify(res.data.result))
               var role = res.data.result.role
               var isAdmin = (role && role === 'ROLE_ADMIN')
               if(isAdmin) {
@@ -116,16 +113,16 @@ export default {
                 sessionStorage.setItem('admin', isAdmin)
               }
               this.$router.push({path:'/'})
-            }   
+            }
             else{
               this.$message({
                   message: '获取用户信息失败',
                   type: 'error',
                   duration:0,
                   showClose:true
-                })            
+                })
             }
-        } 
+        }
       })
     },
     goRegister(){
