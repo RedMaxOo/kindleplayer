@@ -55,7 +55,28 @@ export default {
   data () {
     return {
       input5: '',
-      editList: [],
+      editList: [
+        {
+          img_path: '',
+          video_path: ''
+        },
+        {
+          img_path: '',
+          video_path: ''
+        },
+        {
+          img_path: '',
+          video_path: ''
+        },
+        {
+          img_path: '',
+          video_path: ''
+        },
+        {
+          img_path: '',
+          video_path: ''
+        }
+      ],
       fileList: []
     }
   },
@@ -64,57 +85,18 @@ export default {
       this.$http.get(this.baseUrl + 'open/hp/banner').then(res => {
         if (res.status === 200) {
           let data = res.data.result
-          if (data.length) {
+          if (data.length >= 5) {
+
             this.editList = data
           } else {
-            this.editList = [
-              {
-                img_path: '',
-                video_path: ''
-              },
-              {
-                img_path: '',
-                video_path: ''
-              },
-              {
-                img_path: '',
-                video_path: ''
-              },
-              {
-                img_path: '',
-                video_path: ''
-              },
-              {
-                img_path: '',
-                video_path: ''
-              }
-            ]
+            for (var i = 0; i < data.length; i++) {
+              this.$set(this.editList,i,data[i])
+            }
           }
 
         }
       }).catch((err) => {
-        this.editList = [
-          {
-            img_path: '',
-            video_path: ''
-          },
-          {
-            img_path: '',
-            video_path: ''
-          },
-          {
-            img_path: '',
-            video_path: ''
-          },
-          {
-            img_path: '',
-            video_path: ''
-          },
-          {
-            img_path: '',
-            video_path: ''
-          }
-        ]
+        console.log(err)
       })
     },
     addList () {
@@ -279,6 +261,7 @@ export default {
           height: 100%;
           left: 0;
           top: 0;
+          padding: 0;
           cursor:pointer;
         }
       }
@@ -294,6 +277,7 @@ export default {
       background: #fff;
       right: 57px;
       border: 1px solid #dcdfe6;
+      position: relative;
       button{
         padding: 0 16px;
       }
