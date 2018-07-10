@@ -100,9 +100,9 @@ export default {
             }
           }
           var fd = new FormData()
-          fd.append('pw1', this.ruleForm.pwd1)
-          fd.append('pw2', this.ruleForm.pwd2)
-          fd.append('pw3', this.ruleForm.pwd3)
+          // fd.append('pw1', this.ruleForm.pwd1)
+          fd.append('pw1', this.ruleForm.pwd2)
+          fd.append('pw2', this.ruleForm.pwd3)
           this.$http.post(this.baseUrl + '/open/user/resetPW',fd, config).then(res=>{
             if(res.status === 200) {
               debugger
