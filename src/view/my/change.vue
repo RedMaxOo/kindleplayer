@@ -97,18 +97,16 @@ export default {
           var fd = new FormData()
           fd.append('pw1', this.ruleForm.pwd1)
           fd.append('pw2', this.ruleForm.pwd2)
-          // fd.append('pw2', this.ruleForm.pwd3)
-          this.$http.post(this.baseUrl + 'api/user/changePW',fd, config).then(res=>{
-            if(res.status === 200) {
-              if(res.data.result === 'Y'){
+          this.$http.post(this.baseUrl + 'api/user/changePW', fd, config).then(res => {
+            if (res.status === 200) {
+              if (res.data.result === 'Y') {
                 sessionStorage.clear()
                 this.$router.push({path:'/login'})
-              }
-              else{
+              } else {
                 this.$message({
                  message: res.data.message,
                   type: 'error',
-                  duration:0,
+                  duration: 0,
                   showClose:true
                })
               }
