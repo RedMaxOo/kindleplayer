@@ -25,30 +25,28 @@
   export default {
     name: 'reset',
     data () {
-       var validatePass = (rule, value, callback) => {
+      var validatePass = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请输入密码'));
+        }
+        else if(!this.isvalidPwd(value)){
+          callback(new Error('密码是6-12位数字和字母的组合'))
         }
         else {
           if (this.ruleForm.pwd2 !== '') {
             this.$refs.ruleForm.validateField('pwd2')
-          }else if(!this.isvalidPwd(value)){
-            callback(new Error('密码是6-12位数字和字母的组合'))
-          }else {
-            if (this.ruleForm.pwd2 !== '') {
-              this.$refs.ruleForm.validateField('pwd2')
-            }
-            callback();
           }
+          callback();
         }
       }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请确认密码'));
-        } else if(!this.isvalidPwd(value)){
-          callback(new Error('密码是6-12位数字和字母的组合'))
+        } 
+        else if(!this.isvalidPwd(value)){
+          callback(new Error('密码由6-12位字母和数字组成'))
         }else if (value !== this.ruleForm.pwd1) {
-          callback(new Error('两次输入密码不一致!'))
+          callback(new Error('两次密码输入不匹配'))
         } else {
           callback();
         }
