@@ -11,7 +11,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><span @click="toInfo">INFORMATION</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="toBanner">BANNER</span></el-dropdown-item>
+                  <!-- <el-dropdown-item><span @click="toBanner">BANNER</span></el-dropdown-item> -->
                   <el-dropdown-item><span @click="toPassword">CHANGE PASSWORD</span></el-dropdown-item>
                   <el-dropdown-item v-show="admin"><span @click="toBanner">BANNER</span></el-dropdown-item>
                   <el-dropdown-item><span @click="logout">LOGOUT</span></el-dropdown-item>
@@ -146,7 +146,7 @@ export default {
   mounted(){
     // this.getUserInfo()
     this.username = sessionStorage.getItem('username') || ''
-    this.isAdmin = sessionStorage.getItem('admin') || false
+    this.admin = sessionStorage.getItem('admin') || false
     if(this.username){
       this.isLogin = true
     }

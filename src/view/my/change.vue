@@ -105,8 +105,7 @@ export default {
           fd.append('pw2', this.ruleForm.pwd3)
           this.$http.post(this.baseUrl + '/open/user/resetPW',fd, config).then(res=>{
             if(res.status === 200) {
-              debugger
-              if(res.status.result === 'Y'){
+              if(res.data.result === 'Y'){
                 sessionStorage.clear()
                 this.$router.push({path:'/login'})
               }
@@ -115,7 +114,7 @@ export default {
                  message: res.data.message,
                   type: 'error',
                   duration:0,
-                showClose:true
+                  showClose:true
                })
               }
             }
