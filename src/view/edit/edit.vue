@@ -152,7 +152,7 @@ export default {
       }
       this.$http.post(this.baseUrl + '/api/file/banner', fd, config).then(res => {
         if (res.status === 200) {
-          this.editList = res.data.result
+          // this.editList = res.data.result
           this.$message({
             message: '上传成功',
             type: 'success'

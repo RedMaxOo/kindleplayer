@@ -14,11 +14,6 @@
             <el-input type="password" v-model="ruleForm.pwd2" placeholder="New Password"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd2" label="新密码">
-          <el-tooltip class="item" effect="dark" content="与新设置密码保持一致" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd3" placeholder="New Password"></el-input>
-          </el-tooltip>
-        </el-form-item>
         <el-form-item>
           <el-button class="button" @click="submit('ruleForm')">SUBMIT</el-button>
         </el-form-item>
@@ -47,7 +42,9 @@ export default {
       }
       else if(!this.isvalidPwd(value)){
         callback(new Error('密码是6-12位数字和字母的组合'))
-      } else {
+      } else if(value == this.ruleForm.pwd1){
+        callback(new Error('新密码不能与旧密码相同'))
+      }else {
         callback();
       }
     }
@@ -66,10 +63,8 @@ export default {
     return {
       codeMsg: '',
       ruleForm: {
-        pw1: '',
-        pw2: '',
-        pw3: '',
-        code: ''
+        pwd1: '',
+        pwd2: ''
       },
       rules: {
         pwd1: [
@@ -77,10 +72,10 @@ export default {
         ],
         pwd2: [
           { required:true, validator:validatePass2, trigger: 'blur' },
-        ],
-        pwd3: [
-          { required:true, validator:validatePass3, trigger: 'blur' },
         ]
+        // pwd3: [
+        //   { required:true, validator:validatePass3, trigger: 'blur' },
+        // ]
       }
     }
   },
@@ -100,10 +95,10 @@ export default {
             }
           }
           var fd = new FormData()
-          // fd.append('pw1', this.ruleForm.pwd1)
-          fd.append('pw1', this.ruleForm.pwd2)
-          fd.append('pw2', this.ruleForm.pwd3)
-          this.$http.post(this.baseUrl + '/open/user/changePW',fd, config).then(res=>{
+          fd.append('pw1', this.ruleForm.pwd1)
+          fd.append('pw2', this.ruleForm.pwd2)
+          // fd.append('pw2', this.ruleForm.pwd3)
+          this.$http.post(this.baseUrl + 'api/user/changePW',fd, config).then(res=>{
             if(res.status === 200) {
               if(res.data.result === 'Y'){
                 sessionStorage.clear()

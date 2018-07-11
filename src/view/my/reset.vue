@@ -3,13 +3,13 @@
     <div class="title">RESET PASSWORD</div>
     <div class="register-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm">
-        <el-form-item prop="pwd1">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
+        <el-form-item prop="pwd1" label="密码">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
             <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd2">
+        <el-form-item prop="pwd2" label="确认密码">
           <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
             <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
           </el-tooltip>
@@ -90,9 +90,17 @@
               }
             }).then(res=>{
               if(res.status === 200) {
-                if(res.status.result === 'SEND'){
+                if(res.data.result === 'SEND'){
                   sessionStorage.clear()
                   this.$router.push({path:'/login'})
+                }
+                else{
+                  this.$message({
+                    message: res.data.message,
+                    type: 'error',
+                    duration:0,
+                    showClose:true
+                  })
                 }
               }
             })
@@ -129,7 +137,7 @@
   }
   .register-form {
     .el-form-item{
-      margin-bottom:0px;
+      // margin-bottom:0px;
     }
     .el-form-item__content {
       width: 380px;

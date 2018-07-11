@@ -37,6 +37,7 @@
           if(res.status === 200) {
             if(res.data.result === 'Y'){
               this.regsuccess = true
+              this.$router.push({path:'/login'})              
             }
             else{
               this.regfail = true

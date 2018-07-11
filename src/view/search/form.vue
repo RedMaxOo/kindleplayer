@@ -6,7 +6,7 @@
       :visible.sync="dialogVisible"
       width="33%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-        <el-form-item label="Name" prop="username">
+        <el-form-item label="Username" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
         <el-form-item label="Company" prop="region">
@@ -178,7 +178,7 @@ export default {
           { required: true, message: '不能为空', trigger: 'blur' },
         ],
         type: [
-          { required: true, message: '请选择', trigger: 'blur' },
+          { required: true, message: '请选择', trigger: 'change' },
         ],
         term: [
           { required: true, message: '不能为空', trigger: 'blur' },
@@ -196,6 +196,10 @@ export default {
     },
     isvalidEmail(str) {
         const reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
+        return reg.test(str)
+    },
+    isvalidPhone(str) {
+        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
         return reg.test(str)
     },
     submitForm (ruleForm) {
@@ -216,7 +220,11 @@ export default {
           this.$http.get(this.baseUrl + 'open/meta/cr', params).then(res => {
             if (res.status === 200) {
               this.listData = res.data.result
-              this.dialogVisible = false
+              this.$message({
+                message: '申请成功！',
+                type: 'success'
+              })  
+              this.dialogVisible = false            
             }
           })
         } else {

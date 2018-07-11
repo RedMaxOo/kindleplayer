@@ -13,7 +13,7 @@
           <el-input v-model="ruleForm.email" placeholder="Email" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item prop="username" label="姓名">
-          <el-tooltip class="item" effect="dark" content="Username由数字和字母组成" placement="right">
+          <el-tooltip class="item" effect="dark" content="Username不能超过32个字" placement="right">
             <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
           </el-tooltip>
         </el-form-item>
@@ -88,9 +88,7 @@
       var validateUserName = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入姓名'))
-        } else if (!this.isvalidUser(value)){
-          callback(new Error('需字母和数字组合'))
-        }else if(value.length > 32){
+        } else if(value.length > 32){
           callback(new Error('姓名过长'))
         }
         else {

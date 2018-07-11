@@ -6,7 +6,7 @@
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
         <el-form-item prop="userID" label="用户名">
           <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="Username"></el-input>
+            <el-input v-model="ruleForm.userID" placeholder="UserID"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="pwd1" label="密码">
@@ -23,8 +23,8 @@
           <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
         </el-form-item>
         <el-form-item prop="username" label="姓名">
-          <el-tooltip class="item" effect="dark" content="UserName由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
+          <el-tooltip class="item" effect="dark" content="Username不能超过32个字" placement="right">
+            <el-input v-model="ruleForm.username" placeholder="Username"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="mobile" label="手机号">
@@ -108,9 +108,7 @@
       var validateUserName = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入姓名'))
-        } else if (!this.isvalidUser(value)){
-          callback(new Error('需字母和数字组合'))
-        }else if(value.length > 32){
+        } else if(value.length > 32){
           callback(new Error('姓名过长'))
         }
         else {
