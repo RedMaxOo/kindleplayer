@@ -95,9 +95,7 @@ export default {
       this.$router.push({path:'/banner-edit'})
     },
     logout(){
-      sessionStorage.removeItem('username')
-      sessionStorage.removeItem('token')
-      sessionStorage.removeItem('admin')
+      sessionStorage.clear()
       this.$router.push({path:'/'})
       window.location.reload()
     },
