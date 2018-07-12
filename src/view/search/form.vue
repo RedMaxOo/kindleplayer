@@ -217,7 +217,14 @@ export default {
             territory: this.ruleForm.territory,
             additional_info: this.ruleForm.textarea
           }
-          this.$http.get(this.baseUrl + 'open/meta/cr', params).then(res => {
+          this.$http.post(this.baseUrl + 'open/meta/cr', params,{transformRequest: [ data => {
+              data = this.qs.stringify(data);
+              return data;
+            }]},{
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).then(res => {
             if (res.status === 200) {
               this.listData = res.data.result
               this.$message({
