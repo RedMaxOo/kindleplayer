@@ -89,19 +89,18 @@ export default {
             }
           }).then(res => {
             if (res.status === 200) {
-              if(res.data.result == 'Y'){
+              if(res.data.message == 'success'){
                 this.$message({
                     message: '找回密码申请成功，请前往邮箱重置密码',
                     type: 'success',
-                    duration:'4000'
+                    duration:'1500'
                   })
               }
               else{
                   this.$message({
                     message: '密码找回失败',
                     type: 'error',
-                    duration:0,
-                    showClose:true
+                    duration : 1500,
                   })
               }
             }

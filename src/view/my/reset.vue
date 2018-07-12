@@ -42,7 +42,7 @@
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
           callback(new Error('请确认密码'));
-        } 
+        }
         else if(!this.isvalidPwd(value)){
           callback(new Error('密码由6-12位字母和数字组成'))
         }else if (value !== this.ruleForm.pwd1) {
@@ -90,11 +90,10 @@
               }
             }).then(res=>{
               if(res.status === 200) {
-                if(res.data.result === 'SEND'){
+                if(res.data.result === 'Y'){
                   sessionStorage.clear()
                   this.$router.push({path:'/login'})
-                }
-                else{
+                }else{
                   this.$message({
                     message: res.data.message,
                     type: 'error',
@@ -136,6 +135,7 @@
     }
   }
   .register-form {
+    padding-top: 60px;
     .el-form-item{
       // margin-bottom:0px;
     }
