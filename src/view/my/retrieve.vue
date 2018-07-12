@@ -3,14 +3,14 @@
     <div class="title">RETRIEVE PASSWORD</div>
     <div class="register-form">
       <div class="logo"></div>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled">
-        <el-form-item prop="username">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled" label-width="380px">
+        <el-form-item prop="username" label="用户名">
           <el-input v-model="ruleForm.username" placeholder="Your registered name" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
-        <el-form-item prop="useremail">
+        <el-form-item prop="useremail" label="邮箱">
           <el-input  v-model="ruleForm.useremail" placeholder="Your registered email" prefix-icon="icon-email-small"></el-input>
         </el-form-item>
-        <el-form-item prop="code">
+        <el-form-item prop="code" label="验证码">
           <el-input v-model="ruleForm.code" placeholder="Verification code" prefix-icon="el-icon-code">
             <template slot="append"><div class="codemsg">{{codeMsg}}</div></template>
           </el-input>
@@ -26,6 +26,28 @@
 export default {
   name: 'retrieve',
   data () {
+      var validateEmail = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入邮箱'))
+        }else  if (!this.isvalidEmail(value)){
+          callback(new Error('请输入有效邮箱'))
+        }
+        else {
+          callback()
+        }
+      }
+     var validateUserID = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('请输入用户名'))
+        }else  if (!this.isvalidUser(value)){
+          callback(new Error('需字母和数字组合'))
+        } else if(value.length > 32){
+          callback(new Error('用户名过长'))
+        }
+        else {
+          callback()
+        }
+      }
     var validateCode = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('请输入验证码'))
@@ -45,13 +67,13 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+          { required: true, validator:validateUserID, trigger: 'blur' }
         ],
         useremail: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' }
+          { required: true, validator:validateEmail, trigger: 'blur' }
         ],
         code: [
-          {validator: validateCode, trigger: 'blur' }
+          { required: true, validator: validateCode, trigger: 'blur' }
         ]
       },
       isShowBtn: true,
@@ -59,6 +81,14 @@ export default {
     }
   },
   methods: {
+    isvalidEmail(str) {
+        const reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$")
+        return reg.test(str)
+    },
+    isvalidUser(str){
+        const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
+        return reg.test(str)
+    },
     createCode () {
       var code = ''
       var codeLength = 4
@@ -138,20 +168,22 @@ export default {
     }
   }
   .register-form {
+     margin-top:30px;
     .el-input__prefix{
       left: 10px;
     }
     .el-form-item{
-      margin-bottom:0px;
+      margin-bottom:30px;
     }
     .el-form-item__content {
+       margin-top:30px;
       width: 380px;
       margin: auto;
       margin-bottom: 0px !important;
     }
-    .el-form-item__content:nth-child(1) {
-      margin-top:30px;
-    }
+    // .el-form-item__content:nth-child(1) {
+    //   margin-top:30px;
+    // }
     .button{
       width:380px;
       height:40px;
@@ -160,6 +192,7 @@ export default {
       font-family: Avenir-Heavy;
       font-size: 18px;
       color: #FFFFFF;
+      margin-top:30px;
     }
     .el-input-group__append{
       right: 0;
