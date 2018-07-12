@@ -150,7 +150,7 @@ export default {
           'Authorization': token
         }
       }
-      this.$http.post(this.baseUrl + '/api/file/banner', fd, config).then(res => {
+      this.$http.post(this.baseUrl + 'api/file/banner', fd, config).then(res => {
         if (res.status === 200) {
           // this.editList = res.data.result
           this.$message({
