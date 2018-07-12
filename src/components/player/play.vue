@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     changeVolume (val) {
-      waveOption.setVolume = val / 100
+      waveOption.setVolume( val / 100)
     },
     hidePlayerFun () {
       this.hidePlayer = !this.hidePlayer
@@ -74,17 +74,17 @@ export default {
       }
     },
     playPrev () {
-//      waveOption.empty()
+      waveOption.empty()
       if (this.playIndex && this.playIndex <= this.musicList.length) {
         this.playIndex--
       } else {
         this.playIndex = this.musicList.length - 1
       }
-//      this.$store.state.isPlayOne = this.playIndex
       this.$store.commit('changePlaying', this.playIndex)
       this.loadMusic(this.currentMusic.src)
     },
     playNext () {
+      waveOption.empty()
       if (this.playIndex < this.musicList.length - 1) {
         this.playIndex++
       } else {
@@ -95,15 +95,20 @@ export default {
       this.loadMusic(this.currentMusic.src)
     },
     loadMusic (curMusric) {
-//      waveOption.empty()
+      let _this = this
+      waveOption.empty()
       waveOption.load(curMusric)
       if (this.isPlaying) {
         waveOption.on('ready', function () {
           waveOption.play()
         })
       }
-
-    },
+      waveOption.on('finish', function () {
+        _this.pause ()
+        _this.playNext()
+        _this.play()
+      })
+    }
   },
   computed: {
     // sync music
