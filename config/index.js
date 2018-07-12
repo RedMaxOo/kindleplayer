@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/km/',
+    assetsPublicPath: './',
     proxyTable: {
      '/api': {
         // target: 'https://ceshi.kindlemusic.cn/km/',
