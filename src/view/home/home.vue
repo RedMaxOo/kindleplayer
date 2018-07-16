@@ -202,7 +202,7 @@
 .searchlogo{
     width: 380px;
     height: 105px;
-    background: url('../../assets/img/binder.png') no-repeat 0 center;
+    background: url('/static/img/binder.png') no-repeat 0 center;
     float: left;
     .title{
       display: inline-block;
@@ -241,6 +241,7 @@
     color: #666666;
   }
   .album-list {
+    background: none !important;
     width:100%;
     display: flex;
     display: -webkit-flex;

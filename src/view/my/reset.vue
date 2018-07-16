@@ -77,7 +77,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let params ={
-              token : this.$route.query.t,
+              t: this.$route.query.t,
               pw1:this.ruleForm.pwd1,
               pw2:this.ruleForm.pwd2
             }

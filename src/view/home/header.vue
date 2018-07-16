@@ -1,7 +1,7 @@
 <template>
   <div class="pagelayout">
     <div class="header">
-        <div class="logo"><a href= "/kindlemusic/"></a></div>
+        <div class="logo"><a href="/"></a></div>
         <ul class="top-bar">
           <li><span v-if="!isLogin" @click="jumpToLogin">LOGIN</span></li>
           <li v-if="isLogin">
@@ -37,7 +37,7 @@
       <div class="center">
         <i class="icon-email-big"></i>
         <span>daniel@kindlemusic.cn</span>
-        <a href="mailto:jeffry.christiansen@gmail.com"><i class="icon-copy"></i></a>
+        <a href="mailto:daniel@kindlemusic.cn"><i class="icon-copy"></i></a>
       </div>
     </el-dialog>
   </div>
