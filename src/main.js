@@ -13,7 +13,7 @@ import qs from 'qs'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.qs = qs
-Vue.prototype.baseUrl = 'https://' + window.location.host + '/km/'
+Vue.prototype.baseUrl = '/api/' // 'https://' + window.location.host + '/km/'
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(Vuex)
@@ -32,7 +32,7 @@ const store = new Vuex.Store({
   }
 })
 const i18n = new VueI18n({
-  locale: 'en-US',    // 语言标识
+  locale: 'zh-CN',    // 语言标识
   messages: {
     'zh-CN': require('./common/zh'),   // 中文语言包
     'en-US': require('./common/en')    // 英文语言包

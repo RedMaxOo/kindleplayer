@@ -6,7 +6,7 @@
               <!--<input placeholder="请输入内容" class="searchinput" v-model="searchcontent">-->
             </div>
             <div class="searchinput">
-              <el-input v-model="searchValue" placeholder="请输入查询内容" suffix-icon="el-icon-search"
+              <el-input v-model="searchValue" :placeholder="$t('m.seachplace')" suffix-icon="el-icon-search"
                       ><el-button slot="append" icon="el-icon-search" @click="goSearch"></el-button></el-input>
             </div>
         </div>

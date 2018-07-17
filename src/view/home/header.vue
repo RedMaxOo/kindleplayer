@@ -3,27 +3,27 @@
     <div class="header">
         <div class="logo"><a href="/"></a></div>
         <ul class="top-bar">
-          <li><span v-if="!isLogin" @click="jumpToLogin">LOGIN</span></li>
+          <li><span v-if="!isLogin" @click="jumpToLogin">{{$t('m.navmenu1')}}</span></li>
           <li v-if="isLogin">
             <span><el-dropdown>
                 <span><i class="user"></i>
                   {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><span @click="toInfo">INFORMATION</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toInfo">{{$t('m.submenu1')}}</span></el-dropdown-item>
                   <!-- <el-dropdown-item><span @click="toBanner">BANNER</span></el-dropdown-item> -->
-                  <el-dropdown-item><span @click="toPassword">CHANGE PASSWORD</span></el-dropdown-item>
-                  <el-dropdown-item v-show="admin"><span @click="toBanner">BANNER</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="logout">LOGOUT</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toPassword">{{$t('m.submenu2')}</span></el-dropdown-item>
+                  <el-dropdown-item v-show="admin"><span @click="toBanner">{{$t('m.submenu3')}</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="logout">{{$t('m.submenu4')}</span></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </span>
           </li>
-          <li><span @click="jumpToHome">HOME</span></li>
-          <li><span @click="jumpToCase">CASE</span></li>
-          <li><span @click="showPower">COPYRIGHT</span></li>
-          <li><span @click="showConect">CONNECT</span></li>
-          <li><span @click="changeLangEvent">EN/CN</span></li>
+          <li><span @click="jumpToHome">{{$t('m.navmenu2')}}</span></li>
+          <li><span @click="jumpToCase">{{$t('m.navmenu3')}}</span></li>
+          <li><span @click="showPower">{{$t('m.navmenu4')}}</span></li>
+          <li><span @click="showConect">{{$t('m.navmenu5')}}</span></li>
+          <li><span @click="changeLangEvent">{{$t('m.navmenu6')}}</span></li>
         </ul>
       <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
       <!--<dialog-form ref="dialog"></dialog-form>-->
@@ -100,18 +100,18 @@ export default {
       window.location.reload()
     },
     changeLangEvent () {
-      this.$confirm('功能开发中。。。。', '提示', {
+      this.$confirm('要切换与语言吗', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-//        if ( this.lang === 'zh-CN' ) {
-//          this.lang = 'en-US';
-//          this.$i18n.locale = this.lang //关键语句
-//        }else {
-//          this.lang = 'zh-CN';
-//          this.$i18n.locale = this.lang //关键语句
-//        }
+        if ( this.lang === 'zh-CN' ) {
+          this.lang = 'en-US';
+          this.$i18n.locale = this.lang //关键语句
+        }else {
+          this.lang = 'zh-CN';
+          this.$i18n.locale = this.lang //关键语句
+        }
       });
     },
     getUserInfo(){

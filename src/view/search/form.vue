@@ -6,30 +6,30 @@
       :visible.sync="dialogVisible"
       width="33%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-        <el-form-item label="Username" prop="username">
+        <el-form-item :label="$t('m.name')" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
-        <el-form-item label="Company" prop="region">
+        <el-form-item :label="$t('m.company')" prop="region">
           <el-input v-model="ruleForm.company"></el-input>
         </el-form-item>
-        <el-form-item label="Email" prop="email">
+        <el-form-item :label="$t('m.mail')" prop="email">
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="Telephone number" prop="tele">
+        <el-form-item :label="$t('m.mobile')" prop="tele">
           <el-input v-model="ruleForm.tele"></el-input>
         </el-form-item>
-        <el-form-item label="Song title" prop="title">
+        <el-form-item :label="$t('m.songtitle')" prop="title">
           <el-input v-model="ruleForm.title"></el-input>
         </el-form-item>
         <el-form-item prop="albumname">
           <span slot="label">
-            <el-tooltip class="item" effect="dark" content="State the name of the production, product or brand (typically the title of a film, the name of a TV show, or the brand that is being advertised)" placement="bottom">
-              <span>Production name <i class="icon-tips"></i></span>
+            <el-tooltip class="item" effect="dark" :content="$t('m.producttips')" placement="bottom">
+              <span>{{$t('m.productionname')}}<i class="icon-tips"></i></span>
             </el-tooltip>
           </span>
           <el-input v-model="ruleForm.albumname"></el-input>
         </el-form-item>
-        <el-form-item label="Media Type" prop="type">
+        <el-form-item :label="$t('m.mediatype')" prop="type">
           <el-select v-model="ruleForm.type" placeholder="请选择" width="100%">
             <el-option
               v-for="item in mediaOptions"
@@ -41,16 +41,16 @@
         </el-form-item>
         <el-form-item prop="term">
           <span slot="label">
-            <el-tooltip class="item" effect="dark" content="State how long you would like to license the song for your project (e.g. 3 months, 6 months, 1 year, etc.) " placement="bottom">
-              <span>Term <i class="icon-tips"></i></span>
+            <el-tooltip class="item" effect="dark" :content="$t('m.termtips')" placement="bottom">
+              <span>{{$t('m.term')}} <i class="icon-tips"></i></span>
             </el-tooltip>
           </span>
           <el-input v-model="ruleForm.term"></el-input>
         </el-form-item>
-        <el-form-item label="Territory" prop="territory">
+        <el-form-item :label="$t('m.territory')" prop="territory">
           <el-input v-model="ruleForm.territory"></el-input>
         </el-form-item>
-        <el-form-item label="Additional info">
+        <el-form-item :label="$t('m.additional')">
           <el-input
             type="textarea"
             :rows="2"
@@ -60,8 +60,8 @@
 
         </el-form-item>
         <el-form-item>
-          <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">SUBMIT</el-button>
-          <el-button @click="dialogVisible = false">CANCEL</el-button>
+          <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">{{$t('m.submint')}}</el-button>
+          <el-button @click="dialogVisible = false">{{$t('m.cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -230,8 +230,8 @@ export default {
               this.$message({
                 message: '申请成功！',
                 type: 'success'
-              })  
-              this.dialogVisible = false            
+              })
+              this.dialogVisible = false
             }
           })
         } else {
