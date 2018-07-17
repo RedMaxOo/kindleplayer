@@ -202,7 +202,7 @@
 .searchlogo{
     width: 380px;
     height: 105px;
-    background: url('/static/img/binder.png') no-repeat 0 center;
+    background: url('../../../static/img/binder.png') no-repeat 0 center;
     float: left;
     .title{
       display: inline-block;

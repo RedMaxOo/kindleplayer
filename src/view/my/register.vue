@@ -6,7 +6,7 @@
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
         <el-form-item prop="userID" label="用户名">
           <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="UserID"></el-input>
+            <el-input v-model="ruleForm.userID" placeholder="Username"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="pwd1" label="密码">
@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item prop="username" label="姓名">
           <el-tooltip class="item" effect="dark" content="Username不能超过32个字" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="Username"></el-input>
+            <el-input v-model="ruleForm.username" placeholder="name"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="mobile" label="手机号">
