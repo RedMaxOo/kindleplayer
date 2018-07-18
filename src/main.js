@@ -13,7 +13,8 @@ import qs from 'qs'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.qs = qs
-Vue.prototype.baseUrl = '/api/' // 'https://' + window.location.host + '/km/'
+// Vue.prototype.baseUrl = 'https://' + window.location.host + '/km/'
+Vue.prototype.baseUrl = '/api/' // 'http://kindle.greatcoding.cn/km/'  // '/api'
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(Vuex)

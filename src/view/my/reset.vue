@@ -1,21 +1,21 @@
 <template>
   <div class="register-layout">
-    <div class="title">RESET PASSWORD</div>
+    <div class="title">{{$t('m.reset')}}</div>
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
-        <el-form-item prop="pwd1" label="密码">
-          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Password" ></el-input>
+        <el-form-item prop="pwd1" :label="$t('m.password')">
+          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.passwordtips')" placement="right">
+            <el-input type="password" v-model="ruleForm.pwd1" :placeholder="$t('m.password')" ></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd2" label="确认密码">
-          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd2" placeholder="Confirm Password"></el-input>
+        <el-form-item prop="pwd2" :label="$t('m.confirmpass')">
+          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.passwordtips')" placement="right">
+            <el-input type="password" v-model="ruleForm.pwd2" :placeholder="$t('m.confirmpass')"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" @click="submit('ruleForm')">SUBMIT</el-button>
+          <el-button class="button" @click="submit('ruleForm')">{{$t('m.submint')}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -27,10 +27,10 @@
     data () {
       var validatePass = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入密码'));
+          callback(new Error($t('m.errortips.password')));
         }
         else if(!this.isvalidPwd(value)){
-          callback(new Error('密码是6-12位数字和字母的组合'))
+          callback(new Error(this.$t('m.errortips.passwordtips')))
         }
         else {
           if (this.ruleForm.pwd2 !== '') {
@@ -41,12 +41,12 @@
       }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请确认密码'));
+          callback(new Error(this.$t('m.errortips.password')));
         }
         else if(!this.isvalidPwd(value)){
-          callback(new Error('密码由6-12位字母和数字组成'))
+          callback(new Error(this.$t('m.errortips.passwordtips')))
         }else if (value !== this.ruleForm.pwd1) {
-          callback(new Error('两次密码输入不匹配'))
+          callback(new Error(this.$t('m.errortips.pwdconfirm')))
         } else {
           callback();
         }

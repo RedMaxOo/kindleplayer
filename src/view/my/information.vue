@@ -4,30 +4,30 @@
     <div class="info-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
-        <el-form-item prop="userID" label="用户名">
-          <el-tooltip class="item" effect="dark" content="UserID由数字和字母组成" placement="right">
-            <el-input v-model="ruleForm.userID" placeholder="UserName" :disabled="true"></el-input>
+        <el-form-item prop="userID" :label="$t('m.username')">
+          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.userIdtips')" placement="right">
+            <el-input v-model="ruleForm.userID" :placeholder="$t('m.username')" :disabled="true"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="email" label="邮箱">
-          <el-input v-model="ruleForm.email" placeholder="Email" :disabled="true"></el-input>
+        <el-form-item prop="email" :label="$t('m.mail')">
+          <el-input v-model="ruleForm.email" :placeholder="$t('m.mail')" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item prop="username" label="姓名">
-          <el-tooltip class="item" effect="dark" content="Username不能超过32个字" placement="right">
-            <el-input v-model="ruleForm.username" placeholder="Name"></el-input>
+        <el-form-item prop="username" :label="$t('m.name')">
+          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.nametips')" placement="right">
+            <el-input v-model="ruleForm.username" :placeholder="$t('m.name')"></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="mobile" label="手机号">
-          <el-input v-model="ruleForm.mobile" placeholder="Mobile" :disabled="true"></el-input>
+        <el-form-item prop="mobile" :label="$t('m.mobile')">
+          <el-input v-model="ruleForm.mobile" :placeholder="$t('m.mobile')" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item prop="company" label="公司">
-          <el-input v-model="ruleForm.company" placeholder="Company"></el-input>
+        <el-form-item prop="company" :label="$t('m.company')">
+          <el-input v-model="ruleForm.company" :placeholder="$t('m.company')"></el-input>
         </el-form-item>
-        <el-form-item prop="address" label="地址">
-          <el-input v-model="ruleForm.address" placeholder="Address"></el-input>
+        <el-form-item prop="address" :label="$t('m.address')">
+          <el-input v-model="ruleForm.address" :placeholder="$t('m.address')"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" @click="register('ruleForm')">Save</el-button>
+          <el-button class="button" @click="register('ruleForm')">{{$t('m.save')}}</el-button>
         </el-form-item>
       </el-form>
     </div>

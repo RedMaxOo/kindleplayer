@@ -1,14 +1,14 @@
 <template>
   <div class="register-layout">
-    <div class="title">ACTIVE ACCOUNT</div>
+    <div class="title">{{$t('m.activetit')}}</div>
     <div class="imgbox" v-show="regsuccess">
       <img src="../../assets/icons/success.png" width="70" height="70">
     </div>
-    <div class="text1" v-show="regsuccess">User Active Successfully!</div>
+    <div class="text1" v-show="regsuccess">{{$t('m.errortips.activeSuc')}}</div>
     <!--<div class="imgbox" v-show="regfail">
       <img src="../../assets/icons/success.png" width="70" height="70">
     </div>-->
-    <div class="text1" v-show="regfail">User Active Fail!</div>
+    <div class="text1" v-show="regfail">{{$t('m.errortips.activeFail')}}</div>
   </div>
 </template>
 <script>

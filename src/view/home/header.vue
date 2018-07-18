@@ -30,7 +30,7 @@
     </div>
     <el-dialog
       class="email-dialog"
-      title="EMAIL"
+      :title="$t('m.mail')"
       :visible.sync="emailDialog"
       width="42%"
     >
@@ -100,16 +100,23 @@ export default {
       window.location.reload()
     },
     changeLangEvent () {
-      this.$confirm('要切换与语言吗', '提示', {
+      this.lang = this.$i18n.locale
+      let  msg = ''
+      if (this.lang === 'zh-CN') {
+        msg = '要切换成英文吗'
+      } else {
+        msg = '要切换成中文吗'
+      }
+      this.$confirm(msg, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        if ( this.lang === 'zh-CN' ) {
-          this.lang = 'en-US';
+        if ( this.lang === 'zh-CN') {
+          this.lang = 'en-US'
           this.$i18n.locale = this.lang //关键语句
         }else {
-          this.lang = 'zh-CN';
+          this.lang = 'zh-CN'
           this.$i18n.locale = this.lang //关键语句
         }
       });

@@ -1,22 +1,22 @@
 <template>
   <div class="register-layout">
-    <div class="title">RETRIEVE PASSWORD</div>
+    <div class="title">{{$t('m.retieve')}}</div>
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" :disabled="formDisabled" label-width="380px">
-        <el-form-item prop="username" label="用户名">
-          <el-input v-model="ruleForm.username" placeholder="Username" prefix-icon="el-icon-user"></el-input>
+        <el-form-item prop="username" :label="$t('m.username')">
+          <el-input v-model="ruleForm.username" :placeholder="$t('m.username')" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
-        <el-form-item prop="useremail" label="邮箱">
-          <el-input  v-model="ruleForm.useremail" placeholder="Email" prefix-icon="icon-email-small"></el-input>
+        <el-form-item prop="useremail" :label="$t('m.mail')">
+          <el-input  v-model="ruleForm.useremail" :placeholder="$t('m.mail')" prefix-icon="icon-email-small"></el-input>
         </el-form-item>
-        <el-form-item prop="code" label="验证码">
-          <el-input v-model="ruleForm.code" placeholder="Verification code" prefix-icon="el-icon-code">
+        <el-form-item prop="code" :label="$t('m.code')">
+          <el-input v-model="ruleForm.code" :placeholder="$t('m.code')" prefix-icon="el-icon-code">
             <template slot="append"><div class="codemsg">{{codeMsg}}</div></template>
           </el-input>
         </el-form-item>
         <el-form-item v-show="isShowBtn">
-          <el-button class="button" @click="submit('ruleForm')">SUBMIT</el-button>
+          <el-button class="button" @click="submit('ruleForm')">{{$t('m.submint')}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -28,9 +28,9 @@ export default {
   data () {
       var validateEmail = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('请输入邮箱'))
-        }else  if (!this.isvalidEmail(value)){
-          callback(new Error('请输入有效邮箱'))
+          return callback(new Error(this.$t('m.errortips.mail')))
+        }else  if (!this.isvalidEmail(value)) {
+          callback(new Error(this.$t('m.errortips.mailtips')))
         }
         else {
           callback()
@@ -38,11 +38,11 @@ export default {
       }
      var validateUserID = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('请输入用户名'))
+          return callback(new Error(this.$t('m.errortips.userId')))
         }else  if (!this.isvalidUser(value)){
-          callback(new Error('需字母和数字组合'))
+          callback(new Error(this.$t('m.errortips.userIdtips')))
         } else if(value.length > 32){
-          callback(new Error('用户名过长'))
+          callback(new Error(this.$t('m.errortips.userIdmore')))
         }
         else {
           callback()
@@ -50,9 +50,9 @@ export default {
       }
     var validateCode = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入验证码'))
+        return callback(new Error(this.$t('m.errortips.code')))
       }else  if (this.ruleForm.code.toLowerCase() !== this.codeMsg.toLowerCase()) {
-        callback(new Error('请输入正确的验证码'))
+        callback(new Error(this.$t('m.errortips.codetips')))
       }
       else {
         callback()

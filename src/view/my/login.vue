@@ -7,21 +7,21 @@
       <div class="logo"></div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="Username" prefix-icon="el-icon-user"></el-input>
+          <el-input v-model="ruleForm.username" :placeholder="$t('m.username')" prefix-icon="el-icon-user"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" v-model="ruleForm.password" placeholder="Password" prefix-icon="el-icon-pwd"></el-input>
+          <el-input type="password" v-model="ruleForm.password" :placeholder="$t('m.password')" prefix-icon="el-icon-pwd"></el-input>
         </el-form-item>
         <el-form-item prop="code">
-          <el-input v-model="ruleForm.code" placeholder="Verification Code" prefix-icon="el-icon-code">
+          <el-input v-model="ruleForm.code" :placeholder="$t('m.code')" prefix-icon="el-icon-code">
             <template slot="append"><div class="codemsg">{{codeMsg}}</div></template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" @click="login('ruleForm')">SIGN IN</el-button>
+          <el-button class="button" @click="login('ruleForm')">{{$t('m.login')}}</el-button>
         </el-form-item>
         <el-form-item>
-          <div class="bottom">  <router-link to="/retrieve">Forgot Password</router-link> |  <span @click="goRegister">Register</span></div>
+          <div class="bottom">  <router-link to="/retrieve">{{$t('m.forgot')}}</router-link> |  <span @click="goRegister">{{$t('m.register')}}</span></div>
         </el-form-item>
       </el-form>
     </div>
@@ -37,9 +37,9 @@ export default {
   data () {
     var validateCode = (rule, value, callback) => {
       if (!value) {
-        return callback(new Error('请输入验证码'))
+        return callback(new Error(this.$t('m.errortips.code')))
       }else  if (this.ruleForm.code.toLowerCase() !== this.codeMsg.toLowerCase()) {
-        callback(new Error('请输入正确的验证码'))
+        callback(new Error(this.$t('m.errortips.codetips')))
       }
       else {
         callback()
@@ -49,10 +49,10 @@ export default {
       ruleForm: {},
       rules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.userId'), trigger: 'blur' },
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.password'), trigger: 'blur' },
         ],
         code: [
           {validator: validateCode, trigger: 'blur' }

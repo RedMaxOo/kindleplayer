@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="album">
-            <div class="album-title">MUSIC ALBUM</div>
+            <div class="album-title">{{$t('m.indextit')}}</div>
             <ul class="album-list">
               <li v-for="(items,index) in albums" :key="index">
                 <el-carousel width="240px" height="250px" arrow="never" :interval="5000" indicator-position="none">

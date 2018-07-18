@@ -4,18 +4,18 @@
     <div class="register-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
-        <el-form-item prop="pwd1" label="旧密码">
-          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd1" placeholder="Old Password" ></el-input>
+        <el-form-item prop="pwd1" :label="$t('m.oldpass')">
+          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.passwordtips')" placement="right">
+            <el-input type="password" v-model="ruleForm.pwd1" placeholder="$t('m.oldpass')" ></el-input>
           </el-tooltip>
         </el-form-item>
-        <el-form-item prop="pwd2" label="新密码">
-          <el-tooltip class="item" effect="dark" content="密码由6-12位数字和字母组成" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd2" placeholder="New Password"></el-input>
+        <el-form-item prop="pwd2" :label="$t('m.newpass')">
+          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.passwordtips')" placement="right">
+            <el-input type="password" v-model="ruleForm.pwd2" placeholder="$t('m.newpass')"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item>
-          <el-button class="button" @click="submit('ruleForm')">SUBMIT</el-button>
+          <el-button class="button" @click="submit('ruleForm')">{{$t('m.submint')}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -27,10 +27,10 @@ export default {
   data () {
       var validatePass = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请输入旧密码'));
+        callback(new Error(this.$t('m.errortips.password')));
       }
       else if(!this.isvalidPwd(value)){
-        callback(new Error('密码是6-12位数字和字母的组合'))
+        callback(new Error(this.$t('m.errortips.passwordtips')))
       }
       else {
         callback();
@@ -38,25 +38,13 @@ export default {
     }
     var validatePass2 = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请输入新密码'));
+        callback(new Error(this.$t('m.errortips.password')))
       }
       else if(!this.isvalidPwd(value)){
-        callback(new Error('密码是6-12位数字和字母的组合'))
+        callback(new Error(this.$t('m.errortips.passwordtips')))
       } else if(value == this.ruleForm.pwd1){
-        callback(new Error('新密码不能与旧密码相同'))
+        callback(new Error(this.$t('m.errortips.pwdconfirm')))
       }else {
-        callback();
-      }
-    }
-    var validatePass3 = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入新密码'));
-      }
-      else if(!this.isvalidPwd(value)){
-        callback(new Error('密码是6-12位数字和字母的组合'))
-      } else if(this.ruleForm.pw2 !== this.ruleForm.pw3){
-        callback(new Error('请输入相同的新密码'))
-      }else{
         callback();
       }
     }

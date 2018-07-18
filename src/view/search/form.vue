@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       class="form-dialog"
-      title="LICENCE INQUIRY"
+      :title="$t('m.licencetit')"
       :visible.sync="dialogVisible"
       width="33%">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">

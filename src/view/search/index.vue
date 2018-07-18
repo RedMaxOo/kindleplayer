@@ -42,10 +42,10 @@
       <el-main>
 
         <div class="maintitle">
-            <div class="tit">RESEARCH RESULTS</div>
+            <div class="tit">{{$t('m.search.result')}}</div>
             <div class="scale-item">
               <span class="label" v-if="showSelectTitle">{{showSelectTitle}}</span>
-              <span class="label">Total: {{showTotleNum}}</span>
+              <span class="label">{{$t('m.search.total')}}: {{showTotleNum}}</span>
             </div>
         </div>
         <div class="main-wrapper" :style="{height: mainHeight + 'px'}">
@@ -69,9 +69,9 @@
               <div class="list-cell colapse-title">
                 <div class="list-cell-hd">
                   <span class="list-cell-icon"></span>
-                  <div class="list-hd-befor">TRACK</div>
-                  <div class="list-hd-mid">ALBUM</div>
-                  <div class="list-hd-after">DURATION</div>
+                  <div class="list-hd-befor">{{$t('m.search.track')}}</div>
+                  <div class="list-hd-mid">{{$t('m.search.album')}}</div>
+                  <div class="list-hd-after">{{$t('m.search.duration')}}</div>
                 </div>
               </div>
               <el-collapse v-model="activeName" accordion class="mycollapse">
@@ -90,9 +90,9 @@
                     </div>
                   </template>
                   <ul class="list-content detail-infor">
-                    <li><label for="">Composer:</label><div>{{item.track_artist}}</div></li>
-                    <li><label for="">Alternate:</label><div>{{item.track_alternate_title}}</div></li>
-                    <li><label for="">Publisher:</label><div>{{item.track_publisher}}</div></li>
+                    <li><label for="">{{$t('m.search.composer')}}:</label><div>{{item.track_artist}}</div></li>
+                    <li><label for="">{{$t('m.search.publisher')}}:</label><div>{{item.track_alternate_title}}</div></li>
+                    <li><label for="">{{$t('m.search.alternate')}}:</label><div>{{item.track_publisher}}</div></li>
                   </ul>
                 </el-collapse-item>
               </el-collapse>
@@ -108,6 +108,11 @@
 <script>
 import DialogForm from './form.vue'
 import Aplayer from '@/components/player/play.vue'
+import mp3 from '../../assets/music/wet.mp3'
+import aaa from '../../assets/music/aaa.mp3'
+import bbb from '../../assets/music/bbb.mp3'
+import ccc from '../../assets/music/ccc.mp3'
+import ddd from '../../assets/music/ddd.mp3'
 export default {
   components: {Aplayer, DialogForm},
   data () {
@@ -122,11 +127,11 @@ export default {
       showTotleNum: 0,
       sidetabs: [ // tab选项卡name
         {
-          title: 'STYLE',
+          title: this.$t(`m.search.style`),
           name: '1'
         },
         {
-          title: 'LIBRARISE',
+          title: this.$t(`m.search.library`),
           name: '2'
         }
       ],
@@ -140,10 +145,11 @@ export default {
       activeName: '',
       itemName: 'style',
       musicLists: [], // 播放器列表
+      music: [mp3, aaa, bbb, ccc, ddd]
     }
   },
   methods: {
-    formatTime(seconds) {
+    formatTime (seconds) {
      return [
         // parseInt(seconds / 60 / 60),
         parseInt(seconds / 60 % 60),
@@ -231,7 +237,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3', //mp[i],
+              src: this.music[i], // 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3', //mp[i],
               img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })
