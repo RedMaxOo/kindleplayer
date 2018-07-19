@@ -6,6 +6,7 @@ export const m = {
   reset: '密码重置',
   activetit: '激活账户',
   licencetit: '授权申请',
+  acontTit: '账号创建',
   navmenu1: '登陆',
   navmenu2: '首页',
   navmenu3: '案例',

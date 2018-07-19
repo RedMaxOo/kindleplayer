@@ -108,11 +108,6 @@
 <script>
 import DialogForm from './form.vue'
 import Aplayer from '@/components/player/play.vue'
-import mp3 from '../../assets/music/wet.mp3'
-import aaa from '../../assets/music/aaa.mp3'
-import bbb from '../../assets/music/bbb.mp3'
-import ccc from '../../assets/music/ccc.mp3'
-import ddd from '../../assets/music/ddd.mp3'
 export default {
   components: {Aplayer, DialogForm},
   data () {
@@ -145,7 +140,6 @@ export default {
       activeName: '',
       itemName: 'style',
       musicLists: [], // 播放器列表
-      music: [mp3, aaa, bbb, ccc, ddd]
     }
   },
   methods: {
@@ -237,7 +231,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: this.music[i], // 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3', //mp[i],
+              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3', //mp[i],
               img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })

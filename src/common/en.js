@@ -6,6 +6,7 @@ export const m = {
   reset: 'RESET PASSWORD',
   activetit: 'ACTIVE ACCOUNT',
   licencetit: 'LICENCE INQUIRY',
+  acontTit: 'CREATE YOUR ACCOUNT',
   navmenu1: 'LOGIN',
   navmenu2: 'HOME',
   navmenu3: 'USER CASE',
