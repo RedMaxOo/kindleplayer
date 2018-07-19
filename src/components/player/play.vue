@@ -139,6 +139,7 @@ export default {
       container: '#waveform',
       waveColor: 'violet',
       barWidth: 2,
+      height: 110,
       progressColor: 'purple'
     }
     var wavesurfer = new WaveSurfer(params)
@@ -356,7 +357,7 @@ export default {
       flex-direction: column;
       text-align: start;
       padding: 14px 7px 0 10px;
-      height: 122px;
+      height: 110px;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       overflow: hidden;
