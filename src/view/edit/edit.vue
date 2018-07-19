@@ -1,5 +1,5 @@
 <template>
-  <div class="container edit-wrapper">
+  <div class="container edit-wrapper" v-if="isShow">
     <div class="main-title">{{$t('m.music')}}</div>
     <el-row class="list-tit" type="flex" justify="end">
       <el-col :span="11">
@@ -10,10 +10,11 @@
       </el-col>
     </el-row>
     <el-row class="edit-list" v-for="(item,index) in editList" :key="index"  type="flex" justify="end">
-      <el-col :span="3"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
+      <el-col :span="2"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
       <el-col :span="11">
         <div class="grid-content">
           <el-input placeholder="请输入内容" v-model="item.video_path" class="input-with-select" style="width:100%">
+            <template slot="prepend">https://</template>
             <el-button slot="append" icon="icon-clearm" @click="clearCurrent(item)"></el-button>
           </el-input>
         </div>
@@ -77,7 +78,8 @@ export default {
           video_path: ''
         }
       ],
-      fileList: []
+      fileList: [],
+      isShow:true
     }
   },
   methods: {
@@ -90,6 +92,7 @@ export default {
             this.editList = data
           } else {
             for (var i = 0; i < data.length; i++) {
+              data[i].video_path =  data[i].video_path.replace('https://','')
               this.$set(this.editList,i,data[i])
             }
           }
@@ -152,12 +155,21 @@ export default {
       }
       this.$http.post(this.baseUrl + 'api/file/banner', fd, config).then(res => {
         if (res.status === 200) {
+          if(res.data.code === '0000'){
           // this.editList = res.data.result
-          this.$message({
-            message: '上传成功',
-            type: 'success'
-          })
-          // console.log(this.listData)
+            this.$message({
+              message: '上传成功',
+              type: 'success'
+            })
+          }
+          else{
+            this.$message({
+              message: res.data.message,
+              type: 'error',
+              duration:0,
+              showClose:true
+            })
+          }
         }
       })
 
@@ -179,11 +191,50 @@ export default {
     }
   },
   mounted () {
-    this.getData();
+    var username = sessionStorage.getItem('username')
+    if(username){
+      var isAdmin = sessionStorage.getItem('admin')
+      if(isAdmin){
+        this.getData();
+      }
+      else{
+        this.isShow=false
+         this.$message({
+          message: '您没有维护权限，请联系管理员',
+          type: 'error',
+          duration:0,
+          showClose:true
+        })
+      }
+    }
+    else{
+      this.$router.push({path:'/login'})
+    }
   }
 }
 </script>
 <style lang="less">
+.el-input-group__prepend{
+      border-right: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    background-color: #f5f7fa;
+    color: #909399;
+    vertical-align: middle;
+    display: table-cell;
+    position: relative;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 0 20px;
+    width: 1px;
+    white-space: nowrap;
+    right:0;
+    padding:5px;
+}
+.el-input-group--prepend .el-input__inner, .el-input-group__append {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
   .edit-wrapper{
     background: #fff;
     margin-bottom: 60px;

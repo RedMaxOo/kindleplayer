@@ -10,11 +10,11 @@
                   {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><span @click="toInfo">{{$t('m.submenu1')}}</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toInfo">{{$t('m.navmenu1')}}</span></el-dropdown-item>
                   <!-- <el-dropdown-item><span @click="toBanner">BANNER</span></el-dropdown-item> -->
-                  <el-dropdown-item><span @click="toPassword">{{$t('m.submenu2')}</span></el-dropdown-item>
-                  <el-dropdown-item v-show="admin"><span @click="toBanner">{{$t('m.submenu3')}</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="logout">{{$t('m.submenu4')}</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toPassword">{{$t('m.submenu2')}}</span></el-dropdown-item>
+                  <el-dropdown-item v-show="admin"><span @click="toBanner">{{$t('m.submenu3')}}</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="logout">{{$t('m.submenu4')}}</span></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </span>
@@ -114,9 +114,11 @@ export default {
       }).then(() => {
         if ( this.lang === 'zh-CN') {
           this.lang = 'en-US'
+          sessionStorage.setItem('lang','EN')
           this.$i18n.locale = this.lang //关键语句
         }else {
           this.lang = 'zh-CN'
+          sessionStorage.setItem('lang','CN')
           this.$i18n.locale = this.lang //关键语句
         }
       });

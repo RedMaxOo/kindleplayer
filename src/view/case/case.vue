@@ -7,7 +7,7 @@
         <el-button  type="text" icon="icon-play-btn" @click="popup(index)"></el-button>
         <div class="time is-play">
           <i class="icon-plays"></i>
-          {{item.description}}
+          {{item.des}}
         </div>
       </div>
       <div class="case-infor">
@@ -25,6 +25,9 @@
                                :options="playerOptions"
                                :playsinline="true">
                 </video-player>
+            </div>
+            <div class="desbox">
+            <span>{{currentDes}}</span>
             </div>
         </div>
   </div>
@@ -51,7 +54,8 @@ export default {
           src: ""
         }],
         poster: "",
-      }
+      },
+      currentDes:''
     }
   },
   computed: {
@@ -64,14 +68,23 @@ export default {
        // console.log('player pause!', player)
     },
     getCases(){
-        this.$http.post(this.baseUrl + 'open/hp/examples').then(res=>{
+        this.$http.post('/api/open/hp/examples').then(res=>{
           if(res.status === 200) {
             this.caseData = res.data.result || []
+            var lang = sessionStorage.getItem('lang')
+            if(lang=='EN'){
+              this.caseData.forEach(item=>{item.des = item.descriptionen})
+            }
+            else{
+              this.caseData.forEach(item=>{item.des = item.description}) 
+            }
+            
           }
         })
      },
     popup(index) {
       this.isShowVideo = true
+      this.currentDes = this.caseData[index].des
       this.playerOptions.sources[0].src = this.caseData[index].video_path
       // this.playerOptions.poster = this.caseData[index].img_path
       // this.playerOptions.poster = this.videoPoster[index]
@@ -88,6 +101,15 @@ export default {
 }
 </script>
 <style lang="less">
+  .desbox{
+    position:relative;
+    color:white;
+    top:130px;
+    word-break:break-all;
+    width:800px;
+    text-align:center;
+    margin:0 auto;
+  }
   .case-wrapper{
     width: 1100px;
     margin: 30px auto 50px;
