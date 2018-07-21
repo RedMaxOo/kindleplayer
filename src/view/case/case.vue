@@ -69,7 +69,7 @@ export default {
        // console.log('player pause!', player)
     },
     getCases(){
-        this.$http.post('/api/open/hp/examples').then(res=>{
+        this.$http.post(this.baseUrl+'open/hp/examples').then(res=>{
           if(res.status === 200) {
             this.caseData = res.data.result || []
             var lang = sessionStorage.getItem('lang')
