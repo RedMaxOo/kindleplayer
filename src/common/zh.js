@@ -85,5 +85,7 @@ export const m = {
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败'
-  }
+  },
+  imgUrl:'请输入内容',
+  videoUrl:'请选择图片'
 }

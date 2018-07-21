@@ -13,7 +13,7 @@
       <el-col :span="2"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
       <el-col :span="11">
         <div class="grid-content">
-          <el-input placeholder="请输入内容" v-model="item.video_path" class="input-with-select" style="width:100%">
+          <el-input :placeholder="$t('m.videoUrl')" v-model="item.video_path" class="input-with-select" style="width:100%">
             <template slot="prepend">https://</template>
             <el-button slot="append" icon="icon-clearm" @click="clearCurrent(item)"></el-button>
           </el-input>
@@ -24,7 +24,7 @@
           <div class="input-with-select el-input el-input-group el-input-group--append">
             <!--<input autocomplete="off" placeholder="请输入内容" disable="true" v-model="item.img_path" class="el-input__inner">-->
             <el-input
-              placeholder="请选择图片"
+              :placeholder="$t('m.imgUrl')"
               v-model="item.img_path" class="none-apr"
               :disabled="true">
             </el-input>
@@ -87,15 +87,14 @@ export default {
       this.$http.get(this.baseUrl + 'open/hp/banner').then(res => {
         if (res.status === 200) {
           let data = res.data.result
-          if (data.length >= 5) {
-
-            this.editList = data
-          } else {
+          // if (data.length >= 5) {
+          //   this.editList = data.map(item=>{item.video_path = item.video_path.replace('https://','')})
+          // } else {
             for (var i = 0; i < data.length; i++) {
               data[i].video_path =  data[i].video_path.replace('https://','')
               this.$set(this.editList,i,data[i])
             }
-          }
+          // }
 
         }
       }).catch((err) => {

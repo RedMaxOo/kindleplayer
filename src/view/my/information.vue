@@ -226,7 +226,13 @@
       }
     },
     mounted(){
-      this.getUserInfo()
+      var username = sessionStorage.getItem('username')
+      if(username){
+        this.getUserInfo()
+      }
+      else{
+        this.$router.push({path:'/login'})
+      }      
     }
   }
 </script>

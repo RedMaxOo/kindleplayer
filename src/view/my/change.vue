@@ -6,12 +6,12 @@
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
         <el-form-item prop="pwd1" :label="$t('m.oldpass')">
           <el-tooltip class="item" effect="dark" :content="$t('m.errortips.passwordtips')" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd1" placeholder="$t('m.oldpass')" ></el-input>
+            <el-input type="password" v-model="ruleForm.pwd1" :placeholder="$t('m.oldpass')" ></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item prop="pwd2" :label="$t('m.newpass')">
           <el-tooltip class="item" effect="dark" :content="$t('m.errortips.passwordtips')" placement="right">
-            <el-input type="password" v-model="ruleForm.pwd2" placeholder="$t('m.newpass')"></el-input>
+            <el-input type="password" v-model="ruleForm.pwd2" :placeholder="$t('m.newpass')"></el-input>
           </el-tooltip>
         </el-form-item>
         <el-form-item>
@@ -107,6 +107,10 @@ export default {
     }
   },
   mounted () {
+    var username = sessionStorage.getItem('username')
+    if(!username){
+      this.$router.push({path:'/login'})
+    }
   }
 }
 </script>

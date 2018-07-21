@@ -110,8 +110,6 @@
           let videos = data.map(item => item.video_path)
           this.videoSource = videos
           this.videoPoster = posters
-          // console.log(posters)
-          // console.log(videos)
         }
       })
     },
@@ -120,11 +118,10 @@
         if(res.status === 200) {
           this.albumList = res.data.result
           let albums = this.albumList.map(item => item.album_cover)
-          var len = Math.round(albums.length / 8)
-          for (var i = 0, j = 0, lens = albums.length; i < lens, j < len + 1; i += len,j++) {
-            this.$set(this.albums,j,albums.slice(i, i + len))
+          // var len = Math.round(albums.length / 8)
+          for (var i = 0, j = 0, lens = albums.length; i < lens, j < 8; i += 8,j++) {
+            this.$set(this.albums,j,albums.slice(i, i + 8))
           }
-
         }
       })
     },

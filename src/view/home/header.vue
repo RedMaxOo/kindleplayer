@@ -10,7 +10,7 @@
                   {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><span @click="toInfo">{{$t('m.navmenu1')}}</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="toInfo">{{$t('m.submenu1')}}</span></el-dropdown-item>
                   <!-- <el-dropdown-item><span @click="toBanner">BANNER</span></el-dropdown-item> -->
                   <el-dropdown-item><span @click="toPassword">{{$t('m.submenu2')}}</span></el-dropdown-item>
                   <el-dropdown-item v-show="admin"><span @click="toBanner">{{$t('m.submenu3')}}</span></el-dropdown-item>

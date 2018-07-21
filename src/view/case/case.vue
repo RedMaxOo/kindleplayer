@@ -6,16 +6,17 @@
         <img :src="item.img_path" alt="" width="360px" height="170px">
         <el-button  type="text" icon="icon-play-btn" @click="popup(index)"></el-button>
         <div class="time is-play">
-          <i class="icon-plays"></i>
-          {{item.des}}
+           <i class="icon-plays"></i>
+            {{currentDes}}
         </div>
       </div>
       <div class="case-infor">
         <div class="diliver"></div>
         <h3>{{item.title}}</h3>
-        <p>{{item.track_title}}<span style="margin-left:10px;">{{item.track_singer}}</span></p>
+        <p class="time is-play">
+          {{item.description}}
+        </p>
       </div>
-
     </div>
     <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
             <div @click.stop="" class="video-box">
@@ -77,14 +78,13 @@ export default {
             }
             else{
               this.caseData.forEach(item=>{item.des = item.description}) 
-            }
-            
+            }            
           }
         })
      },
     popup(index) {
       this.isShowVideo = true
-      this.currentDes = this.caseData[index].des
+      this.currentDes = this.caseData[index].description
       this.playerOptions.sources[0].src = this.caseData[index].video_path
       // this.playerOptions.poster = this.caseData[index].img_path
       // this.playerOptions.poster = this.videoPoster[index]

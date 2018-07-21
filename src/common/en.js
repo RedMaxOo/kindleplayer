@@ -85,5 +85,7 @@ export const m = {
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: 'User Active Successfully!',
     activeFail: 'User Active Fail!'
-  }
+  },
+   imgUrl:'input content',
+   videoUrl:'select image'
 }
