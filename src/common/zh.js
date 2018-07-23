@@ -86,6 +86,6 @@ export const m = {
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败'
   },
-  imgUrl:'请输入内容',
-  videoUrl:'请选择图片'
+  imgUrl:'请选择图片',
+  videoUrl:'请输入内容'
 }

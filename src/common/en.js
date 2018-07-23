@@ -86,6 +86,6 @@ export const m = {
     activeSuc: 'User Active Successfully!',
     activeFail: 'User Active Fail!'
   },
-   imgUrl:'input content',
-   videoUrl:'select image'
+   imgUrl:'select image',
+   videoUrl:'input content'
 }
