@@ -214,21 +214,22 @@ export default {
 </script>
 <style lang="less">
 .el-input-group__prepend{
-      border-right: 0 !important;
+    background-color: #f5f7fa !important;
+    color: #909399 !important;
+    vertical-align: middle !important;
+    display: table-cell !important;
+    position: relative !important;
+    border: 1px solid #dcdfe6 !important;
+    border-radius: 4px !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+    right:0 !important;
+    padding:5px !important;
+}
+.el-input-group--prepend .el-input-group__prepend{
+    border-right: 0 !important;
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
-    background-color: #f5f7fa;
-    color: #909399;
-    vertical-align: middle;
-    display: table-cell;
-    position: relative;
-    border: 1px solid #dcdfe6;
-    border-radius: 4px;
-    padding: 0 20px;
-    width: 1px;
-    white-space: nowrap;
-    right:0;
-    padding:5px;
 }
 .el-input-group--prepend .el-input__inner, .el-input-group__append {
     border-top-left-radius: 0 !important;

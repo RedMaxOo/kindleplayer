@@ -133,16 +133,22 @@ export default {
         }).then(res => {
           if (res.status === 200) {
             if (res.data.result) {
-              this.username = res.data.result.user_nm
-              // this.$store.state.username = res.data.result.user_id
-              // this.$store.state.useremail = res.data.result.email
-              // this.$store.state.mobile = res.data.result.mobile
-              // this.$store.state.company = res.data.result.company
-              var role = res.data.result.role
-              var isAdmin = (role && role === 'ROLE_ADMIN')
-              if(isAdmin) {
-                this.admin = true
-                sessionStorage.setItem('admin', isAdmin)
+              if(res.data.code ===1111){
+                sessionStorage.clear()
+                this.$router.push({path:'/login'})
+              }
+              else{
+                this.username = res.data.result.user_nm
+                // this.$store.state.username = res.data.result.user_id
+                // this.$store.state.useremail = res.data.result.email
+                // this.$store.state.mobile = res.data.result.mobile
+                // this.$store.state.company = res.data.result.company
+                var role = res.data.result.role
+                var isAdmin = (role && role === 'ROLE_ADMIN')
+                if(isAdmin) {
+                  this.admin = true
+                  sessionStorage.setItem('admin', isAdmin)
+                }
               }
             }
           }

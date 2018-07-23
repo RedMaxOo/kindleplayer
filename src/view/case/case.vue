@@ -5,17 +5,17 @@
         <div class="overlay"></div>
         <img :src="item.img_path" alt="" width="360px" height="170px">
         <el-button  type="text" icon="icon-play-btn" @click="popup(index)"></el-button>
-        <div class="time is-play">
+        <!-- <div class="time is-play">
            <i class="icon-plays"></i>
             {{currentDes}}
-        </div>
+        </div> -->
       </div>
       <div class="case-infor">
         <div class="diliver"></div>
         <h3>{{item.title}}</h3>
-        <p class="time is-play">
-          {{item.description}}
-        </p>
+      </div>
+      <div class="description">
+          <span>{{item.description}}</span>
       </div>
     </div>
     <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
@@ -156,6 +156,7 @@ export default {
         }
       }
       .case-infor{
+        width:350px;
         position: relative;
         padding-left: 10px;
         margin: 11px 0;
@@ -174,8 +175,14 @@ export default {
           line-height: 22px;
           color: #666666;
         }
-        p{
+      }
+      .description{
+          width: 350px;
+          height: 30px;
+          margin-bottom: 5px;
+          overflow: scroll;
           font-size: 12px;
+          text-indent: 0.2em;
           color: #666666;
           line-height: 16px;
           &:before{
@@ -186,9 +193,10 @@ export default {
             vertical-align: middle;
             background: url("../../assets/icons/music.png") no-repeat center;
           }
-        }
+          span{
+            width:350px;
+          }
       }
-
-    }
+  }
   }
 </style>

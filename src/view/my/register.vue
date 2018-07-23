@@ -23,9 +23,9 @@
           <el-input v-model="ruleForm.email" :placeholder="$t('m.mail')"></el-input>
         </el-form-item>
         <el-form-item prop="username" :label="$t('m.name')">
-          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.nametips')" placement="right">
+          <!-- <el-tooltip class="item" effect="dark" :content="$t('m.errortips.nametips')" placement="right"> -->
             <el-input v-model="ruleForm.username" :placeholder="$t('m.name')"></el-input>
-          </el-tooltip>
+          <!-- </el-tooltip> -->
         </el-form-item>
         <el-form-item prop="mobile" :label="$t('m.mobile')">
           <el-input v-model="ruleForm.mobile" :placeholder="$t('m.mobile')"></el-input>
