@@ -12,7 +12,7 @@ export const m = {
   navmenu3: '案例',
   navmenu4: '版权申请',
   navmenu5: '联系我们',
-  navmenu6: '英文/中文',
+  navmenu6: 'EN/中文',
   submenu1: '用户信息',
   submenu2: '密码修改',
   submenu3: '轮播图管理',
@@ -25,7 +25,7 @@ export const m = {
   code: '验证码',
   confirmpass: '确认密码',
   mail: '邮箱',
-  name: '名字',
+  name: '姓名',
   mobile: '手机号',
   company: '公司',
   address: '地址',
@@ -86,6 +86,6 @@ export const m = {
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败'
   },
-  imgUrl:'请选择图片',
-  videoUrl:'请输入内容'
+  imgUrl:'请输入内容',
+  videoUrl:'请选择图片'
 }

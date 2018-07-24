@@ -45,9 +45,9 @@
       <el-col :span="16">
         <el-button class="editBtn addbtn" icon="icon-add" @click="addList"></el-button>
       </el-col>
-      <!--<el-col :span="11">
-        <el-button class="editBtn submit" type="primiry" @click="submitUpload">SUBMIT</el-button>
-      </el-col>-->
+      <!--<el-col :span="11">-->
+        <!--<el-button class="editBtn submit" type="primiry" @click="submitUpload">SUBMIT</el-button>-->
+      <!--</el-col>-->
     </el-row>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default {
         }
       ],
       fileList: [],
-      isShow:true
+      isShow: true
     }
   },
   methods: {
@@ -87,15 +87,10 @@ export default {
       this.$http.get(this.baseUrl + 'open/hp/banner').then(res => {
         if (res.status === 200) {
           let data = res.data.result
-          // if (data.length >= 5) {
-          //   this.editList = data.map(item=>{item.video_path = item.video_path.replace('https://','')})
-          // } else {
-            for (var i = 0; i < data.length; i++) {
-              data[i].video_path =  data[i].video_path.replace('https://','')
-              this.$set(this.editList,i,data[i])
-            }
-          // }
-
+          for (var i = 0; i < data.length; i++) {
+            data[i].video_path = data[i].video_path.replace('https://','')
+            this.$set(this.editList, i, data[i])
+          }
         }
       }).catch((err) => {
         console.log(err)
@@ -154,7 +149,7 @@ export default {
       }
       this.$http.post(this.baseUrl + 'api/file/banner', fd, config).then(res => {
         if (res.status === 200) {
-          if(res.data.code === '0000'){
+          if(res.data.code === '0000') {
           // this.editList = res.data.result
             this.$message({
               message: '上传成功',

@@ -77,8 +77,8 @@ export default {
               this.caseData.forEach(item=>{item.des = item.descriptionen})
             }
             else{
-              this.caseData.forEach(item=>{item.des = item.description}) 
-            }            
+              this.caseData.forEach(item=>{item.des = item.description})
+            }
           }
         })
      },
@@ -177,25 +177,33 @@ export default {
         }
       }
       .description{
-          width: 350px;
-          height: 30px;
-          margin-bottom: 5px;
-          overflow: scroll;
-          font-size: 12px;
-          text-indent: 0.2em;
-          color: #666666;
-          line-height: 16px;
-          &:before{
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            vertical-align: middle;
-            background: url("../../assets/icons/music.png") no-repeat center;
-          }
-          span{
-            width:350px;
-          }
+        position: relative;
+        width: 350px;
+        height: 30px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        font-size: 12px;
+        padding-right: 20px;
+        padding-left: 22px;
+        text-indent: 0.2em;
+        color: #666666;
+        text-overflow: ellipsis;
+        line-height: 16px;
+        box-sizing: border-box;
+        &:before{
+          position: absolute;
+          left: 0;
+          top: 0px;
+          content: '';
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          vertical-align: middle;
+          background: url("../../assets/icons/music.png") no-repeat center;
+        }
+        span{
+          width:350px;
+        }
       }
   }
   }

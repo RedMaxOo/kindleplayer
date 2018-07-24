@@ -12,7 +12,7 @@ export const m = {
   navmenu3: 'USER CASE',
   navmenu4: 'LICENSE INQUIRY ',
   navmenu5: 'CONTACT',
-  navmenu6: 'EN/CN',
+  navmenu6: 'EN/中文',
   submenu1: 'USER INFO',
   submenu2: 'CHANGE PASSWORD',
   submenu3: 'BANNER MANAGEMENT',
@@ -30,14 +30,14 @@ export const m = {
   company: 'Company',
   address: 'Address',
   register: 'Register',
-  songtitle: 'Song Title',
+  songtitle: 'Music Title',
   productionname: 'Production Name',
   producttips: 'State the name of the production, product or brand (typically the title of a film, the name of a TV show, or the brand that is being advertised)',
   mediatype: 'Media Type',
   term: 'Term',
   termtips: 'State how long you would like to license the song for your project (e.g. 3 months, 6 months, 1 year, etc.)',
   territory: 'Territory',
-  additional: 'Additional info',
+  additional: 'Additional Info',
   submint: 'SUBMIT',
   cancel: 'CANCEL',
   login: 'SIGN IN',
@@ -86,6 +86,6 @@ export const m = {
     activeSuc: 'User Active Successfully!',
     activeFail: 'User Active Fail!'
   },
-   imgUrl:'select image',
-   videoUrl:'input content'
+   imgUrl:'input content',
+   videoUrl:'select image'
 }

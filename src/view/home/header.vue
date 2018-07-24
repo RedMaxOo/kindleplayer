@@ -74,10 +74,10 @@ export default {
       this.$refs.dialog.dialogVisible = true
       let userinfor = JSON.parse(sessionStorage.getItem('userinfor'))
       this.forminfor = {
-        username: userinfor.user_id,
-        email: userinfor.email,
-        tele: userinfor.mobile,
-        company: userinfor.company,
+        username: userinfor ? userinfor.user_id : '',
+        email: userinfor ? userinfor.email : '',
+        tele: userinfor ? userinfor.mobile : '',
+        company: userinfor ? userinfor.company : '',
         albumname: '',
         title:'',
         type: '',
@@ -101,27 +101,36 @@ export default {
     },
     changeLangEvent () {
       this.lang = this.$i18n.locale
-      let  msg = ''
-      if (this.lang === 'zh-CN') {
-        msg = '要切换成英文吗'
-      } else {
-        msg = '要切换成中文吗'
+      if ( this.lang === 'zh-CN') {
+        this.lang = 'en-US'
+        sessionStorage.setItem('lang','EN')
+        this.$i18n.locale = this.lang //关键语句
+      }else {
+        this.lang = 'zh-CN'
+        sessionStorage.setItem('lang','CN')
+        this.$i18n.locale = this.lang //关键语句
       }
-      this.$confirm(msg, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        if ( this.lang === 'zh-CN') {
-          this.lang = 'en-US'
-          sessionStorage.setItem('lang','EN')
-          this.$i18n.locale = this.lang //关键语句
-        }else {
-          this.lang = 'zh-CN'
-          sessionStorage.setItem('lang','CN')
-          this.$i18n.locale = this.lang //关键语句
-        }
-      });
+      // let  msg = ''
+      // if (this.lang === 'zh-CN') {
+      //   msg = '要切换成英文吗'
+      // } else {
+      //   msg = '要切换成中文吗'
+      // }
+      // this.$confirm(msg, '提示', {
+      //   confirmButtonText: '确定',
+      //   cancelButtonText: '取消',
+      //   type: 'warning'
+      // }).then(() => {
+      //   if ( this.lang === 'zh-CN') {
+      //     this.lang = 'en-US'
+      //     sessionStorage.setItem('lang','EN')
+      //     this.$i18n.locale = this.lang //关键语句
+      //   }else {
+      //     this.lang = 'zh-CN'
+      //     sessionStorage.setItem('lang','CN')
+      //     this.$i18n.locale = this.lang //关键语句
+      //   }
+      // });
     },
     getUserInfo(){
       var token = sessionStorage.getItem('token')

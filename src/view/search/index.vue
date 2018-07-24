@@ -2,7 +2,7 @@
   <div class="container" :style="{height: height + 'px'}">
     <div class="search">
       <el-input
-        placeholder="请输入内容"
+        placeholder="请输入搜索内容"
         suffix-icon="el-icon-search"
         v-model="seachValue"><el-button slot="append" icon="el-icon-search" @click="getSearchResult"></el-button>
       </el-input>
@@ -12,12 +12,14 @@
       <el-aside width="300px">
         <el-tabs class="sidetab" v-model="tabActive" type="card" @tab-click="handleTabClick">
           <el-tab-pane
-            v-for="(item, index) in sidetabs"
-            v-bind:key="index"
-            :label="item.title"
-            :name="item.name"
+            :label="$t('m.search.style')"
+            name="1"
           >
-            {{item.content}}
+          </el-tab-pane>
+          <el-tab-pane
+            :label="$t('m.search.library')"
+            name="2"
+          >
           </el-tab-pane>
         </el-tabs>
         <div class="sidetab-list" :style="{height: mainHeight + 'px'}">
@@ -120,16 +122,7 @@ export default {
       seachValue: '',
       showSelectTitle: '',
       showTotleNum: 0,
-      sidetabs: [ // tab选项卡name
-        {
-          title: this.$t(`m.search.style`),
-          name: '1'
-        },
-        {
-          title: this.$t(`m.search.library`),
-          name: '2'
-        }
-      ],
+      sidetabs: [],
       albumInfor: '', // 专辑封面信息
       trackList: [], // 歌曲列表信息
       listData: [],
@@ -171,10 +164,10 @@ export default {
       this.$refs.dialog.dialogVisible = true
       let userinfor = JSON.parse(sessionStorage.getItem('userinfor'))
       this.forminfor = {
-        username: userinfor.user_id,
-        email: userinfor.email,
-        tele: userinfor.mobile,
-        company: userinfor.company,
+        username: userinfor ? userinfor.user_id : '',
+        email: userinfor ? userinfor.email : '',
+        tele: userinfor ? userinfor.mobile : '',
+        company: userinfor ? userinfor.company : '',
         albumname: item.album_display_title,
         title: item.track_display_title,
         type: '',
@@ -355,7 +348,7 @@ export default {
   }
   .el-input__inner{
     width: 1098px;
-    height: 80px;
+    height: 50px;
     border-radius: 4px;
   }
 }
