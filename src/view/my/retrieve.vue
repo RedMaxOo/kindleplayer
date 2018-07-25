@@ -86,7 +86,8 @@ export default {
         return reg.test(str)
     },
     isvalidUser(str){
-        const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
+        // const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
+        const reg = /^[\da-zA-Z!@#$%^&*]{3,12}$/
         return reg.test(str)
     },
     createCode () {

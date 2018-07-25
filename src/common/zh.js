@@ -62,14 +62,14 @@ export const m = {
   },
   errortips: {
     userId: '请输入用户名',
-    userIdtips: '由6-12位数字和字母组成',
+    userIdtips: '用户名由3-12位数字和字母组成',
     userIdmore: '用户名过长',
     password: '请输入密码',
     passwordtips: '密码由6-12位数字和字母组成',
     password2: '请确认密码',
     password2tips: '两次密码输入不匹配',
     name: '请输入姓名',
-    nametips: '姓名由6-12位数字和字母组成',
+    nametips: '姓名由6-12位数字、字母或汉字组成',
     namemore: '姓名过长',
     pwdconfirm: '两次密码输入不匹配',
     code: '请输入验证码',
@@ -86,6 +86,6 @@ export const m = {
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败'
   },
-  imgUrl:'请输入内容',
-  videoUrl:'请选择图片'
+  imgUrl:'请选择图片',
+  videoUrl:'请输入内容'
 }

@@ -18,7 +18,7 @@
           <span>{{item.description}}</span>
       </div>
     </div>
-    <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
+    <div class="popup-layer" v-show="isShowVideo">
             <div @click.stop="" class="video-box">
               <video-player
                                class="vjs-custom-skin"
@@ -27,6 +27,7 @@
                                :playsinline="true">
                 </video-player>
             </div>
+            <div class="close-video" @click="hideModal"></div>
             <div class="desbox">
             <span>{{currentDes}}</span>
             </div>
@@ -45,9 +46,9 @@ export default {
       isShowVideo:false,
       caseData: [],
       playerOptions: {
-        width:'800',
+        width:'880',
         height: '500',
-        autoplay: false,
+        autoplay: true,
         muted: false,
         language: 'en',
         sources: [{
@@ -101,6 +102,19 @@ export default {
 }
 </script>
 <style lang="less">
+  .close-video{
+    cursor:pointer;
+    position:absolute;
+    top:9.5%;
+    right:19%;
+    width:30px;
+    height:30px;
+    background: url("../../assets/icons/exit1.png") no-repeat center;
+    &:hover{
+      background: url("../../assets/icons/exit2.png") no-repeat center;
+    }
+    
+  }
   .desbox{
     position:relative;
     color:white;
@@ -179,7 +193,6 @@ export default {
       .description{
         position: relative;
         width: 350px;
-        height: 30px;
         margin-bottom: 5px;
         overflow: hidden;
         font-size: 12px;

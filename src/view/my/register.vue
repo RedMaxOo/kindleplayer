@@ -23,9 +23,7 @@
           <el-input v-model="ruleForm.email" :placeholder="$t('m.mail')"></el-input>
         </el-form-item>
         <el-form-item prop="username" :label="$t('m.name')">
-          <!-- <el-tooltip class="item" effect="dark" :content="$t('m.errortips.nametips')" placement="right"> -->
             <el-input v-model="ruleForm.username" :placeholder="$t('m.name')"></el-input>
-          <!-- </el-tooltip> -->
         </el-form-item>
         <el-form-item prop="mobile" :label="$t('m.mobile')">
           <el-input v-model="ruleForm.mobile" :placeholder="$t('m.mobile')"></el-input>
@@ -169,7 +167,8 @@ export default {
   },
   methods: {
     isvalidUser(str){
-      const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
+      // const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
+      const reg = /^[\da-zA-Z!@#$%^&*]{3,12}$/
       return reg.test(str)
     },
     isvalidPwd(str){
@@ -222,8 +221,9 @@ export default {
     width:1098px;
     margin:auto;
     height: 100%;
+    overflow-y: scroll;
     background-color: white;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom:50px;
     .title{
       height: 80px;
@@ -238,9 +238,9 @@ export default {
     }
   }
   .reg-form {
-    margin-top:30px;
+    margin-top:10px;
     .el-form-item{
-      margin-bottom:30px;
+      margin-bottom:20px;
     }
     .el-form-item__content {
       width: 380px;

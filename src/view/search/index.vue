@@ -339,7 +339,7 @@ export default {
 </style>
 <style lang="less">
 .page-main{
-  margin-top: 30px;
+  margin-top: 20px;
 }
 /*search*/
 .search {

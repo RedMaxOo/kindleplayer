@@ -5,9 +5,7 @@
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">
         <el-form-item prop="userID" :label="$t('m.username')">
-          <el-tooltip class="item" effect="dark" :content="$t('m.errortips.userIdtips')" placement="right">
             <el-input v-model="ruleForm.userID" :placeholder="$t('m.username')" :disabled="true"></el-input>
-          </el-tooltip>
         </el-form-item>
         <el-form-item prop="email" :label="$t('m.mail')">
           <el-input v-model="ruleForm.email" :placeholder="$t('m.mail')" :disabled="true"></el-input>
@@ -260,7 +258,7 @@
     }
   }
   .info-form {
-      margin-top:30px;
+      margin-top:15px;
     .el-form-item{
       margin-bottom:30px;
     }

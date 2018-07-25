@@ -1,16 +1,29 @@
 <template>
   <div class="register-layout">
-    <div class="title">CREATE YOUR ACCOUNT</div>
+    <div class="title">{{$t('m.registertit')}}</div>
     <div class="imgbox">
       <img src="../../assets/icons/success.png" width="70" height="70">
     </div>
-    <div class="text1">Registered Successfully!</div>
-    <div class="text2">Please visit the registered email confirmation</div>
+    <div class="text1">{{message1}}</div>
+    <div class="text2">{{message2}}</div>
   </div>
 </template>
 <script>
   export default {
     name:"regsuccess",
+    data(){
+      return{
+        message1:"Registered Successfully!",
+        message2:'Please visit the registered email confirmation'
+      }
+    },
+    mounted() {
+      var lang = sessionStorage.getItem('lang')
+      if(lang === 'CN'){
+        this.message1 = '注册成功！'
+        this.message2 = '请前往注册邮箱激活您的账号'
+      }
+    },
   }
 </script>
 <style lang="less">

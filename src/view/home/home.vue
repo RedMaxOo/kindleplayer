@@ -16,7 +16,7 @@
                     <img :src="item" width="1098" height="450" @click="popup(index)">
                 </el-carousel-item>
             </el-carousel>
-            <div class="popup-layer" v-show="isShowVideo" @click="hideModal">
+            <div class="popup-layer" v-show="isShowVideo">
               <div @click.stop="" class="video-box">
                 <video-player
                                class="vjs-custom-skin"
@@ -36,6 +36,7 @@
                                @statechanged="playerStateChanged($event)">
                 </video-player>
               </div>
+              <div class="close-video" @click="hideModal"></div>
             </div>
         </div>
         <div class="album">
@@ -71,9 +72,9 @@
       searchValue: '',
       albums:[],
       playerOptions: {
-        width:'800',
+        width:'880',
         height: '500',
-        autoplay: false,
+        autoplay: true,
         muted: false,
         language: 'en',
         sources: [{
@@ -190,15 +191,26 @@
 </script>
 
 <style lang="less">
-
+.close-video{
+    cursor:pointer;
+    position:absolute;
+    top:9.5%;
+    right:19%;
+    width:30px;
+    height:30px;
+    background: url("../../assets/icons/exit1.png") no-repeat center;
+    &:hover{
+      background: url("../../assets/icons/exit2.png") no-repeat center;
+    }
+  }
 .searchbox{
     width:1098px;
-    margin:auto;
-    height:105px;
+    margin:10px auto;
+    height:50px;
 }
 .searchlogo{
     width: 380px;
-    height: 105px;
+    height: 50px;
     background: url('../../../static/img/binder.png') no-repeat 0 center;
     float: left;
     .title{
@@ -206,14 +218,14 @@
       font-family: Avenir-Heavy;
       font-size: 20px;
       color: rgb(255, 255, 255);
-      margin-top: 40px;
+      line-height:50px;
       margin-left: 20px;
     }
 }
 .searchinput {
     width: 700px;
-    height: 105px;
-    line-height:105px;
+    height: 50px;
+    line-height:50px;
     float: right;
     .el-input__suffix-inner {
       margin-right: 20px;
@@ -221,7 +233,7 @@
 
     .el-input__inner {
       width: 700px;
-      height: 80px;
+      height: 50px;
       border-radius: 4px;
     }
 }

@@ -37,7 +37,7 @@
       <div class="center">
         <i class="icon-email-big"></i>
         <span>daniel@kindlemusic.cn</span>
-        <a href="mailto:daniel@kindlemusic.cn"><i class="icon-copy"></i></a>
+        <a href="mailto:daniel@kindlemusic.cn?subject=test&cc=sample@hotmail.com&body=use mailto sample"><i class="icon-copy"></i></a>
       </div>
     </el-dialog>
   </div>

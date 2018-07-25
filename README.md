@@ -1,4 +1,4 @@
-# kindleplayer
+# kindlemusic
 
 > a music player for PC
 

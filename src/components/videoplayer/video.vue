@@ -32,7 +32,7 @@ export default {
         playerOptions: {
             width:'800',
             height: '500',
-            autoplay: false,
+            autoplay: true,
             muted: false,
             language: 'en',
             sources: [{
