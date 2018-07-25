@@ -12,7 +12,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Segoe UI';
   -webkit-font-smoothing: antialiased;
   background: #F3F9FC;
 }

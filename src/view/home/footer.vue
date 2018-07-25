@@ -20,7 +20,7 @@
     bottom: 0;
     z-index:5;
     .text{
-      font-family: Avenir-Heavy;
+      font-family: Segoe UI;
       font-size: 16px;
       color: #FFFFFF;
       margin:auto 0;

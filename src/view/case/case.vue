@@ -113,7 +113,6 @@ export default {
     &:hover{
       background: url("../../assets/icons/exit2.png") no-repeat center;
     }
-    
   }
   .desbox{
     position:relative;
@@ -129,7 +128,8 @@ export default {
     margin: 30px auto 50px;
     .case-item{
       float: left;
-      margin-right: 10px;
+      height:240px;
+      padding-right: 5px;
       &:nth-child(3n){
         margin-right: 0;
       }
@@ -173,7 +173,7 @@ export default {
         width:350px;
         position: relative;
         padding-left: 10px;
-        margin: 11px 0;
+        // margin: 11px 0;
         .diliver{
           position: absolute;
           left: 0;
@@ -192,11 +192,11 @@ export default {
       }
       .description{
         position: relative;
-        width: 350px;
+        width: 360px;
         margin-bottom: 5px;
         overflow: hidden;
         font-size: 12px;
-        padding-right: 20px;
+        // padding-right: 20px;
         padding-left: 22px;
         text-indent: 0.2em;
         color: #666666;
@@ -215,7 +215,7 @@ export default {
           background: url("../../assets/icons/music.png") no-repeat center;
         }
         span{
-          width:350px;
+          width:360px;
         }
       }
   }

@@ -72,7 +72,7 @@
     text-align: center;
     opacity: 0.6;
     background-image: linear-gradient(-134deg, #4634A9 0%, #F63669 100%);
-    font-family: Avenir-Heavy;
+    font-family: Segoe UI;
     font-size: 30px;
     color: #FFFFFF;
     text-shadow: 0 2px 4px rgba(108,108,108,0.50);
@@ -83,14 +83,14 @@
   }
   .text1{
     text-align: center;
-    font-family: Avenir-Medium;
+    font-family: Segoe UI;
     font-size: 26px;
     color: #666666;
     margin-top:23px;
   }
   .text2{
     text-align: center;
-    font-family: Avenir-Medium;
+    font-family: Segoe UI;
     font-size: 18px;
     color: #5BB4DB;
     margin-top:17px;

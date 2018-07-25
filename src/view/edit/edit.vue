@@ -245,7 +245,7 @@ export default {
     opacity: 0.6;
     background-image: linear-gradient(134deg, #4634A9 0%, #F63669 100%);
     color: #fff;
-    font-family: Avenir-Heavy;
+    font-family: Segoe UI;
     font-size: 30px;
     color: #FFFFFF;
     text-shadow: 0 2px 4px rgba(108,108,108,0.50);

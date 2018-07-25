@@ -1,6 +1,6 @@
 <template>
   <div class="info-layout">
-    <div class="title">PERSONAL INFORMATION</div>
+    <div class="title">{{$t('m.infotit')}}</div>
     <div class="info-form">
       <div class="logo"></div>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="demo-ruleForm" label-width="380px">

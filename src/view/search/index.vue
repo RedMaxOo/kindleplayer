@@ -2,7 +2,7 @@
   <div class="container" :style="{height: height + 'px'}">
     <div class="search">
       <el-input
-        placeholder="请输入搜索内容"
+        :placeholder="$t('m.seachplace')"
         suffix-icon="el-icon-search"
         v-model="seachValue"><el-button slot="append" icon="el-icon-search" @click="getSearchResult"></el-button>
       </el-input>

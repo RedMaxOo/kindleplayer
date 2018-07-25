@@ -208,7 +208,7 @@ export default {
     margin-left:30px;
     height: 70px;
     span{
-      font-family: Avenir-Medium;
+      font-family: Segoe UI;
       font-size: 16px;
       color: #666666;
       &:hover{

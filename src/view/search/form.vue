@@ -23,11 +23,14 @@
         </el-form-item>
         <el-form-item prop="albumname">
           <span slot="label">
-            <el-tooltip class="item" effect="dark" :content="$t('m.producttips')" placement="bottom">
-              <span>{{$t('m.productionname')}}<i class="icon-tips"></i></span>
+            <el-tooltip class="item" effect="dark" :content="$t('m.albumtips')" placement="bottom">
+              <span>{{$t('m.albumname')}}<i class="icon-tips"></i></span>
             </el-tooltip>
           </span>
           <el-input v-model="ruleForm.albumname"></el-input>
+        </el-form-item>
+        <el-form-item prop="prodname" :label="$t('m.prodname')">
+          <el-input v-model="ruleForm.prodname"></el-input>
         </el-form-item>
         <el-form-item :label="$t('m.mediatype')" prop="type">
           <el-select v-model="ruleForm.type" placeholder="请选择" width="100%">
@@ -175,16 +178,19 @@ export default {
           { required: true, message: '请填写歌曲名称', trigger: 'blur' },
         ],
         albumname: [
-          { required: true, message: '不能为空', trigger: 'blur' },
+          { required: true, message: '请填写专辑名称', trigger: 'blur' },
+        ],
+        prodname: [
+          { required: true, message: '请填写作品名称', trigger: 'blur' },
         ],
         type: [
           { required: true, message: '请选择', trigger: 'change' },
         ],
         term: [
-          { required: true, message: '不能为空', trigger: 'blur' },
+          { required: true, message: '请填写授权期限', trigger: 'blur' },
         ],
         territory: [
-          { required: true, message: '不能为空', trigger: 'blur' },
+          { required: true, message: '请填写授权地区', trigger: 'blur' },
         ]
       }
     }
@@ -212,6 +218,7 @@ export default {
             company: this.ruleForm.company,
             metaID: this.ruleForm.type,
             albumNM: this.ruleForm.albumname,
+            prodNM: this.ruleForm.prodname,
             trackNM: this.ruleForm.title,
             term: this.ruleForm.term,
             territory: this.ruleForm.territory,
@@ -254,6 +261,7 @@ export default {
     min-width:500px;
     padding:0 30px;
     border-radius: 4px;
+    margin-top:0px !important;
     .el-dialog__title{
       font-weight: bold;
       font-size: 20px;
@@ -266,6 +274,18 @@ export default {
     .el-select{
       width: 100%;
     }
+    .el-dialog__body{
+    padding:0px;
+  }
+  .el-dialog__header{
+    padding:10px;
+  }
+  .el-dialog__headerbtn{
+    top:10px;
+  }
+  .el-form-item{
+    margin-bottom:18px;
+  }
   }
   .color-submit.el-button--primary{
     background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
@@ -277,4 +297,5 @@ export default {
   .el-tooltip__popper{
     width: 200px;
   }
+  
 </style>

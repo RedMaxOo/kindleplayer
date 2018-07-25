@@ -1,4 +1,5 @@
 export const m = {
+  infotit:'PERSONAL INFORMATION',
   music: 'BANNER MANAGEMENT',
   registertit: 'CREATE YOUR ACCOUNT',
   indextit: 'ALBUM',
@@ -31,8 +32,9 @@ export const m = {
   address: 'Address',
   register: 'Register',
   songtitle: 'Music Title',
-  productionname: 'Production Name',
-  producttips: 'State the name of the production, product or brand (typically the title of a film, the name of a TV show, or the brand that is being advertised)',
+  albumname: 'Album',
+  prodname: 'Production Title',
+  albumtips: 'State the name of the production, product or brand (typically the title of a film, the name of a TV show, or the brand that is being advertised)',
   mediatype: 'Media Type',
   term: 'Term',
   termtips: 'State how long you would like to license the song for your project (e.g. 3 months, 6 months, 1 year, etc.)',

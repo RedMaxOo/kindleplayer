@@ -215,7 +215,7 @@
     float: left;
     .title{
       display: inline-block;
-      font-family: Avenir-Heavy;
+      font-family: Segoe UI;
       font-size: 20px;
       color: rgb(255, 255, 255);
       line-height:50px;
@@ -245,7 +245,7 @@
     width: 100%;
     height:70px;
     line-height: 80px;
-    font-family: Avenir-Heavy;
+    font-family: Segoe UI;
     font-size: 24px;
     color: #666666;
   }

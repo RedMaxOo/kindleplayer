@@ -153,7 +153,7 @@ export default {
       left: 10px;
     }
     .title{
-      font-family: Avenir-HeavyOblique;
+      font-family: Segoe UI;
       font-size: 30px;
       color: #FFFFFF;
       position: relative;
@@ -198,14 +198,14 @@ export default {
         background-image: linear-gradient(-45deg, #4634A9 0%, #F63669 100%);
         border-radius: 4px;
         border:none;
-        font-family: Avenir-Heavy;
+        font-family: Segoe UI;
         font-size: 18px;
         color: #FFFFFF;
       }
       .bottom{
         width:280px;
         margin:auto;
-        font-family: Avenir-Light;
+        font-family: Segoe UI;
         font-size: 12px;
         color: #999999;
         text-align: center;
@@ -229,7 +229,7 @@ export default {
       background: url('../../assets/img/logo.png') no-repeat center center;
     }
     .footer{
-      font-family: Avenir-Heavy;
+      font-family: Segoe UI;
       font-size: 16px;
       text-align: center;
       color: #FFFFFF;
