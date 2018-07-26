@@ -37,34 +37,36 @@ export default {
   props: ['showdialog', 'ruleForm'],
   data () {
     var validateNumber = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入手机号'))
-        }else  if (!this.isvalidPhone(value)){
-          callback(new Error('请输入有效手机号'))
-        }
-        else {
-          callback()
-        }
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.mobile')))
+      }else  if (!this.isvalidPhone(value)) {
+        callback(new Error(this.$t('m.errortips.mobiletips')))
+      }
+      else {
+        callback()
+      }
     }
     var validateUserName = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入姓名'))
-        } else if(value.length > 32){
-          callback(new Error('姓名过长'))
-        }
-        else {
-          callback()
-        }
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.name')))
+      } else if (!this.isvalidUser(value)){
+        callback(new Error(this.$t('m.errortips.nametips')))
+      }else if(value.length > 32){
+        callback(new Error(this.$t('m.errortips.namemore')))
+      }
+      else {
+        callback()
+      }
     }
     var validateEmail = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('请输入邮箱'))
-        }else  if (!this.isvalidEmail(value)){
-          callback(new Error('请输入有效邮箱'))
-        }
-        else {
-          callback()
-        }
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.mail')))
+      }else  if (!this.isvalidEmail(value)){
+        callback(new Error(this.$t('m.errortips.mailtips')))
+      }
+      else {
+        callback()
+      }
     }
     return {
       contactVisible: false,
@@ -184,5 +186,5 @@ export default {
   .el-tooltip__popper{
     width: 200px;
   }
-  
+
 </style>

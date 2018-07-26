@@ -106,7 +106,7 @@ export default {
         )
       } else {
         this.$message({
-          message: '最多只可以添加8个数据',
+          message: this.$t('m.imgmax'),
           type: 'warning'
         })
       }
@@ -119,7 +119,7 @@ export default {
         this.editList.splice(val, 1)
       } else {
         this.$message({
-          message: '必须添加5个数据',
+          message: this.$t('m.imgmin'),
           type: 'warning'
         })
       }
@@ -127,7 +127,7 @@ export default {
     valitete (i) {
       if (!this.editList[i].video_path) {
         this.$message({
-          message: '请先填写当前url地址，再上传图片',
+          message: this.$t('m.imgneed'),
           type: 'warning',
           duration: 1500
         })

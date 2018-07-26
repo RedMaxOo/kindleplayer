@@ -83,11 +83,50 @@ export const m = {
     mobilehas: '手机号已注册',
     comtips: '公司名称过长',
     addresstips: '地址过长',
+    songname: '请填写歌曲名称',
+    albumname: '请填写专辑名称',
+    proname: '请填写作品名称',
+    select: '请选择',
+    term: '请填写授权期限',
+    territory: '请填写授权地区',
+    imgmax: '最多只可以添加8个数据',
+    imgnum: '必须添加5个数据',
+    imgneed: '请先填写当前url地址，再上传图片',
     registerSuc: '恭喜您，成功注册，请到邮箱里去激活账号',
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败'
   },
+  mediaOptions: [
+    {
+      value: '广告',
+      label: '广告'
+    },
+    {
+      value: '仅公司内部使用',
+      label: '仅公司内部使用'
+    },
+    {
+      value: '电影',
+      label: '电影'
+    },
+    {
+      value: '游戏',
+      label: '游戏'
+    },
+    {
+      value: '商业应用',
+      label: '商业应用'
+    },
+    {
+      value: '仅网络使用',
+      label: '仅网络使用'
+    },
+    {
+      value: '广播',
+      label: '广播'
+    },
+  ],
   imgUrl: '请选择图片',
   videoUrl: '请输入内容',
   content: '内容'
