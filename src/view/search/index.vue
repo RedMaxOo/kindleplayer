@@ -104,7 +104,7 @@
       </el-main>
     </el-container>
     <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
-    <aplayer ref="player" :musicList="musicLists" :isPlayOne="true" ></aplayer>
+    <aplayer ref="player" :musicList="musicLists" :isPlayOne="playnum" ></aplayer>
   </div>
 </template>
 <script>

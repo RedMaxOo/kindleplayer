@@ -159,7 +159,7 @@ export default {
       position: relative;
       letter-spacing: 0;
       line-height: 54px;
-      width: 460px;
+      width: 500px;
       height: 54px;
       margin: auto;
       top: 68px;

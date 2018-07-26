@@ -4,7 +4,8 @@
       class="form-dialog"
       :title="$t('m.licencetit')"
       :visible.sync="dialogVisible"
-      width="33%">
+      width="33%"
+      :before-close="handleClose">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
         <el-form-item :label="$t('m.name')" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
@@ -64,7 +65,7 @@
         </el-form-item>
         <el-form-item>
           <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">{{$t('m.submint')}}</el-button>
-          <el-button @click="dialogVisible = false">{{$t('m.cancel')}}</el-button>
+          <el-button @click="close">{{$t('m.cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -88,9 +89,7 @@ export default {
     var validateUserName = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入姓名'))
-        } else if (!this.isvalidUser(value)){
-          callback(new Error('需字母和数字组合'))
-        }else if(value.length > 32){
+        } else if(value.length > 32){
           callback(new Error('姓名过长'))
         }
         else {
@@ -196,6 +195,14 @@ export default {
     }
   },
   methods: {
+    handleClose(done){
+      done()
+      this.$refs.ruleForm.resetFields()
+    },
+    close(){
+      this.dialogVisible = false
+      this.$refs.ruleForm.resetFields()
+    },
     isvalidUser(str){
         const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]/
         return reg.test(str)
@@ -261,7 +268,7 @@ export default {
     min-width:500px;
     padding:0 30px;
     border-radius: 4px;
-    margin-top:0px !important;
+    margin-top:5px !important;
     .el-dialog__title{
       font-weight: bold;
       font-size: 20px;

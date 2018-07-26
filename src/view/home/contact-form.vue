@@ -1,21 +1,22 @@
 <template>
   <div>
     <el-dialog
-      class="form-dialog"
-      :title="$t('navmenu5')"
+      class="contact-form-dialog"
+      :title="$t('m.navmenu5')"
       :visible.sync="contactVisible"
-      width="33%">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm1" label-width="150px" class="demo-ruleForm">
+      width="33%" 
+      :before-close="handleClose">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
         <el-form-item :label="$t('m.name')" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('m.company')" prop="region">
-          <el-input v-model="ruleForm.company"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('m.mail')" prop="email">
+         <el-form-item :label="$t('m.mail')" prop="email">
           <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('m.additional')">
+        <el-form-item :label="$t('m.company')" prop="company">
+          <el-input v-model="ruleForm.company"></el-input>
+        </el-form-item>       
+        <el-form-item :label="$t('m.content')" prop="textarea">
           <el-input
             type="textarea"
             :rows="2"
@@ -25,7 +26,7 @@
         </el-form-item>
         <el-form-item>
           <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">{{$t('m.submint')}}</el-button>
-          <el-button @click="contactVisible = false">{{$t('m.cancel')}}</el-button>
+          <el-button @click="close">{{$t('m.cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -48,9 +49,7 @@ export default {
     var validateUserName = (rule, value, callback) => {
         if (!value) {
           return callback(new Error('请输入姓名'))
-        } else if (!this.isvalidUser(value)){
-          callback(new Error('需字母和数字组合'))
-        }else if(value.length > 32){
+        } else if(value.length > 32){
           callback(new Error('姓名过长'))
         }
         else {
@@ -76,31 +75,24 @@ export default {
         email: [
             { required: true, validator: validateEmail, trigger: 'blur' },
         ],
-        tele: [
-            { required: true, validator:validateNumber, trigger: 'blur' },
-          ],
-        title: [
-          { required: true, message: '请填写歌曲名称', trigger: 'blur' },
+        company: [
+          { required: true, message: '请输入公司', trigger: 'blur' },
         ],
-        albumname: [
-          { required: true, message: '请填写专辑名称', trigger: 'blur' },
-        ],
-        prodname: [
-          { required: true, message: '请填写作品名称', trigger: 'blur' },
-        ],
-        type: [
-          { required: true, message: '请选择', trigger: 'change' },
-        ],
-        term: [
-          { required: true, message: '请填写授权期限', trigger: 'blur' },
-        ],
-        territory: [
-          { required: true, message: '请填写授权地区', trigger: 'blur' },
+        textarea: [
+          { required: true, message: '请填写内容', trigger: 'blur' },
         ]
       }
     }
   },
   methods: {
+    handleClose(done){
+      done()
+      this.$refs.ruleForm.resetFields()
+    },
+    close(){
+       this.contactVisible = false
+       this.$refs.ruleForm.resetFields()
+    },
     isvalidUser(str){
         const reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]/
         return reg.test(str)
@@ -114,22 +106,13 @@ export default {
         return reg.test(str)
     },
     submitForm (ruleForm) {
-      this.$refs[ruleForm1].validate((valid) => {
+      this.$refs[ruleForm].validate((valid) => {
         if (valid) {
           let params = {
-            email: this.ruleForm.email,
-            username: this.ruleForm.username,
-            mobile: this.ruleForm.tele,
-            company: this.ruleForm.company,
-            metaID: this.ruleForm.type,
-            albumNM: this.ruleForm.albumname,
-            prodNM: this.ruleForm.prodname,
-            trackNM: this.ruleForm.title,
-            term: this.ruleForm.term,
-            territory: this.ruleForm.territory,
-            additional_info: this.ruleForm.textarea
+            title: this.ruleForm.username+'+'+this.ruleForm.email+'+'+this.ruleForm.company,
+            desc: this.ruleForm.textarea
           }
-          this.$http.post(this.baseUrl + 'open/meta/cr', params,{transformRequest: [ data => {
+          this.$http.post(this.baseUrl + '/open/hp/mail', params,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
             }]},{
@@ -138,9 +121,8 @@ export default {
               }
             }).then(res => {
             if (res.status === 200) {
-              this.listData = res.data.result
               this.$message({
-                message: '申请成功！',
+                message: '发送成功！',
                 type: 'success'
               })
               this.contactVisible = false
@@ -158,15 +140,15 @@ export default {
 }
 </script>
 <style lang="less">
-  .form-dialog{
+  .contact-form-dialog{
     background-image: linear-gradient(45deg, rgba(70,52,169,.4) 0%, rgba(246,54,105,.4) 100%);
   }
-  .form-dialog .el-dialog{
+  .contact-form-dialog .el-dialog{
     background: #F3F9FC;
     min-width:500px;
     padding:0 30px;
     border-radius: 4px;
-    margin-top:0px !important;
+    margin-top:10% !important;
     .el-dialog__title{
       font-weight: bold;
       font-size: 20px;
