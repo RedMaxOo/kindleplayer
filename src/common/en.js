@@ -1,5 +1,5 @@
 export const m = {
-  infotit:'PERSONAL INFORMATION',
+  infotit: 'PERSONAL INFORMATION',
   music: 'BANNER MANAGEMENT',
   registertit: 'CREATE YOUR ACCOUNT',
   indextit: 'ALBUM',
@@ -88,6 +88,6 @@ export const m = {
     activeSuc: 'User Active Successfully!',
     activeFail: 'User Active Fail!'
   },
-   imgUrl:'select image',
-   videoUrl:'input content'
+  imgUrl: 'select image',
+  videoUrl: 'input content'
 }

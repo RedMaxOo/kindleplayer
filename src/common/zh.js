@@ -1,5 +1,5 @@
 export const m = {
-  infotit:'个人信息',
+  infotit: '个人信息',
   music: '轮播图上传',
   registertit: '创建账号',
   indextit: '音乐专辑',
@@ -33,7 +33,7 @@ export const m = {
   register: '注册',
   songtitle: '曲目名称',
   albumname: '专辑名称',
-  prodname:'作品名称',
+  prodname: '作品名称',
   albumtips: '请说明所选曲目用于制作的节目，广告产品或品牌名称（通常是电影或电视节目的名称，或广告的品牌）',
   mediatype: '媒体类型',
   term: '申请授权期限',
@@ -60,7 +60,7 @@ export const m = {
     duration: '时长',
     composer: '作曲家',
     publisher: '出版人',
-    alternate: '代理人',
+    alternate: '代理人'
   },
   errortips: {
     userId: '请输入用户名',
@@ -88,6 +88,6 @@ export const m = {
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败'
   },
-  imgUrl:'请选择图片',
-  videoUrl:'请输入内容'
+  imgUrl: '请选择图片',
+  videoUrl: '请输入内容'
 }

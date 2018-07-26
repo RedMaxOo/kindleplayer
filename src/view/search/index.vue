@@ -104,7 +104,7 @@
       </el-main>
     </el-container>
     <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
-    <aplayer ref="player" :musicList="musicLists" :isPlayOne="playnum" ></aplayer>
+    <aplayer ref="player" :musicList="musicLists" :isPlayOne="true" ></aplayer>
   </div>
 </template>
 <script>
@@ -251,7 +251,7 @@ export default {
               title: data[i].track_display_title,
               artist: data[i].track_description,
               src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename + '.mp3',
-              img: 'https://moeplayer.b0.upaiyun.com/aplayer/secretbase.jpg',
+              img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })
           }

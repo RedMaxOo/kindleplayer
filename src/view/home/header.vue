@@ -26,20 +26,9 @@
           <li><span @click="changeLangEvent">{{$t('m.navmenu6')}}</span></li>
         </ul>
       <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
+      <dialog-form ref="contactDialog" :ruleForm="contactInfo"></dialog-form>
       <!--<dialog-form ref="dialog"></dialog-form>-->
     </div>
-    <el-dialog
-      class="email-dialog"
-      :title="$t('m.mail')"
-      :visible.sync="emailDialog"
-      width="42%"
-    >
-      <div class="center">
-        <i class="icon-email-big"></i>
-        <span>daniel@kindlemusic.cn</span>
-        <a href="mailto:daniel@kindlemusic.cn?subject=test&cc=sample@hotmail.com&body=use mailto sample"><i class="icon-copy"></i></a>
-      </div>
-    </el-dialog>
   </div>
 </template>
 <script>
@@ -54,6 +43,7 @@ export default {
       showForm:false,
       emailDialog:false,
       forminfor: {},
+      contactInfo:{},
       admin:false
     }
   },
@@ -86,7 +76,14 @@ export default {
       }
     },
     showConect () {
-      this.emailDialog = true
+      debugger
+      this.$refs.contactDialog.contactVisible = true
+      this.contactInfo = {
+        username:'',
+        email:'',
+        company:'',
+        textarea:''
+      }
     },
     toInfo(){
       this.$router.push({path:'/myinfo'})
