@@ -77,9 +77,9 @@ export default {
   data () {
     var validateNumber = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('请输入手机号'))
-        }else  if (!this.isvalidPhone(value)){
-          callback(new Error('请输入有效手机号'))
+          return callback(new Error(this.$t('m.errortips.mobile')))
+        }else  if (!this.isvalidPhone(value)) {
+          callback(new Error(this.$t('m.errortips.mobiletips')))
         }
         else {
           callback()
@@ -87,11 +87,11 @@ export default {
     }
     var validateUserName = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('请输入姓名'))
+          return callback(new Error(this.$t('m.errortips.name')))
         } else if (!this.isvalidUser(value)){
-          callback(new Error('需字母和数字组合'))
+          callback(new Error(this.$t('m.errortips.nametips')))
         }else if(value.length > 32){
-          callback(new Error('姓名过长'))
+          callback(new Error(this.$t('m.errortips.namemore')))
         }
         else {
           callback()
@@ -99,9 +99,9 @@ export default {
     }
     var validateEmail = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('请输入邮箱'))
+          return callback(new Error(this.$t('m.errortips.mail')))
         }else  if (!this.isvalidEmail(value)){
-          callback(new Error('请输入有效邮箱'))
+          callback(new Error(this.$t('m.errortips.mailtips')))
         }
         else {
           callback()
@@ -109,61 +109,7 @@ export default {
     }
     return {
       dialogVisible: false,
-      mediaOptions: [
-        {
-          value: 'Advertisements',
-          label: 'Advertisements'
-        },
-        {
-          value: 'Corporate',
-          label: 'Corporate'
-        },
-        {
-          value: 'Film',
-          label: 'Film'
-        },
-        {
-          value: 'Games',
-          label: 'Games'
-        },
-        {
-          value: 'Merchandise',
-          label: 'Merchandise'
-        },
-        {
-          value: 'Online',
-          label: 'Online'
-        },
-        {
-          value: 'Print',
-          label: 'Print'
-        },
-        {
-          value: 'Radio',
-          label: 'Radio'
-        },
-        {
-          value: 'Trailer',
-          label: 'Trailer'
-        },
-        {
-          value: 'TV',
-          label: 'TV'
-        },
-        {
-          value: 'TV Promo',
-          label: 'TV Promo'
-        },
-        {
-          value: 'Other',
-          label: 'Other'
-        },
-        {
-          value: '',
-          label: ''
-        }
-
-      ],
+      mediaOptions: this.$t('m.mediaOptions'),
       rules: {
         username: [
           { required: true, validator:validateUserName,  trigger: 'blur' },
@@ -175,22 +121,22 @@ export default {
             { required: true, validator:validateNumber, trigger: 'blur' },
           ],
         title: [
-          { required: true, message: '请填写歌曲名称', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.songname'), trigger: 'blur' },
         ],
         albumname: [
-          { required: true, message: '请填写专辑名称', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.albumname'), trigger: 'blur' },
         ],
         prodname: [
-          { required: true, message: '请填写作品名称', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.proname'), trigger: 'blur' },
         ],
         type: [
-          { required: true, message: '请选择', trigger: 'change' },
+          { required: true, message: this.$t('m.errortips.select'), trigger: 'change' },
         ],
         term: [
-          { required: true, message: '请填写授权期限', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.term'), trigger: 'blur' },
         ],
         territory: [
-          { required: true, message: '请填写授权地区', trigger: 'blur' },
+          { required: true, message: this.$t('m.errortips.territory'), trigger: 'blur' },
         ]
       }
     }
@@ -297,5 +243,5 @@ export default {
   .el-tooltip__popper{
     width: 200px;
   }
-  
+
 </style>

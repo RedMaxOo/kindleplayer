@@ -26,17 +26,17 @@
           <li><span @click="changeLangEvent">{{$t('m.navmenu6')}}</span></li>
         </ul>
       <dialog-form ref="dialog" :showdialog="showForm" :ruleForm="forminfor"></dialog-form>
-      <dialog-form ref="cdialog" :ruleForm="contactInfo" :showdialog="showForm1"></dialog-form>
+      <contact-form ref="cdialog" :ruleForm="contactInfo" :showdialog="showForm1"></contact-form>
       <!--<dialog-form ref="dialog"></dialog-form>-->
     </div>
   </div>
 </template>
 <script>
 import DialogForm from '../search/form.vue'
-import DialogFormC from './contact-form.vue'
+import ContactForm from './contact-form.vue'
 export default {
   name: 'XHeader',
-  components: {DialogForm, DialogFormC},
+  components: {DialogForm, ContactForm},
   data(){
     return{
       isLogin:false,
@@ -78,7 +78,7 @@ export default {
       }
     },
     showConect () {
-      this.$refs.cdialog.contactVisible = true      
+      this.$refs.cdialog.contactVisible = true
       this.contactInfo = {
         username:'',
         email:'',

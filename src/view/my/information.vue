@@ -37,9 +37,9 @@
     data () {
       var validateNumber = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('电话不能为空'))
+          return callback(new Error(this.$t('m.errortips.mobile')))
         }else  if (!this.isvalidPhone(value)){
-          callback(new Error('请输入正确的11位手机号码'))
+          callback(new Error(this.$t('m.errortips.mobiletips')))
         }
         else {
           callback()
@@ -47,14 +47,14 @@
       }
       var validatePass = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请输入密码'));
+          callback(new Error(this.$t('m.errortips.password')));
         }
         else {
           if (this.ruleForm.pwd2 !== '') {
             this.$refs.ruleForm.validateField('pwd2')
           }
           else if(!isvalidPwd(value)){
-            callback(new Error('密码必须由6-12位数字和字母组成'));
+            callback(new Error(this.$t('m.errortips.passwordtips')));
           }
           else{
             callback()
@@ -63,21 +63,21 @@
       }
       var validatePass2 = (rule, value, callback) => {
         if (!value) {
-          callback(new Error('请确认密码'));
+          callback(new Error(this.$t('m.errortips.passwordtips')));
         }else if(!isvalidPwd(value)){
-            callback(new Error('密码必须由6-12位数字和字母组成'));
+            callback(new Error(this.$t('m.errortips.passwordtips')));
           }
          else if (value !== this.ruleForm.pwd1) {
-          callback(new Error('两次输入密码不一致!'))
+          callback(new Error(this.$t('m.errortips.pwdconfirm')))
         } else {
           callback();
         }
       }
       var validateEmail = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('邮箱不能为空'))
+          return callback(new Error(this.$t('m.errortips.mail')))
         }else  if (!this.isvalidEmail(value)){
-          callback(new Error('请输入正确的邮箱，以便您激活账号'))
+          callback(new Error(this.$t('m.errortips.mailtips')))
         }
         else {
           callback()
@@ -85,9 +85,9 @@
       }
       var validateUserName = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('请输入姓名'))
+          return callback(new Error(this.$t('m.errortips.name')))
         } else if(value.length > 32){
-          callback(new Error('姓名过长'))
+          callback(new Error(this.$t('m.errortips.namemore')))
         }
         else {
           callback()
@@ -95,7 +95,7 @@
       }
       var validateCompany = (rule, value, callback) => {
         if(value.length > 100){
-          callback(new Error('公司名称过长'))
+          callback(new Error(this.$t('m.errortips.comtips')))
         }
         else{
           callback()
@@ -103,7 +103,7 @@
       }
       var validateAddress = (rule, value, callback) => {
         if(value.length > 255){
-          callback(new Error('地址过长'))
+          callback(new Error(this.$t('m.errortips.addresstips')))
         }else{
           callback()
         }
@@ -182,7 +182,7 @@
                 this.$message({
                       message: "信息已修改完成!",
                       type: 'success'
-                  })  
+                  })
               }
               else{
                 this.$message({
@@ -232,7 +232,7 @@
       }
       else{
         this.$router.push({path:'/login'})
-      }      
+      }
     }
   }
 </script>
