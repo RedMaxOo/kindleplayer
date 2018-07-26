@@ -36,7 +36,7 @@
         <el-form-item :label="$t('m.mediatype')" prop="type">
           <el-select v-model="ruleForm.type" placeholder="请选择" width="100%">
             <el-option
-              v-for="item in mediaOptions"
+              v-for="item in $t('m.mediaOptions')"
               :key="item.value"
               :label="item.label"
               :value="item.value">
@@ -89,9 +89,7 @@ export default {
     var validateUserName = (rule, value, callback) => {
         if (!value) {
           return callback(new Error(this.$t('m.errortips.name')))
-        } else if (!this.isvalidUser(value)){
-          callback(new Error(this.$t('m.errortips.nametips')))
-        }else if(value.length > 32){
+        } else if(value.length > 32){
           callback(new Error(this.$t('m.errortips.namemore')))
         }
         else {
@@ -110,7 +108,7 @@ export default {
     }
     return {
       dialogVisible: false,
-      mediaOptions: this.$t('m.mediaOptions'),
+      mediaOptions: {},
       rules: {
         username: [
           { required: true, validator:validateUserName,  trigger: 'blur' },

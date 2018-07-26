@@ -49,9 +49,7 @@ export default {
     var validateUserName = (rule, value, callback) => {
       if (!value) {
         return callback(new Error(this.$t('m.errortips.name')))
-      } else if (!this.isvalidUser(value)){
-        callback(new Error(this.$t('m.errortips.nametips')))
-      }else if(value.length > 32){
+      } else if(value.length > 32){
         callback(new Error(this.$t('m.errortips.namemore')))
       }
       else {
