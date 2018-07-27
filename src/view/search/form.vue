@@ -91,8 +91,7 @@ export default {
           return callback(new Error(this.$t('m.errortips.name')))
         } else if(value.length > 32){
           callback(new Error(this.$t('m.errortips.namemore')))
-        }
-        else {
+        } else {
           callback()
         }
     }
@@ -169,7 +168,7 @@ export default {
             username: this.ruleForm.username,
             mobile: this.ruleForm.tele,
             company: this.ruleForm.company,
-            metaID: this.ruleForm.type,
+            mediaType: this.ruleForm.type,
             albumNM: this.ruleForm.albumname,
             prodNM: this.ruleForm.prodname,
             trackNM: this.ruleForm.title,
