@@ -103,11 +103,10 @@ export default {
           waveOption.play()
         })
       }
-      // waveOption.on('finish', function () {
-      //   _this.pause ()
-      //   _this.playNext()
-      //   _this.play()
-      // })
+      waveOption.on('finish', function () {
+        _this.pause()
+        waveOption.empty()
+      })
     }
   },
   computed: {
