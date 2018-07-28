@@ -81,6 +81,7 @@ export default {
         this.playIndex = this.musicList.length - 1
       }
       this.$store.commit('changePlaying', this.playIndex)
+      this.isPlaying = true
       this.loadMusic(this.currentMusic.src)
     },
     playNext () {
@@ -92,6 +93,7 @@ export default {
       }
       this.$store.state.isPlayOne = this.playIndex
       this.$store.commit('changePlaying', this.playIndex)
+      this.isPlaying = true
       this.loadMusic(this.currentMusic.src)
     },
     loadMusic (curMusric) {
@@ -105,7 +107,7 @@ export default {
       }
       waveOption.on('finish', function () {
         _this.pause()
-        waveOption.empty()
+//        waveOption.empty()
       })
     }
   },
@@ -128,9 +130,11 @@ export default {
       this.$emit('update:isPlayOne', val)
     },
     musicList (val) {
-      if (val.length > 0) {
-        this.loadMusic(this.currentMusic.src)
-      }
+      waveOption.pause()
+      waveOption.stop()
+//      if (val.length > 0) {
+//        this.loadMusic(this.currentMusic.src)
+//      }
     }
   },
   mounted () {

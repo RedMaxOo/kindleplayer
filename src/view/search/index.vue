@@ -137,13 +137,11 @@ export default {
   },
   methods: {
     formatTime (seconds) {
-     return [
+      return [
         // parseInt(seconds / 60 / 60),
         parseInt(seconds / 60 % 60),
         parseInt(seconds % 60)
-        ]
-        .join(":")
-        .replace(/\b(\d)\b/g, "0$1");
+      ].join(' : ').replace(/\b(\d)\b/g, '0$1')
     },
     palyAction (item, i) {
       if (item.isPlay) {
@@ -304,17 +302,18 @@ export default {
   },
   computed: {
     playnum () {
-      let flag = false
-      if (flag) {
-        this.trackList.map((item,i) => {
-          if (i !== this.$store.state.isPlayOne) {
-            item.isPlay = false
-          } else {
-            item.isPlay = true
-          }
-        })
-      }
-      flag = true
+//      let flag = false
+//      if (flag) {
+//
+//      }
+//      flag = true
+      this.trackList.map((item,i) => {
+        if (i !== this.$store.state.isPlayOne) {
+          item.isPlay = false
+        } else {
+          item.isPlay = true
+        }
+      })
       return this.$store.state.isPlayOne
     }
   },
