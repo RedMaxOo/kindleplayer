@@ -107,7 +107,6 @@ export default {
       }
       waveOption.on('finish', function () {
         _this.pause()
-//        waveOption.empty()
       })
     }
   },
@@ -132,9 +131,6 @@ export default {
     musicList (val) {
       waveOption.pause()
       waveOption.stop()
-//      if (val.length > 0) {
-//        this.loadMusic(this.currentMusic.src)
-//      }
     }
   },
   mounted () {
@@ -142,7 +138,7 @@ export default {
       container: '#waveform',
       waveColor: 'violet',
       barWidth: 2,
-      height: 100%,
+      height: 110,
       progressColor: 'purple'
     }
     var wavesurfer = new WaveSurfer(params)

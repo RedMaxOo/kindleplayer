@@ -302,19 +302,18 @@ export default {
   },
   computed: {
     playnum () {
-//      let flag = false
-//      if (flag) {
-//
-//      }
-//      flag = true
-      this.trackList.map((item,i) => {
-        if (i !== this.$store.state.isPlayOne) {
-          item.isPlay = false
-        } else {
-          item.isPlay = true
-        }
-      })
-      return this.$store.state.isPlayOne
+      let flag = false
+      if (flag) {
+        this.trackList.map((item,i) => {
+          if (i !== this.$store.state.isPlayOne) {
+            item.isPlay = false
+          } else {
+            item.isPlay = true
+          }
+        })
+        return this.$store.state.isPlayOne
+      }
+      flag = true
     }
   },
   mounted () {
