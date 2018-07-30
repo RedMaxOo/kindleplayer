@@ -216,7 +216,7 @@ export default {
         position: relative;
         height: @player-height;
         width: @player-height;
-        background-image: url(./assets/default.jpg);
+        /*background-image: url(./assets/default.jpg);*/
         background-size: cover;
         transition: all 0.3s ease;
         cursor: pointer;

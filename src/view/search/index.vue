@@ -211,6 +211,7 @@ export default {
       let params = {
         keywords: this.seachValue
       }
+      this.albumInfor = ''
       this.musicLists = []
       this.trackList = []
       this.$http.get(this.baseUrl + 'open/hp/search', {params}).then(res => {
@@ -249,7 +250,7 @@ export default {
               title: data[i].track_display_title,
               artist: data[i].track_description,
               src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename,
-              img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
+              img: this.albumInfor.album_cover, // 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })
           }
