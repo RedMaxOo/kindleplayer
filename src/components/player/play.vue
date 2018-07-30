@@ -138,7 +138,7 @@ export default {
       container: '#waveform',
       waveColor: 'violet',
       barWidth: 2,
-      height: 110,
+      height: '100%',
       progressColor: 'purple'
     }
     var wavesurfer = new WaveSurfer(params)
