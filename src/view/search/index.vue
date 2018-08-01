@@ -223,7 +223,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename, //mp[i],
+              src: data[i].track_url, //mp[i],
               img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })
@@ -249,7 +249,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/music/' + data[i].track_audio_filename,
+              src: data[i].track_url,
               img: this.albumInfor.album_cover, // 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })

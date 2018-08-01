@@ -20,7 +20,6 @@
           <el-input
             type="textarea"
             :rows="2"
-            placeholder="请输入内容"
             v-model="ruleForm.textarea">
           </el-input>
         </el-form-item>
