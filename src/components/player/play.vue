@@ -92,7 +92,6 @@ export default {
       } else {
         this.playIndex = 0
       }
-      // this.$store.state.isPlayOne = this.playIndex
       this.$store.commit('changePlaying', this.playIndex)
       this.isPlaying = true
       this.loadMusic(this.currentMusic.src)
@@ -131,7 +130,8 @@ export default {
     },
     musicList (val, newval) {
       if (newval.length > 0) {
-        this.loadMusic(this.currentMusic.src)
+        this.loadMusic(newval[0].src)
+        this.isPlaying = false
         waveOption.on('ready', function () {
           waveOption.pause()
         })
@@ -143,7 +143,7 @@ export default {
       container: '#waveform',
       waveColor: 'violet',
       barWidth: 2,
-      height: '100%',
+      height: '100',
       progressColor: 'purple'
     }
     var wavesurfer = new WaveSurfer(params)
