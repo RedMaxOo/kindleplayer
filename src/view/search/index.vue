@@ -110,12 +110,15 @@
 <script>
 import DialogForm from './form.vue'
 import Aplayer from '@/components/player/play.vue'
+// import a from '../../assets/music/aaa.mp3'
+// import b from '../../assets/music/ddd.mp3'
 export default {
   components: {Aplayer, DialogForm},
   data () {
     return {
       showForm: false, // 表单组件展示状态
       forminfor: {},
+      playnum: this.$store.state.isPlayOne,
       height: 0,
       mainHeight: 0,
       showSingList: true,
@@ -133,6 +136,7 @@ export default {
       activeName: '',
       itemName: 'style',
       musicLists: [], // 播放器列表
+      // music: [a, b]
     }
   },
   methods: {
@@ -149,6 +153,8 @@ export default {
       } else {
         this.$refs.player.play()
       }
+      this.playnum = i
+      this.$store.commit('changePlaying', i)
       if (!item.isPlay) {
         this.trackList.map((item) => {
           item.isPlay = false
@@ -223,7 +229,7 @@ export default {
             this.musicLists.push({
               title: data[i].track_display_title,
               artist: data[i].track_description,
-              src: data[i].track_url, //mp[i],
+              src: data[i].track_url,
               img: 'https://kindlemusic.blob.core.chinacloudapi.cn/prods3/images/' + data[i].album_code + '_AlbumArt.jpg',
               album: data[i].album_title
             })
@@ -301,20 +307,16 @@ export default {
       }
     }
   },
-  computed: {
-    playnum () {
-      let flag = false
-      if (flag) {
-        this.trackList.map((item,i) => {
-          if (i !== this.$store.state.isPlayOne) {
-            item.isPlay = false
-          } else {
-            item.isPlay = true
-          }
-        })
-        return this.$store.state.isPlayOne
-      }
-      flag = true
+  watch: {
+    '$store.state.isPlayOne' (newval) {
+      this.trackList.map((item, i) => {
+        if (i === newval) {
+          item.isPlay = true
+        } else {
+          item.isPlay = false
+        }
+      })
+      this.playnum = newval
     }
   },
   mounted () {
@@ -325,7 +327,7 @@ export default {
     this.height = bodyHeight - 90
     this.mainHeight = bodyHeight - document.querySelector('.page-main').offsetTop - 40 - 30
     let albumCode = this.$route.query.albumCode || ''
-    if(albumCode){
+    if (albumCode) {
       this.getMetaList(albumCode)
     }
   }

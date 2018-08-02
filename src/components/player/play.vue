@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     changeVolume (val) {
-      waveOption.setVolume( val / 100)
+      waveOption.setVolume(val / 100)
     },
     hidePlayerFun () {
       this.hidePlayer = !this.hidePlayer
@@ -62,6 +62,7 @@ export default {
     },
     play () {
       this.isPlaying = true
+      this.$store.commit('changePlaying', this.playIndex)
       if (this.isPlaying) {
         waveOption.play()
         this.hidePlayer = false
@@ -91,7 +92,7 @@ export default {
       } else {
         this.playIndex = 0
       }
-      this.$store.state.isPlayOne = this.playIndex
+      // this.$store.state.isPlayOne = this.playIndex
       this.$store.commit('changePlaying', this.playIndex)
       this.isPlaying = true
       this.loadMusic(this.currentMusic.src)
@@ -114,7 +115,7 @@ export default {
     // sync music
     currentMusic: {
       get () {
-        return this.musicList[this.playIndex]
+        return this.musicList && this.musicList.length > 0 ? this.musicList[this.$store.state.isPlayOne] : ''
       },
       set (val) {
         this.$emit('update:music', val)
@@ -128,9 +129,13 @@ export default {
       this.loadMusic(this.currentMusic.src)
       this.$emit('update:isPlayOne', val)
     },
-    musicList (val) {
-      waveOption.pause()
-      waveOption.stop()
+    musicList (val, newval) {
+      if (newval.length > 0) {
+        this.loadMusic(this.currentMusic.src)
+        waveOption.on('ready', function () {
+          waveOption.pause()
+        })
+      }
     }
   },
   mounted () {
