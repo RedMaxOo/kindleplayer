@@ -2,7 +2,7 @@
     <div>
         <div class="searchbox">
             <div class="searchlogo">
-              <div class="title">Behind The Moon</div>
+              <div class="title">{{$t('m.searchicon')}}</div>
               <!--<input placeholder="请输入内容" class="searchinput" v-model="searchcontent">-->
             </div>
             <div class="searchinput">
@@ -11,16 +11,12 @@
             </div>
         </div>
         <div class="banner">
-            <el-carousel height="450px" style="width: 1098px;margin:auto;">
-                <el-carousel-item v-for="(item,index) in videoPoster" :key="index">
-                    <img :src="item" width="1098" height="450" @click="popup(index)">
-                </el-carousel-item>
-            </el-carousel>
-            <div class="popup-layer" v-show="isShowVideo">
-              <div @click.stop="" class="video-box">
+            <el-carousel height="500px" style="width: 1100px;margin:auto;" v-on:change="changeFun" ref="cars" :interval="5000" :autoplay="false">
+                <el-carousel-item v-for="(item,index) in videoSource" :key="index">
                 <video-player
                                class="vjs-custom-skin"
                                ref="videoPlayer"
+                               :id="getId(index)"
                                :options="playerOptions"
                                :playsinline="true"
                                @play="onPlayerPlay($event)"
@@ -35,9 +31,8 @@
                                @ready="playerReadied"
                                @statechanged="playerStateChanged($event)">
                 </video-player>
-              </div>
-              <div class="close-video" @click="hideModal"></div>
-            </div>
+                </el-carousel-item>
+            </el-carousel>            
         </div>
         <div class="album">
             <div class="album-title">{{$t('m.indextit')}}</div>
@@ -51,7 +46,6 @@
               </li>
             </ul>
         </div>
-
     </div>
 </template>
 <script>
@@ -79,7 +73,7 @@
         language: 'en',
         sources: [{
           type: "video/mp4",
-          src: ""
+          src: "" //https://vjs.zencdn.net/v/oceans.mp4
         }],
         poster: "",
       },
@@ -92,6 +86,28 @@
     }
   },
   methods: {
+    getId(index){
+      return index+'_video'
+    },
+    changeFun(){
+      let $index = this.$refs.cars.activeIndex
+      debugger
+      var item = document.getElementById($index+'_video')
+      item.__vue__.options.sources[0].src = this.videoSource[$index]
+      debugger
+      // this.$refs.videoPlayer[$index].options.sources[0].src = this.videoSource[$index]
+      // this.$set(sourceObj,'src',this.videoSource[$index])
+      // this.$refs.videoPlayer[$index].options.sources = []
+      // this.$refs.videoPlayer[$index].options.sources.push(sourceObj)
+      // this.$refs.videoPlayer[$index].options.sources[0].$set('src',this.videoSource[$index])
+      // this.$refs.videoPlayer.forEach((item,index) =>{
+      //   if(index != $index){
+      //     item.options.sources[0].src = ''
+      //   }
+      // })
+      // this.$refs.videoPlayer[$index].options.poster = this.videoPoster[$index]
+      // alert(this.$refs.cars.activeIndex)
+    },
     popup(index) {
       this.isShowVideo = true
       this.playerOptions.sources[0].src = this.videoSource[index]
@@ -209,30 +225,31 @@
     height:50px;
 }
 .searchlogo{
-    width: 380px;
+    width: 180px;
     height: 50px;
     background: url('../../../static/img/binder.png') no-repeat 0 center;
     float: left;
+    text-align:center;
     .title{
       display: inline-block;
       font-family: Segoe UI;
       font-size: 20px;
       color: rgb(255, 255, 255);
       line-height:50px;
-      margin-left: 20px;
     }
 }
 .searchinput {
     width: 700px;
     height: 50px;
     line-height:50px;
-    float: right;
+    float: left;
+    margin-left:20px;
     .el-input__suffix-inner {
       margin-right: 20px;
     }
 
     .el-input__inner {
-      width: 700px;
+      width: 900px;
       height: 50px;
       border-radius: 4px;
     }

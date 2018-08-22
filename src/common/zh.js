@@ -1,4 +1,5 @@
 export const m = {
+  searchicon: '音乐搜索',
   infotit: '个人信息',
   music: '轮播图上传',
   registertit: '创建账号',

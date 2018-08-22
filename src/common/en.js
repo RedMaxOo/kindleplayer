@@ -1,4 +1,5 @@
 export const m = {
+  searchicon: 'Music Search',
   infotit: 'PERSONAL INFORMATION',
   music: 'BANNER MANAGEMENT',
   registertit: 'CREATE YOUR ACCOUNT',

@@ -3,7 +3,7 @@
     <div class="case-item" v-for="(item, index) in caseData" :key="index">
       <div class="img-box">
         <div class="overlay"></div>
-        <img :src="item.img_path" alt="" width="360px" height="170px">
+        <img :src="item.img_path" alt="" width="360px" height="202px">
         <el-button  type="text" icon="icon-play-btn" @click="popup(index)"></el-button>
         <!-- <div class="time is-play">
            <i class="icon-plays"></i>
@@ -128,7 +128,7 @@ export default {
     margin: 30px auto 50px;
     .case-item{
       float: left;
-      height:240px;
+      height:270px;
       padding-right: 5px;
       &:nth-child(3n){
         margin-right: 0;
@@ -136,7 +136,7 @@ export default {
       .img-box{
         position: relative;
         width: 360px;
-        height: 175px;
+        height: 205px;
         border-radius: 4px;
         .overlay{
             position: absolute;
@@ -147,15 +147,15 @@ export default {
             bottom: 0;
             background: rgba(0,0,0,0.3);
             width: 360px;
-            height: 170px;
+            height: 202px;
         }
         img{
           border-radius: 4px;
         }
         .el-button{
           position: absolute;
-          top: 50px;
-          left: 146px;
+          top: 65px;
+          left: 155px;
         }
         .time{
           display: flex;
