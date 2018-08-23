@@ -96,7 +96,8 @@ export const m = {
     registerSuc: '恭喜您，成功注册，请到邮箱里去激活账号',
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: 'User Active Successfully!',
-    activeFail: 'User Active Fail!'
+    activeFail: 'User Active Fail!',
+    success: 'Delect Success!'
   },
   mediaOptions: [
     {

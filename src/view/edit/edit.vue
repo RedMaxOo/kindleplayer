@@ -2,16 +2,13 @@
   <div class="container edit-wrapper" v-if="isShow">
     <div class="main-title">{{$t('m.music')}}</div>
     <el-row class="list-tit" type="flex" justify="end">
-      <el-col :span="11">
+      <el-col :span="22">
         <el-button type="text" icon="icon-img">URL</el-button>
-      </el-col>
-      <el-col :span="11">
-        <el-button type="text" icon="icon-url">IMAGES</el-button>
       </el-col>
     </el-row>
     <el-row class="edit-list" v-for="(item,index) in editList" :key="index"  type="flex" justify="end">
       <el-col :span="2"><div class="grid-content"><div class="edit-list-label">NO.{{index+1}}</div></div></el-col>
-      <el-col :span="11">
+      <el-col :span="20">
         <div class="grid-content">
           <el-input :placeholder="$t('m.videoUrl')" v-model="item.video_path" class="input-with-select" style="width:100%">
             <template slot="prepend">https://</template>
@@ -19,35 +16,7 @@
           </el-input>
         </div>
       </el-col>
-      <el-col :span="11">
-        <div class="grid-content upload">
-          <div class="input-with-select el-input el-input-group el-input-group--append">
-            <!--<input autocomplete="off" placeholder="请输入内容" disable="true" v-model="item.img_path" class="el-input__inner">-->
-            <el-input
-              :placeholder="$t('m.imgUrl')"
-              v-model="item.img_path" class="none-apr"
-              :disabled="true">
-            </el-input>
-            <div class="el-input-group__append">
-              <button type="button" class="el-button el-button--default">
-                <i class="icon-uploadm"><input type="file" @change="update($event,index)"></i>
-                <span class="shade" v-if="!item.video_path" @click="valitete(index)"></span>
-              </button>
-            </div>
-          </div>
-          <el-button v-if="index > 4" class="clear-btn" @click="deletList(index)" icon="el-icon-close"></el-button>
-        </div>
-      </el-col>
-    </el-row>
-    <!--添加 提交-->
-    <el-row class="edit-list" type="flex" justify="end">
-      <el-col :span="3" style="text-indent: -999px">j</el-col>
-      <el-col :span="16">
-        <el-button class="editBtn addbtn" icon="icon-add" @click="addList"></el-button>
-      </el-col>
-      <!--<el-col :span="11">-->
-        <!--<el-button class="editBtn submit" type="primiry" @click="submitUpload">SUBMIT</el-button>-->
-      <!--</el-col>-->
+      <el-col :span="2"><el-button @click="update($event,index)">保存</el-button></el-col>
     </el-row>
   </div>
 </template>
@@ -57,6 +26,18 @@ export default {
     return {
       input5: '',
       editList: [
+        {
+          img_path: '',
+          video_path: ''
+        },
+        {
+          img_path: '',
+          video_path: ''
+        },
+        {
+          img_path: '',
+          video_path: ''
+        },
         {
           img_path: '',
           video_path: ''
@@ -96,50 +77,13 @@ export default {
         console.log(err)
       })
     },
-    addList () {
-      if (this.editList.length <= 8) {
-        this.editList.push(
-          {
-            img_path: '',
-            video_path: ''
-          }
-        )
-      } else {
-        this.$message({
-          message: this.$t('m.imgmax'),
-          type: 'warning'
-        })
-      }
-    },
     clearCurrent (item) {
       item.video_path = ''
     },
-    deletList (val) {
-      if (this.editList.length > 5) {
-        this.editList.splice(val, 1)
-      } else {
-        this.$message({
-          message: this.$t('m.imgmin'),
-          type: 'warning'
-        })
-      }
-    },
-    valitete (i) {
-      if (!this.editList[i].video_path) {
-        this.$message({
-          message: this.$t('m.imgneed'),
-          type: 'warning',
-          duration: 1500
-        })
-        return
-      }
-    },
     update (e, i) {
-      this.$set(this.editList[i], 'img', e.target.files[0].name)
-      var fd = new FormData()
-      fd.append('file', e.target.files[0])
-      fd.append('id', i + 1)
-      fd.append('url', this.editList[i].video_path)
+      // var fd = new FormData()
+      // fd.append('id', i + 1)
+      // fd.append('url', this.editList[i].video_path)
       var token = sessionStorage.getItem('token')
       let config = {
         headers: {
@@ -147,9 +91,9 @@ export default {
           'Authorization': token
         }
       }
-      this.$http.post(this.baseUrl + 'api/file/banner', fd, config).then(res => {
+      this.$http.post(this.baseUrl + 'api/file/banner', {id: i + 1, url: this.editList[i].video_path}, config).then(res => {
         if (res.status === 200) {
-          if(res.data.code === '0000') {
+          if (res.data.code === '0000') {
           // this.editList = res.data.result
             this.$message({
               message: '上传成功',
@@ -166,22 +110,6 @@ export default {
           }
         }
       })
-
-    },
-    handleChange (file, fileList) {
-      // console.log(file, fileList)
-    },
-    handleRemove (file, fileList) {
-      // console.log(file, fileList)
-    },
-    handlePreview (file) {
-      // console.log(file)
-    },
-    handleExceed (files, fileList) {
-      // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove (file, fileList) {
-      // return this.$confirm(`确定移除${file.name}？`)
     }
   },
   mounted () {
@@ -347,7 +275,7 @@ export default {
   }
   .clear-btn {
     position: absolute;
-    right: 49px;
+    right: 0;
     top: 0;
     &.el-button{
       border: 0;
