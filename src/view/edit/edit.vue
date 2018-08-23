@@ -81,9 +81,6 @@ export default {
       item.video_path = ''
     },
     update (e, i) {
-      // var fd = new FormData()
-      // fd.append('id', i + 1)
-      // fd.append('url', this.editList[i].video_path)
       var token = sessionStorage.getItem('token')
       let config = {
         headers: {
@@ -91,7 +88,11 @@ export default {
           'Authorization': token
         }
       }
-      this.$http.post(this.baseUrl + 'api/file/banner', {id: i + 1, url: this.editList[i].video_path}, config).then(res => {
+      let params = {
+        id: i + 1,
+        url: this.editList[i].video_path
+      }
+      this.$http.post(this.baseUrl + 'api/file/banner/add', params, config).then(res => {
         if (res.status === 200) {
           if (res.data.code === '0000') {
           // this.editList = res.data.result
