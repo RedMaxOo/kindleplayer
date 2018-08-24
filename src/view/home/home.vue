@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="banner">
-            <el-carousel height="500px" style="width: 1100px;margin:auto;"  ref="cars" :interval="5000" :autoplay="false">
+            <el-carousel height="500px" style="width: 1100px;margin:auto;"  ref="cars" :interval="5000" :autoplay="false" v-on:change="changeFun" indicator-position="none">
                 <el-carousel-item v-for="(item,index) in videoSource" :key="index">
                 <video-player
                                class="vjs-custom-skin"
@@ -22,7 +22,7 @@
                                @play="onPlayerPlay($event)"
                                @pause="onPlayerPause($event)"
                                @ended="onPlayerEnded($event)"
-                               @loadeddata="onPlayerLoadeddata($event,)"
+                               @loadeddata="onPlayerLoadeddata($event)"
                                @waiting="onPlayerWaiting($event)"
                                @playing="onPlayerPlaying($event)"
                                @timeupdate="onPlayerTimeupdate($event)"
@@ -65,7 +65,8 @@
       videoSource: [],
       searchValue: '',
       albums:[],
-      albumList:[]
+      albumList:[],
+      activeIndex:0
     }
   },
   computed: {
@@ -73,7 +74,16 @@
       return this.$refs.videoPlayer.player
     }
   },
+  watch:{
+    activeIndex(next,prev){
+      this.$refs.videoPlayer[prev].player.pause()
+      this.$refs.videoPlayer[next].player.play()
+    }
+  },
   methods: {
+    changeFun(){
+      this.activeIndex = this.$refs.cars.activeIndex   
+    },
     getId(index){
       return index+'_video'
     },
@@ -83,20 +93,18 @@
       // this.playerOptions.poster = this.videoPoster[index]
     },
     hideModal(){
-//      this.playerOptions.sources[0].src = ""
       this.player.pause()
       this.isShowVideo = false
     },
     getBanner(){
-      // console.log(this.baseUrl)
       this.$http.get(this.baseUrl + 'open/hp/banner').then(res=>{
         if(res.status === 200) {
           let data = res.data.result
-          this.videoSource = data.map(item => {
+          this.videoSource = data.map((item,index) => {
             return {
               width:'880',
               height: '500',
-              autoplay: false,
+              autoplay: index==0?true:false,
               muted: false,
               language: 'en',
               sources: [{
@@ -106,9 +114,7 @@
               poster: item.img_path,
             }
           })
-          this.videoPoster = posters
-
-          debugger
+          // this.videoPoster = posters
         }
       })
     },
