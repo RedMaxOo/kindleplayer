@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="banner">
-            <el-carousel height="500px" style="width: 1100px;margin:auto;"  ref="cars" :interval="5000" :autoplay="false" v-on:change="changeFun" indicator-position="none">
+            <el-carousel height="610px" style="width: 1100px;margin:auto;"  ref="cars" :interval="5000" :autoplay="false" v-on:change="changeFun" indicator-position="none">
                 <el-carousel-item v-for="(item,index) in videoSource" :key="index">
                 <video-player
                                class="vjs-custom-skin"
@@ -102,8 +102,8 @@
           let data = res.data.result
           this.videoSource = data.map((item,index) => {
             return {
-              width:'880',
-              height: '500',
+              width:1100,
+              // height: 500,
               autoplay: index==0?true:false,
               muted: false,
               language: 'en',
@@ -155,6 +155,7 @@
        // console.log('player pause!', player)
     },
     onPlayerEnded(player) {
+      this.$refs.cars.next()
        // console.log('player ended!', player)
     },
     onPlayerLoadeddata(player) {
