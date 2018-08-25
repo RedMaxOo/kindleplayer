@@ -16,7 +16,10 @@
           </el-input>
         </div>
       </el-col>
-      <el-col :span="2"><el-button @click="update($event,index)">保存</el-button></el-col>
+      <el-col :span="5">
+        <el-button @click="update($event,index)">保存</el-button>
+        <el-button @click="deleteItem($event,index)" v-if="index>4">删除</el-button>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -83,8 +86,12 @@ export default {
     update (e, i) {
       var token = sessionStorage.getItem('token')
       let config = {
+        transformRequest: [ data => {
+              data = this.qs.stringify(data);
+              return data;
+            }],
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': token
         }
       }
@@ -98,6 +105,41 @@ export default {
           // this.editList = res.data.result
             this.$message({
               message: '上传成功',
+              type: 'success'
+            })
+          }
+          else{
+            this.$message({
+              message: res.data.message,
+              type: 'error',
+              duration:0,
+              showClose:true
+            })
+          }
+        }
+      })
+    },
+    deleteItem (e, i) {
+      var token = sessionStorage.getItem('token')
+      let config = {
+        transformRequest: [ data => {
+              data = this.qs.stringify(data);
+              return data;
+            }],
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': token
+        }
+      }
+      let params = {
+        id: i + 1
+      }
+      this.$http.post(this.baseUrl + 'api/file/banner/reset', params, config).then(res => {
+        if (res.status === 200) {
+          if (res.data.code === '0000') {
+            this.editList[i].video_path=''
+            this.$message({
+              message: '删除成功',
               type: 'success'
             })
           }

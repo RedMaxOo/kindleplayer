@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
      '/api': {
-        target: 'https://www.kindlemusic.cn/km',
+        target: 'https://www.kindlemusic.cn/km/',
         // target: 'http://sunday2.greatcoding.cn/km/',
         changeOrigin: true,
         pathRewrite: {
