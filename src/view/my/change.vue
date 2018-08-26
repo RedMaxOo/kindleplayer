@@ -122,7 +122,7 @@ export default {
     // overflow-y: scroll;
     background-color: white;
     margin-top: 10px;
-    margin-bottom:50px;
+    // margin-bottom:50px;
     .title{
       height: 80px;
       line-height: 80px;
@@ -136,9 +136,9 @@ export default {
     }
   }
   .register-form {
-      margin-top:30px;
+      margin-top:10px;
     .el-form-item{
-      margin-bottom:30px;
+      margin-bottom:20px;
     }
     .el-form-item__content {
       width: 380px;

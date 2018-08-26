@@ -135,7 +135,8 @@
     }
   }
   .register-form {
-    padding-top: 60px;
+    margin-top:10px;
+    // padding-top: 60px;
     .el-form-item{
       // margin-bottom:0px;
     }
@@ -144,9 +145,9 @@
       margin: auto;
       margin-bottom: 0px !important;
     }
-    .el-form-item__content:nth-child(1) {
-      margin-top:30px;
-    }
+    // .el-form-item__content:nth-child(1) {
+    //   margin-top:30px;
+    // }
     .button{
       width:380px;
       height:40px;

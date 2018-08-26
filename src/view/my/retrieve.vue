@@ -169,7 +169,7 @@ export default {
     }
   }
   .register-form {
-     margin-top:20px;
+     margin-top:10px;
     .el-input__prefix{
       left: 10px;
     }
@@ -193,7 +193,7 @@ export default {
       font-family: Segoe UI;
       font-size: 18px;
       color: #FFFFFF;
-      margin-top:30px;
+      // margin-top:30px;
     }
     .el-input-group__append{
       right: 0;
