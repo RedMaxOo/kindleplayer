@@ -31,17 +31,17 @@
     width:1098px;
     margin:auto;
     height: 500px;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     background-color: white;
-    margin-top: 20px;
-    margin-bottom:50px;
+    margin-top: 10px;
+    // margin-bottom:50px;
     .title{
       height: 80px;
       line-height: 80px;
       text-align: center;
       opacity: 0.6;
       background-image: linear-gradient(-134deg, #4634A9 0%, #F63669 100%);
-      font-family: Avenir-Heavy;
+      font-family: Segoe UI;
       font-size: 30px;
       color: #FFFFFF;
       text-shadow: 0 2px 4px rgba(108,108,108,0.50);

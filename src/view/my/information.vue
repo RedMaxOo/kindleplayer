@@ -241,10 +241,10 @@
     width:1098px;
     margin:auto;
     height: 100%;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     background-color: white;
-    margin-top: 20px;
-    margin-bottom:50px;
+    margin-top: 10px;
+    // margin-bottom:50px;
     .title{
       height: 80px;
       line-height: 80px;
