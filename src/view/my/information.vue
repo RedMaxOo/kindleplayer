@@ -258,9 +258,9 @@
     }
   }
   .info-form {
-      margin-top:15px;
+      margin-top:10px;
     .el-form-item{
-      margin-bottom:20px;
+      margin-bottom:18px;
     }
     .el-form-item__content {
       width: 380px;

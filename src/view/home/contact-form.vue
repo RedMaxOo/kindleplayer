@@ -4,9 +4,9 @@
       class="contact-form-dialog"
       :title="$t('m.navmenu5')"
       :visible.sync="contactVisible"
-      width="33%" 
+      width="30%" 
       :before-close="handleClose">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="60px" class="demo-ruleForm">
         <el-form-item :label="$t('m.name')" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
@@ -23,9 +23,9 @@
             v-model="ruleForm.textarea">
           </el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')">{{$t('m.submint')}}</el-button>
-          <el-button @click="close">{{$t('m.cancel')}}</el-button>
+        <el-form-item style="text-align:center;padding-bottom:10px;padding-left:0px !important;">
+          <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')" style="border:none;">{{$t('m.submint')}}</el-button>
+          <el-button @click="close" style="border:none;">{{$t('m.cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -171,6 +171,9 @@ export default {
   }
   .el-form-item{
     margin-bottom:18px;
+  }
+  .el-form-item:last-child{
+    margin-left:0px !important;
   }
   }
   .color-submit.el-button--primary{
