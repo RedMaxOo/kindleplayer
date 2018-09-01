@@ -206,11 +206,14 @@ export default {
 <style lang="less">
   .form-dialog{
     background-image: linear-gradient(45deg, rgba(70,52,169,.4) 0%, rgba(246,54,105,.4) 100%);
+    .el-form-item__label{
+      padding: 0 30px 0;
+    }
   }
   .form-dialog .el-dialog{
     background: #F3F9FC;
     min-width:500px;
-    padding:0 30px;
+    padding:20px 20px 30px;
     border-radius: 4px;
     margin-top:5px !important;
     .el-dialog__title{
@@ -229,7 +232,7 @@ export default {
     padding:0px;
   }
   .el-dialog__header{
-    padding:10px;
+    padding:10px 0px;
   }
   .el-dialog__headerbtn{
     top:10px;
@@ -241,6 +244,7 @@ export default {
   .color-submit.el-button--primary{
     background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
     border-radius: 4px;
+    border: 0;
     &:hover,&:active{
       background-image: linear-gradient(45deg, #4634A9 0%, #F63669 100%);
     }

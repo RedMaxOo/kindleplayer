@@ -78,7 +78,7 @@ export default {
       }
     },
     showConect () {
-      this.$refs.cdialog.contactVisible = true      
+      this.$refs.cdialog.contactVisible = true
       // this.contactInfo = {
       //   username:'',
       //   email:'',
@@ -182,11 +182,11 @@ export default {
   .header{
     width:1098px;
     margin:auto;
-    height:90px;
+    height:80px;
   }
   .logo{
     width:250px;
-    height:90px;
+    height:80px;
     background: url('../../assets/img/logo.png') no-repeat 0 center;
     float: left;
     a{
@@ -196,8 +196,8 @@ export default {
     }
   }
   .top-bar{
-    height:90px;
-    line-height: 90px;
+    height:80px;
+    line-height: 80px;
     list-style: none;
     float: right;
   }

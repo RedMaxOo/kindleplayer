@@ -34,7 +34,7 @@
                 </div>
               </template>
               <ul class="list-content">
-                <li v-for="subitem in listSubData" v-bind:key="subitem.id" @click="showAlbumDetail(subitem)">{{subitem.album_display_title}}</li>
+                <li v-for="subitem in listSubData" :class="{'active': subitem.select}" v-bind:key="subitem.id" @click="showAlbumDetail(subitem)">{{subitem.album_display_title}}</li>
               </ul>
             </el-collapse-item>
           </el-collapse>
@@ -211,6 +211,10 @@ export default {
     },
     showAlbumDetail (val) {
       this.showSingList = true
+      this.listSubData.forEach(item => {
+        item.select = false
+      })
+      val.select = true
       this.getMetaList(val.album_code)
     },
     getSearchResult () { // 搜索结果接口
@@ -291,7 +295,12 @@ export default {
         }
         this.$http.get(this.baseUrl + 'open/hp/albumsByStyle', {params}).then(res => {
           if (res.status === 200) {
-            this.listSubData = res.data.result
+            let result = res.data.result
+            for (var i = 0; i < result; i++) {
+              this.$set(result[i], 'select', false)
+            }
+            this.listSubData = result
+            this.showTotleNum = this.listSubData.length
           }
         })
       }
@@ -301,7 +310,11 @@ export default {
         }
         this.$http.get(this.baseUrl + 'open/hp/albumsByLib', {params}).then(res => {
           if (res.status === 200) {
-            this.listSubData = res.data.result
+            let result = res.data.result
+            for (var i = 0; i < result; i++) {
+              this.$set(result[i], 'select', false)
+            }
+            this.listSubData = result
           }
         })
       }
@@ -447,6 +460,9 @@ export default {
     }
     li:hover{
       background: #ffffff;
+    }
+    li.active{
+      background: #DFF5FF;
     }
   }
   .active{

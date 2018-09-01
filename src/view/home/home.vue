@@ -82,7 +82,7 @@
   },
   methods: {
     changeFun(){
-      this.activeIndex = this.$refs.cars.activeIndex   
+      this.activeIndex = this.$refs.cars.activeIndex
     },
     getId(index){
       return index+'_video'
@@ -133,7 +133,7 @@
     goSearch(){
       if(this.searchValue == ""){
         this.$message({
-          message: '请输入查询内容',
+          message: this.$t('m.errortips.content'),
           type: 'warning'
         })
       }else {
@@ -219,6 +219,7 @@
     background: url('../../../static/img/binder.png') no-repeat 0 center;
     float: left;
     text-align:center;
+    border-radius: 4px;
     .title{
       display: inline-block;
       font-family: Segoe UI;

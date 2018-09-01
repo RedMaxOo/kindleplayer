@@ -186,7 +186,10 @@ export default {
         h3{
           margin: 0 0 5px;
           font-size: 16px;
+          white-space: nowrap;
           line-height: 22px;
+          overflow: hidden;
+          text-overflow: ellipsis;
           color: #666666;
         }
       }

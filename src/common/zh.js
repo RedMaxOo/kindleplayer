@@ -79,6 +79,7 @@ export const m = {
     codetips: '请输入正确的验证码',
     mail: '请输入邮箱',
     mailtips: '请输入有效邮箱',
+    mailexist: '邮箱已存在',
     mobile: '请输入手机号',
     mobiletips: '请输入有效手机号',
     mobilehas: '手机号已注册',
@@ -97,7 +98,9 @@ export const m = {
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败',
-    success: '删除成功'
+    success: '删除成功',
+    content: '请输入内容',
+    errusers: '用户名或密码输入有误'
   },
   mediaOptions: [
     {

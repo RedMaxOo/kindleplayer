@@ -203,6 +203,7 @@ export default {
 }
   .edit-wrapper{
     background: #fff;
+    padding-bottom: 40px;
     margin-bottom: 60px;
     .editBtn{
       width: 353px;

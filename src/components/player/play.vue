@@ -283,7 +283,7 @@ export default {
 
     .player-control {
       width: 206px;
-      padding: 0 10px;
+      padding: 0;
       background: #282828;
       h3{
         margin: 25px 0 5px;
@@ -300,6 +300,7 @@ export default {
       }
       .player-tit{
         height: 42px;
+        padding: 0 10px;
       }
       .player-bnt-group{
         position: relative;

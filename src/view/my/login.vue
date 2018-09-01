@@ -86,9 +86,9 @@ export default {
               }
               else{
                 this.$message({
-                  message: res.data.message,
+                  message: this.$t('m.errortips.errusers'),
                   type: 'error',
-                  duration:0,
+                  duration:1000,
                   showClose:true
                 })
               }
@@ -163,6 +163,8 @@ export default {
       height: 54px;
       margin: auto;
       top: 68px;
+      font-style: italic;
+      font-weight: bold;
       z-index: 1;
       text-shadow: 0 2px 4px #310054;
     }

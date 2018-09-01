@@ -4,9 +4,9 @@
       class="contact-form-dialog"
       :title="$t('m.navmenu5')"
       :visible.sync="contactVisible"
-      width="30%" 
+      width="30%"
       :before-close="handleClose">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="60px" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" label-position="right" ref="ruleForm" label-width="120px" class="demo-ruleForm">
         <el-form-item :label="$t('m.name')" prop="username">
           <el-input v-model="ruleForm.username"></el-input>
         </el-form-item>
@@ -15,7 +15,7 @@
         </el-form-item>
         <el-form-item :label="$t('m.company')" prop="company">
           <el-input v-model="ruleForm.company"></el-input>
-        </el-form-item>       
+        </el-form-item>
         <el-form-item :label="$t('m.content')" prop="textarea">
           <el-input
             type="textarea"
@@ -25,7 +25,7 @@
         </el-form-item>
         <el-form-item style="text-align:center;padding-bottom:10px;padding-left:0px !important;">
           <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')" style="border:none;">{{$t('m.submint')}}</el-button>
-          <el-button @click="close" style="border:none;">{{$t('m.cancel')}}</el-button>
+          <el-button @click="close">{{$t('m.cancel')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -145,9 +145,12 @@ export default {
   .contact-form-dialog .el-dialog{
     background: #F3F9FC;
     min-width:500px;
-    padding:0 30px;
+    padding:20px 20px 30px;
     border-radius: 4px;
     margin-top:10% !important;
+    .el-form-item__label{
+      padding: 0 30px 0px 0px;
+    }
     .el-dialog__title{
       font-weight: bold;
       font-size: 20px;
