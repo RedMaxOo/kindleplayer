@@ -17,7 +17,7 @@
         </div>
       </el-col>
       <el-col :span="5">
-        <el-button @click="update($event,index)">保存</el-button>
+        <el-button @click="update($event,item,index)">保存</el-button>
         <el-button @click="deleteItem($event,index)" v-if="index>4">删除</el-button>
       </el-col>
     </el-row>
@@ -83,8 +83,16 @@ export default {
     clearCurrent (item) {
       item.video_path = ''
     },
-    update (e, i) {
-      var token = sessionStorage.getItem('token')
+    update (e,item, i) {
+      if (item.video_path === "") {
+        this.$message({
+          type: 'warning',
+          message: this.$t('m.errortips.imgneed')
+        })
+        return
+      }
+      debugger
+      var token = sess.ionStorage.getItem('token')
       let config = {
         transformRequest: [ data => {
               data = this.qs.stringify(data);

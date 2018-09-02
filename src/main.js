@@ -13,14 +13,14 @@ import qs from 'qs'
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.qs = qs
-Vue.prototype.baseUrl = 'https://' + window.location.host + '/km/'
-// Vue.prototype.baseUrl = '/api' // 'http://kindle.greatcoding.cn/km/'  // '/api'
+// Vue.prototype.baseUrl = 'https://' + window.location.host + '/km/'
+Vue.prototype.baseUrl = '/api' // 'http://kindle.greatcoding.cn/km/'  // '/api'
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
-    isPlayOne: 0,
+    isPlayOne: -1,
     username: '',
     useremail: '',
     mobile:'',

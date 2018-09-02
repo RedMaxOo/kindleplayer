@@ -93,7 +93,7 @@ export const m = {
     territory: 'Please enter territory.',
     imgmax: '最多只可以添加8个数据',
     imgmin: '必须添加5个数据',
-    imgneed: '请先填写当前url地址，再上传图片',
+    imgneed: 'The url address cannot be empty',
     registerSuc: 'Congratulations! You are successfully registered, Please check your mailbox for registration confirmation',
     registerFail: 'Registration failed, please try again or contact us.',
     activeSuc: 'User Active Successfully!',

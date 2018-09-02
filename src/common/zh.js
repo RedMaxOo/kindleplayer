@@ -47,9 +47,9 @@ export const m = {
   save: '保存',
   forgot: '忘记密码',
   tips: {
-    t1: 'Please use letter and digit combination.',
-    t2: 'The username already exists.',
-    t3: 'The password consists of 6-12 characters, letters and numbers.'
+    t1: '请用字母和数字组合。',
+    t2: '用户名已存在',
+    t3: '密码由6-12位数字和字母组成'
   },
   search: {
     style: '风格',
@@ -93,7 +93,7 @@ export const m = {
     territory: '请填写授权地区',
     imgmax: '最多只可以添加8个数据',
     imgnum: '必须添加5个数据',
-    imgneed: '请先填写当前url地址，再上传图片',
+    imgneed: 'url地址不能为空',
     registerSuc: '恭喜您，成功注册，请到邮箱里去激活账号',
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: '用户激活成功',
