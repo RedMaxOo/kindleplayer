@@ -97,7 +97,7 @@
                   this.$message({
                     message: res.data.message,
                     type: 'error',
-                    duration:0,
+                    duration:1000,
                     showClose:true
                   })
                 }

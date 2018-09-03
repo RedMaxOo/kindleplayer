@@ -118,7 +118,7 @@ export default {
               this.$message({
                   message: '获取用户信息失败',
                   type: 'error',
-                  duration:0,
+                  duration:1000,
                   showClose:true
                 })
             }

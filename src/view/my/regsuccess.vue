@@ -63,6 +63,10 @@
       font-size: 18px;
       color: #5BB4DB;
       margin-top:17px;
+      a{
+        color: #5BB4DB;
+        text-decoration: none;
+      }
     }
   }
 </style>

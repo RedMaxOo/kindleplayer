@@ -207,7 +207,7 @@ export default {
   .form-dialog{
     background-image: linear-gradient(45deg, rgba(70,52,169,.4) 0%, rgba(246,54,105,.4) 100%);
     .el-form-item__label{
-      padding: 0 30px 0;
+      padding: 0 30px 0 0;
     }
   }
   .form-dialog .el-dialog{

@@ -70,8 +70,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (!value) {
         callback(new Error(this.$t('m.errortips.password2')));
-      }
-      else if(!this.isvalidPwd(value)){
+      } else if(!this.isvalidPwd(value)){
         callback(new Error(this.$t('m.errortips.passwordtips')))
       }else if (value !== this.ruleForm.pwd1) {
         callback(new Error(this.$t('m.errortips.password2tips')))
@@ -198,10 +197,11 @@ export default {
              this.$router.push({path:'/register-success'})
             }
             else{
+              let  message = this.$t('m.errortips.hasregester')
               this.$message({
-                 message: res.data.message,
+                 message: message,
                  type: 'error',
-                  duration:0,
+                  duration:1000,
                   showClose:true
               })
             }

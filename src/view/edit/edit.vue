@@ -120,7 +120,7 @@ export default {
             this.$message({
               message: res.data.message,
               type: 'error',
-              duration:0,
+              duration: 1000,
               showClose:true
             })
           }
@@ -155,7 +155,7 @@ export default {
             this.$message({
               message: res.data.message,
               type: 'error',
-              duration:0,
+              duration:1000,
               showClose:true
             })
           }
@@ -175,7 +175,7 @@ export default {
          this.$message({
           message: '您没有维护权限，请联系管理员',
           type: 'error',
-          duration:0,
+          duration:1000,
           showClose:true
         })
       }

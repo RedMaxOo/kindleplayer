@@ -101,6 +101,7 @@ export const m = {
     success: 'Delect Success!',
     content: 'Please enter content.',
     errusers: 'Please enter the correct username or password.',
+    hasregester: 'user ID, email or phone number has been registered.'
   },
   mediaOptions: [
     {

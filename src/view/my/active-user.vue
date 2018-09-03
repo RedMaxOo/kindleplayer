@@ -37,14 +37,14 @@
           if(res.status === 200) {
             if(res.data.result === 'Y'){
               this.regsuccess = true
-              this.$router.push({path:'/login'})              
+              this.$router.push({path:'/login'})
             }
             else{
               this.regfail = true
               this.$message({
                   message: 'active error',
                   type: 'error',
-                  duration:0,
+                  duration:1000,
                   showClose:true
               })
             }

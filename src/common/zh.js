@@ -100,7 +100,8 @@ export const m = {
     activeFail: '用户激活失败',
     success: '删除成功',
     content: '请输入内容',
-    errusers: '用户名或密码输入有误'
+    errusers: '用户名或密码输入有误',
+    hasregester: '用户ID、邮箱或手机号已注册。',
   },
   mediaOptions: [
     {
