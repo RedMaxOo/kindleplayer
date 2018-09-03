@@ -44,7 +44,7 @@
               this.$message({
                   message: 'active error',
                   type: 'error',
-                  duration:1000,
+                  duration:1500,
                   showClose:true
               })
             }

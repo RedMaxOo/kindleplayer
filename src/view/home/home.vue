@@ -102,16 +102,21 @@
           let data = res.data.result
           this.videoSource = data.map((item,index) => {
             return {
-              width:1100,
-              height: 620,
+              // width:1100,
+              // height: 620,
               autoplay: index==0?true:false,
               muted: false,
+              loop: true,
+              preload: 'auto', 
+              language: 'zh-CN',
+              aspectRatio: '16:9', 
+              fluid: true,
               language: 'en',
               sources: [{
                 type: "video/mp4",
                 src: item.video_path
               }],
-              poster: item.img_path,
+              poster: item.img_path
             }
           })
           // this.videoPoster = posters

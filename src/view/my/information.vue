@@ -179,8 +179,9 @@
             fd.append('address', this.ruleForm.address)
             this.$http.post(this.baseUrl + 'api/user/change',fd,config).then(res=>{
               if(res.status === 200 && res.data.result === 'Y') {
+                let  message = this.$t('m.errortips.changeinfo')
                 this.$message({
-                      message: "信息已修改完成!",
+                      message: message,
                       type: 'success'
                   })
               }
@@ -188,7 +189,7 @@
                 this.$message({
                    message: res.data.message,
                     type: 'error',
-                    duration:1000,
+                    duration:1500,
                   showClose:true
                 })
               }
@@ -208,7 +209,7 @@
                 this.$message({
                    message: res.data.message,
                     type: 'error',
-                    duration:1000,
+                    duration:1500,
                     showClose:true
                 })
                 sessionStorage.clear()

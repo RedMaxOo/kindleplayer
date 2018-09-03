@@ -91,8 +91,7 @@ export default {
         })
         return
       }
-      debugger
-      var token = sess.ionStorage.getItem('token')
+      var token = sessionStorage.getItem('token')
       let config = {
         transformRequest: [ data => {
               data = this.qs.stringify(data);
@@ -120,7 +119,7 @@ export default {
             this.$message({
               message: res.data.message,
               type: 'error',
-              duration: 1000,
+              duration: 1500,
               showClose:true
             })
           }
@@ -155,7 +154,7 @@ export default {
             this.$message({
               message: res.data.message,
               type: 'error',
-              duration:1000,
+              duration:1500,
               showClose:true
             })
           }
@@ -175,7 +174,7 @@ export default {
          this.$message({
           message: '您没有维护权限，请联系管理员',
           type: 'error',
-          duration:1000,
+          duration:1500,
           showClose:true
         })
       }

@@ -104,6 +104,54 @@ export default {
           callback()
         }
     }
+    var validtitle = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.songname')))
+      }
+      else {
+        callback()
+      }
+    }
+    var validalbumname = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.albumname')))
+      }
+      else {
+        callback()
+      }
+    }
+    var validproname = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.proname')))
+      }
+      else {
+        callback()
+      }
+    }
+    var validselect = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.select')))
+      }
+      else {
+        callback()
+      }
+    }
+    var validterm = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.term')))
+      }
+      else {
+        callback()
+      }
+    }
+    var validterritory = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.territory')))
+      }
+      else {
+        callback()
+      }
+    }
     return {
       dialogVisible: false,
       mediaOptions: {},
@@ -118,22 +166,22 @@ export default {
             { required: true, validator:validateNumber, trigger: 'blur' },
           ],
         title: [
-          { required: true, message: this.$t('m.errortips.songname'), trigger: 'blur' },
+          { required: true, validator:validtitle, trigger: 'blur' },
         ],
         albumname: [
-          { required: true, message: this.$t('m.errortips.albumname'), trigger: 'blur' },
+          { required: true, validator:validalbumname, trigger: 'blur' },
         ],
         prodname: [
-          { required: true, message: this.$t('m.errortips.proname'), trigger: 'blur' },
+          { required: true, validator: validproname, trigger: 'blur' },
         ],
         type: [
-          { required: true, message: this.$t('m.errortips.select'), trigger: 'change' },
+          { required: true, validator: validselect, trigger: 'change' },
         ],
         term: [
-          { required: true, message: this.$t('m.errortips.term'), trigger: 'blur' },
+          { required: true, validator: validterm, trigger: 'blur' },
         ],
         territory: [
-          { required: true, message: this.$t('m.errortips.territory'), trigger: 'blur' },
+          { required: true, validator: validterritory, trigger: 'blur' },
         ]
       }
     }
@@ -185,8 +233,9 @@ export default {
             }).then(res => {
             if (res.status === 200) {
               this.listData = res.data.result
+              let  message = this.$t('m.errortips.lisencesuccess')
               this.$message({
-                message: '申请成功！',
+                message: message,
                 type: 'success'
               })
               this.dialogVisible = false

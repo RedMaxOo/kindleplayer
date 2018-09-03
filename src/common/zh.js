@@ -7,7 +7,7 @@ export const m = {
   retieve: '找回密码',
   reset: '密码重置',
   activetit: '激活账户',
-  licencetit: '授权申请',
+  licencetit: '版权申请',
   acontTit: '账号创建',
   navmenu1: '登陆',
   navmenu2: '首页',
@@ -102,6 +102,11 @@ export const m = {
     content: '请输入内容',
     errusers: '用户名或密码输入有误',
     hasregester: '用户ID、邮箱或手机号已注册。',
+    changeinfo:'信息修改已完成',
+    contactCompany:'请输入公司',
+    contactContent:'请填写内容',
+    lisencesuccess:'申请成功，我们会尽快与您取得联系',
+    contactsuccess:'提交成功，我们会尽快与您取得联系'
   },
   mediaOptions: [
     {

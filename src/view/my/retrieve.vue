@@ -126,6 +126,8 @@ export default {
                     type: 'success',
                     duration:'1500'
                   })
+                  sessionStorage.clear()
+                this.$router.push({path:'/login'})
               }
               else{
                   this.$message({

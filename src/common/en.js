@@ -101,7 +101,12 @@ export const m = {
     success: 'Delect Success!',
     content: 'Please enter content.',
     errusers: 'Please enter the correct username or password.',
-    hasregester: 'user ID, email or phone number has been registered.'
+    hasregester: 'User ID, Email or Phone number has been registered.',
+    changeinfo:'Update Successfully',
+    contactCompany:'Please enter company',
+    contactContent:'Please enter content',
+    lisencesuccess:'Inquiry submitted successfully. We will contact you very soon',
+    contactsuccess:'Submitted successfully. We will contact you very soon'
   },
   mediaOptions: [
     {

@@ -23,7 +23,7 @@
             v-model="ruleForm.textarea">
           </el-input>
         </el-form-item>
-        <el-form-item style="text-align:center;padding-bottom:10px;padding-left:0px !important;">
+        <el-form-item style="padding-left:30px;padding-top:20px;">
           <el-button class="color-submit" type="primary" @click="submitForm('ruleForm')" style="border:none;">{{$t('m.submint')}}</el-button>
           <el-button @click="close">{{$t('m.cancel')}}</el-button>
         </el-form-item>
@@ -65,6 +65,22 @@ export default {
         callback()
       }
     }
+    var validcompany = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.contactCompany')))
+      }
+      else {
+        callback()
+      }
+    }
+    var validcontent = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error(this.$t('m.errortips.contactContent')))
+      }
+      else {
+        callback()
+      }
+    }
     return {
       contactVisible: false,
       rules: {
@@ -75,10 +91,10 @@ export default {
             { required: true, validator: validateEmail, trigger: 'blur' },
         ],
         company: [
-          { required: true, message: '请输入公司', trigger: 'blur' },
+          { required: true, validator:validcompany, trigger: 'blur' },
         ],
         textarea: [
-          { required: true, message: '请填写内容', trigger: 'blur' },
+          { required: true, validator: validcontent, trigger: 'blur' },
         ]
       }
     }
@@ -120,8 +136,9 @@ export default {
               }
             }).then(res => {
             if (res.status === 200) {
+              let  message = this.$t('m.errortips.lisencesuccess')
               this.$message({
-                message: '发送成功！',
+                message: message,
                 type: 'success'
               })
               this.contactVisible = false

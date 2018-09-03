@@ -14,7 +14,7 @@
     data(){
       return{
         message1:"Registered Successfully!",
-        message2:'Please visit the registered email confirmation'
+        message2:'Please check your mailbox for registration confirmation'
       }
     },
     mounted() {
@@ -22,6 +22,10 @@
       if(lang === 'CN'){
         this.message1 = '注册成功！'
         this.message2 = '请前往注册邮箱激活您的账号'
+      }
+      else{
+        this.message1 = 'Registered Successfully!'
+        this.message2 = 'Please check your mailbox for registration confirmation'
       }
     },
   }

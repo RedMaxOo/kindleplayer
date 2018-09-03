@@ -88,7 +88,7 @@ export default {
                 this.$message({
                   message: this.$t('m.errortips.errusers'),
                   type: 'error',
-                  duration:1000,
+                  duration:1500,
                   showClose:true
                 })
               }
@@ -118,7 +118,7 @@ export default {
               this.$message({
                   message: '获取用户信息失败',
                   type: 'error',
-                  duration:1000,
+                  duration:1500,
                   showClose:true
                 })
             }
