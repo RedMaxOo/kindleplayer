@@ -17,7 +17,12 @@ export default {
 
   },
   mounted () {
-
+    let lang = sessionStorage.getItem('lang')
+    if (lang === 'CN') {
+      this.$i18n.locale = 'zh-CN'
+    } else {
+      this.$i18n.locale = 'en-US'
+    }
   }
 }
 </script>
