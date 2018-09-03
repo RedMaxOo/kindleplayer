@@ -167,7 +167,7 @@ export default {
   methods: {
     isvalidUser(str){
       // const reg = /^(?!([a-zA-Z]+|\d+)$)[a-zA-Z\d]/
-      const reg = /^[\da-zA-Z!@#$%^&*]{3,12}$/
+      const reg = /^[\da-zA-Z!@#$%^&*]{3,15}$/
       return reg.test(str)
     },
     isvalidPwd(str){

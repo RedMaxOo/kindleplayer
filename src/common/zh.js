@@ -65,7 +65,7 @@ export const m = {
   },
   errortips: {
     userId: '请输入用户名',
-    userIdtips: '用户名由3-12位数字和字母组成',
+    userIdtips: '用户名由3-15位数字和字母组成',
     userIdmore: '用户名过长',
     password: '请输入密码',
     passwordtips: '密码由6-12位数字和字母组成',
