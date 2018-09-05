@@ -316,6 +316,7 @@ export default {
               this.$set(result[i], 'select', false)
             }
             this.listSubData = result
+            this.showTotleNum = this.listSubData.length
           }
         })
       }

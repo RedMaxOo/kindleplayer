@@ -12,7 +12,7 @@
       </div>
       <div class="case-infor">
         <div class="diliver"></div>
-        <h3>{{item.title}}</h3>
+        <h3 :title="item.title">{{item.title}}</h3>
       </div>
       <div class="description">
           <span>{{item.description}}</span>

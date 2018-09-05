@@ -127,7 +127,7 @@ export default {
             title: this.ruleForm.username+'+'+this.ruleForm.email+'+'+this.ruleForm.company,
             desc: this.ruleForm.textarea
           }
-          this.$http.post(this.baseUrl + '/open/hp/mail', params,{transformRequest: [ data => {
+          this.$http.post(this.baseUrl + 'open/hp/mail', params,{transformRequest: [ data => {
               data = this.qs.stringify(data);
               return data;
             }]},{
@@ -136,7 +136,7 @@ export default {
               }
             }).then(res => {
             if (res.status === 200) {
-              let  message = this.$t('m.errortips.lisencesuccess')
+              let  message = this.$t('m.errortips.contactsuccess')
               this.$message({
                 message: message,
                 type: 'success'
