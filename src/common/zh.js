@@ -45,6 +45,7 @@ export const m = {
   cancel: '取消',
   login: '登陆',
   save: '保存',
+  delet: '删除',
   forgot: '忘记密码',
   tips: {
     t1: '请用字母和数字组合。',
@@ -98,15 +99,19 @@ export const m = {
     registerFail: '很抱歉，系统异常，请重新注册或联系我们',
     activeSuc: '用户激活成功',
     activeFail: '用户激活失败',
-    success: '删除成功',
+    success: '删除成功！',
+    update: '已上传成功！',
+    notexist: '该删除项不存在',
+    retrieveSuc: '找回密码申请成功，请前往邮箱重置密码',
+    retrieveFail: '密码找回失败',
     content: '请输入内容',
     errusers: '用户名或密码输入有误',
     hasregester: '用户ID、邮箱或手机号已注册。',
-    changeinfo:'信息修改已完成',
-    contactCompany:'请输入公司',
-    contactContent:'请填写内容',
-    lisencesuccess:'申请成功，我们会尽快与您取得联系',
-    contactsuccess:'提交成功，我们会尽快与您取得联系'
+    changeinfo: '信息修改已完成',
+    contactCompany: '请输入公司',
+    contactContent: '请填写内容',
+    lisencesuccess: '申请成功，我们会尽快与您取得联系',
+    contactsuccess: '提交成功，我们会尽快与您取得联系'
   },
   mediaOptions: [
     {

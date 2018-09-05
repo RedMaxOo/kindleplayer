@@ -17,8 +17,8 @@
         </div>
       </el-col>
       <el-col :span="5">
-        <el-button @click="update($event,item,index)">保存</el-button>
-        <el-button @click="deleteItem($event,index)" v-if="index>4">删除</el-button>
+        <el-button @click="update($event,item,index)">{{$t('m.save')}}</el-button>
+        <el-button @click="deleteItem($event,item,index)" v-if="index>4">{{$t('m.delet')}}</el-button>
       </el-col>
     </el-row>
   </div>
@@ -111,7 +111,7 @@ export default {
           if (res.data.code === '0000') {
           // this.editList = res.data.result
             this.$message({
-              message: '上传成功',
+              message: this.$t('m.errortips.update'),
               type: 'success'
             })
           }
@@ -120,13 +120,20 @@ export default {
               message: res.data.message,
               type: 'error',
               duration: 1500,
-              showClose:true
+              showClose: true
             })
           }
         }
       })
     },
-    deleteItem (e, i) {
+    deleteItem (e, item, i) {
+      if (item.video_path === "") {
+        this.$message({
+          type: 'warning',
+          message: this.$t('m.errortips.notexist')
+        })
+        return
+      }
       var token = sessionStorage.getItem('token')
       let config = {
         transformRequest: [ data => {
@@ -146,7 +153,7 @@ export default {
           if (res.data.code === '0000') {
             this.editList[i].video_path=''
             this.$message({
-              message: '删除成功',
+              message: this.$t('m.errortips.success'),
               type: 'success'
             })
           }

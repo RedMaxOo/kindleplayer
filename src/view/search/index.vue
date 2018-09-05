@@ -215,6 +215,7 @@ export default {
         item.select = false
       })
       val.select = true
+      this.showSelectTitle = val.album_display_title
       this.getMetaList(val.album_code)
     },
     getSearchResult () { // 搜索结果接口
@@ -408,6 +409,7 @@ export default {
     color: #ffffff;
     &.is-active{
       opacity: 1;
+      color: #ffffff;
     }
   }
   /*重置*/

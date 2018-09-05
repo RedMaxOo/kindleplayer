@@ -45,6 +45,7 @@ export const m = {
   cancel: 'CANCEL',
   login: 'SIGN IN',
   save: 'Save',
+  delet: 'Delet',
   forgot: 'Forgot Password',
   tips: {
     t1: 'Please use letter and digit combination.',
@@ -99,14 +100,18 @@ export const m = {
     activeSuc: 'User Active Successfully!',
     activeFail: 'User Active Fail!',
     success: 'Delect Success!',
+    update: 'Uploaded successfully！',
+    notexist: 'The delete item does not exist',
+    retrieveSuc: 'Retrieve password successfully, please go to your mailbox to reset password.',
+    retrieveFail: 'Password recovery failed',
     content: 'Please enter content.',
     errusers: 'Please enter the correct username or password.',
     hasregester: 'User ID, Email or Phone number has been registered.',
-    changeinfo:'Update Successfully',
-    contactCompany:'Please enter company',
-    contactContent:'Please enter content',
-    lisencesuccess:'Inquiry submitted successfully. We will contact you very soon',
-    contactsuccess:'Submitted successfully. We will contact you very soon'
+    changeinfo: 'Update Successfully',
+    contactCompany: 'Please enter company',
+    contactContent: 'Please enter content',
+    lisencesuccess: 'Inquiry submitted successfully. We will contact you very soon',
+    contactsuccess: 'Submitted successfully. We will contact you very soon'
   },
   mediaOptions: [
     {

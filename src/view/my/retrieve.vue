@@ -122,7 +122,7 @@ export default {
             if (res.status === 200) {
               if(res.data.message == 'success'){
                 this.$message({
-                    message: '找回密码申请成功，请前往邮箱重置密码',
+                    message: this.$t('m.errortips.retrieveSuc'),
                     type: 'success',
                     duration:'1500'
                   })
@@ -131,7 +131,7 @@ export default {
               }
               else{
                   this.$message({
-                    message: '密码找回失败',
+                    message: this.$t('m.errortips.retrieveFail'),
                     type: 'error',
                     duration : 1500,
                   })
