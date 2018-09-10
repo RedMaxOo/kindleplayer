@@ -106,7 +106,7 @@
               // height: 620,
               autoplay: index==0?true:false,
               muted: false,
-              loop: true,
+              // loop: true,
               preload: 'auto', 
               language: 'zh-CN',
               aspectRatio: '16:9', 

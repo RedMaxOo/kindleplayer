@@ -227,7 +227,7 @@ export default {
       this.trackList = []
       this.$http.get(this.baseUrl + 'open/hp/search', {params}).then(res => {
         if (res.status === 200) {
-          let data = res.data.result
+          let data = res.data.result || []
           this.showTotleNum = data.length
           for (var i = 0; i < this.showTotleNum; i++) {
             data[i].isPlay = false
@@ -253,7 +253,7 @@ export default {
         if (res.status === 200) {
           this.albumInfor = res.data.result.album
           this.albumInfor.album_des = res.data.result.tracks[0].album_description || ''
-          let data = res.data.result.tracks
+          let data = res.data.result.tracks || []
           this.showTotleNum = data.length
           for (var i = 0; i < this.showTotleNum; i++) {
             data[i].isPlay = false
@@ -296,7 +296,7 @@ export default {
         }
         this.$http.get(this.baseUrl + 'open/hp/albumsByStyle', {params}).then(res => {
           if (res.status === 200) {
-            let result = res.data.result
+            let result = res.data.result || []
             for (var i = 0; i < result; i++) {
               this.$set(result[i], 'select', false)
             }
@@ -311,7 +311,7 @@ export default {
         }
         this.$http.get(this.baseUrl + 'open/hp/albumsByLib', {params}).then(res => {
           if (res.status === 200) {
-            let result = res.data.result
+            let result = res.data.result || []
             for (var i = 0; i < result; i++) {
               this.$set(result[i], 'select', false)
             }
